@@ -9,139 +9,195 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
+            background-color: #f8f9fa;
             color: #333;
-            background: #fff;
-            padding: 20px;
-            max-width: 800px;
+            line-height: 1.6;
+            padding: 16px;
+            max-width: 600px;
             margin: 0 auto;
         }
         
+        header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
         h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #000;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 4px;
         }
         
         h2 {
             font-size: 20px;
             font-weight: 600;
-            margin-top: 30px;
-            margin-bottom: 15px;
+            margin: 24px 0 16px 0;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+            color: #34495e;
         }
         
         ul {
-            list-style: none;
-            margin-bottom: 20px;
+            padding-left: 20px;
+            margin-bottom: 16px;
         }
         
         li {
-            padding: 8px 0;
-            padding-left: 20px;
-            position: relative;
+            margin-bottom: 8px;
         }
         
-        li:before {
-            content: "•";
-            position: absolute;
-            left: 0;
-        }
-        
-        ul ul {
-            margin-left: 20px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-        
-        p {
-            margin-bottom: 10px;
-        }
-        
-        hr {
-            border: none;
-            border-top: 1px solid #ddd;
-            margin: 30px 0;
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
         .note {
+            background-color: #f0f7ff;
+            border-left: 4px solid #4dabf7;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+        
+        .link {
+            color: #1971c2;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        .program {
+            background-color: #e6f7ff;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .program h3 {
+            margin-top: 0;
+            color: #0056b3;
+        }
+        
+        .footer-note {
             font-size: 14px;
             color: #666;
-            margin-top: 20px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-left: 3px solid #333;
-        }
-        
-        a {
-            color: #0066cc;
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #eaeaea;
         }
     </style>
 </head>
 <body>
-    <h1>Βουδαπέστη | Προετοιμασία, πράγματα & τι θα κάνουμε</h1>
+    <header>
+        <h1>Βουδαπέστη | Προετοιμασία, πράγματα & τι θα κάνουμε</h1>
+    </header>
     
-    <h2>Απαραίτητα έγγραφα</h2>
-    <ul>
-        <li>Ταυτότητα</li>
-        <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
-        <li>Revolut κάρτα <sup>I</sup></li>
-        <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
-        <li>Κάρτα μετακινήσεων <sup>II</sup></li>
-    </ul>
+    <div class="section">
+        <h2>Απαραίτητα έγγραφα</h2>
+        <ul>
+            <li>Ταυτότητα</li>
+            <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
+            <li>Revolut κάρτα I</li>
+            <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
+            <li>Κάρτα μετακινήσεων II</li>
+        </ul>
+    </div>
     
-    <h2>Αντικείμενα στο ταξίδι</h2>
-    <ul>
-        <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
-        <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό</li>
-        <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
-        <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
-    </ul>
+    <div class="section">
+        <h2>Αντικείμενα στο ταξίδι</h2>
+        <ul>
+            <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
+            <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό,</li>
+            <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
+            <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
+        </ul>
+    </div>
     
-    <h2>Προσέχω για το αεροπλάνο</h2>
-    <ul>
-        <li>Επιτρέπεται έως 1L υγρών αντικειμένων</li>
-        <li>Καλώδια, powerbank και γενικά συσκευές ΟΧΙ στην βαλίτσα γιατί πρέπει να περαστούν από έλεγχο</li>
-        <li>Αποσκευές:
-            <ul>
-                <li>Μέγεθος
-                    <ul>
-                        <li>1 x Χειραποσκευή: με διάσταση 40x30x20</li>
-                        <li>1 x Βαλίτσα καμπίνας: μέχρι 10kg με διάσταση 55x40x20</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω</li>
-        <li>Τουλάχιστον 2.5 ώρες νωρίτερα στο αεροδρόμιο πριν την ώρα της πτήσης</li>
-        <li>Απαγορεύονται τρόφιμα, νερό κλπ</li>
-    </ul>
-    
-    <h2>Πρόγραμμα</h2>
-    <ul>
-        <li>Κρουαζιέρα στον Δούναβη: 23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</li>
-    </ul>
-    
-    <hr>
-    
-    <div class="note">
-        <p><strong>I.</strong> Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)</p>
+    <div class="section">
+        <h2>Προσέχω για το αεροπλάνο</h2>
+        <ul>
+            <li>Επιτρέπεται έως 1L υγρών αντικειμένων</li>
+            <li>Καλώδια, powerbank και γενικά συσκευές ΟΧΙ στην βαλίτσα γιατί πρέπει να περαστούν από έλεγχο</li>
+        </ul>
         
-        <p><strong>II.</strong> Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια<br>
-        (Playstore: <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" target="_blank">Budapest Go Android</a>, 
-        App Store: <a href="https://apps.apple.com/us/app/budapestgo/id916193835" target="_blank">Budapest Go iOS</a>)</p>
+        <h3>Αποσκευές:</h3>
+        <ul>
+            <li><strong>Μέγεθος</strong></li>
+            <li>1 x Χειραποσκευή: με διάσταση 40x30x20</li>
+            <li>1 x Βαλίτσα καμπίνας: μέχρι 10kg με διάσταση 55x40x20</li>
+        </ul>
         
-        <p>* Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!</p>
+        <div class="note">
+            Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
+        </div>
+        
+        <div class="warning">
+            Τουλάχιστον 2.5 ώρες νωρίτερα στο αεροδρόμιο πριν την ώρα της πτήσης
+        </div>
+        
+        <div class="warning">
+            Απαγορεύονται τρόφιμα, νερό κλπ
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Πρόγραμμα</h2>
+        <div class="program">
+            <h3>Κρουαζιέρα στον Δούναβη</h3>
+            <p>23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Σημειώσεις</h2>
+        <div class="note">
+            I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
+        </div>
+        
+        <div class="note">
+            II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
+            <br><br>
+            <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
+            <br><br>
+            <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
+        </div>
+        
+        <div class="warning">
+            * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        Ολοκληρωμένο site με όλες τις πληροφορίες για το ταξίδι στη Βουδαπέστη.
     </div>
 </body>
 </html>
