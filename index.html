@@ -1,1 +1,263 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+        }
 
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        .button-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        
+        .portal-button {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 22px 24px;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            min-height: 85px;
+        }
+        
+        .portal-button:hover {
+            box-shadow: 0 6px 18px var(--shadow-color);
+            transform: translateY(-2px);
+        }
+        
+        .portal-button .emoji {
+            font-size: 2rem;
+            margin-right: 20px;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .content-frame {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-color);
+            z-index: 100;
+            display: none;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation for buttons */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .portal-button {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .portal-button:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+        
+        .portal-button:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        
+        .portal-button:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+        
+        .portal-button:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+        
+        .portal-button:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BudaPortal</h1>
+            <p class="subtitle">Οδηγός για τη Βουδαπέστη ✨</p>
+        </header>
+        
+        <div class="button-grid">
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/index.html">
+                <div class="emoji">📚</div>
+                <span>Προετοιμασία</span>
+            </div>
+            
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/prog.html">
+                <div class="emoji">📅</div>
+                <span>Πρόγραμμα</span>
+            </div>
+            
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/landmarks.html">
+                <div class="emoji">🏛️</div>
+                <span>Αξιοθέατα - Μουσεία - Μέρη</span>
+            </div>
+            
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/food.html">
+                <div class="emoji">🍽️</div>
+                <span>Φαγητό - Πρωινό</span>
+            </div>
+            
+            <div class="portal-button" data-url="#">
+                <div class="emoji">✨</div>
+                <span>Επόμενο Κουμπί</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>BudaPortal &copy; 2023</p>
+        </div>
+    </div>
+    
+    <div class="content-frame" id="contentFrame">
+        <div class="back-button" id="backButton">
+            <span class="emoji">←</span>
+        </div>
+        <iframe id="contentIframe"></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.portal-button');
+            const contentFrame = document.getElementById('contentFrame');
+            const contentIframe = document.getElementById('contentIframe');
+            const backButton = document.getElementById('backButton');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    if (url && url !== '#') {
+                        contentIframe.src = url;
+                        contentFrame.style.display = 'block';
+                    }
+                });
+            });
+            
+            backButton.addEventListener('click', function() {
+                contentFrame.style.display = 'none';
+                contentIframe.src = '';
+            });
+        });
+    </script>
+</body>
+</html>
