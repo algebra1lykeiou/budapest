@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal | Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .coming-soon-card {
+            background: var(--card-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .emoji-large {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .progress-container {
+            background: var(--bg-color);
+            border-radius: 25px;
+            height: 12px;
+            margin: 30px 0;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent-color), #8bd3dd);
+            height: 100%;
+            width: 65%;
+            border-radius: 25px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        .status-text {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            margin-bottom: 10px;
+        }
+        
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .feature-emoji {
+            font-size: 1.4rem;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation for the card */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .coming-soon-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">
+        <span>←</span>
+    </a>
+    
+    <div class="container">
+        <div class="coming-soon-card">
+            <span class="emoji-large">🚧</span>
+            <h1>Coming Soon!</h1>
+            <p class="subtitle">Δουλεύουμε σκληρά για να φτιάξουμε κάτι υπέροχο για εσάς! ✨</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <p class="status-text">Σε εξέλιξη... 65%</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-emoji">🎯</span>
+                    <span>Νέες λειτουργίες</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-emoji">🎨</span>
+                    <span>Βελτιωμένο design</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-emoji">⚡</span>
+                    <span>Ταχύτερη απόδοση</span>
+                </div>
+            </div>
+            
+            <p class="subtitle">Επιστρέψτε σύντομα για να ανακαλύψετε τι ετοιμάζουμε! 🎉</p>
+        </div>
+        
+        <div class="footer">
+            BudaPortal &copy; 2023
+        </div>
+    </div>
+</body>
+</html>
