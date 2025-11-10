@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudaPortal | Πρόγραμμα</title>
+    <title>Βουδαπέστη | Προετοιμασία</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -15,7 +15,8 @@
             --shadow-color: rgba(0, 0, 0, 0.06);
             --footer-color: #95a5a6;
             --accent-color: #3498db;
-            --timeline-color: #e74c3c;
+            --warning-color: #e74c3c;
+            --note-color: #2ecc71;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -28,7 +29,8 @@
                 --shadow-color: rgba(0, 0, 0, 0.2);
                 --footer-color: #8bb5e0;
                 --accent-color: #4dabf7;
-                --timeline-color: #ff6b6b;
+                --warning-color: #ff6b6b;
+                --note-color: #51cf66;
             }
         }
 
@@ -56,7 +58,7 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 60px 0 20px 0;
+            padding: 20px 0;
         }
         
         h1 {
@@ -66,104 +68,95 @@
             color: var(--text-color);
         }
         
-        .subtitle {
-            font-size: 1rem;
-            color: var(--subtitle-color);
-            font-weight: 500;
-        }
-        
-        /* Timeline Styles */
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--timeline-color);
-            border-radius: 2px;
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding-left: 70px;
-        }
-        
-        .timeline-date {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 60px;
-            text-align: center;
-            font-weight: 700;
-        }
-        
-        .timeline-date .day {
-            font-size: 1.4rem;
-            line-height: 1;
-        }
-        
-        .timeline-date .month {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .timeline-marker {
-            position: absolute;
-            left: 25px;
-            top: 5px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--timeline-color);
-            border: 3px solid var(--bg-color);
-            z-index: 2;
-        }
-        
-        .timeline-content {
+        .section {
             background: var(--card-color);
             border-radius: 16px;
-            padding: 18px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
             box-shadow: 0 2px 12px var(--shadow-color);
             border: 1px solid var(--border-color);
         }
         
-        .timeline-time {
-            font-size: 1.1rem;
+        h2 {
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 18px;
             color: var(--text-color);
             display: flex;
             align-items: center;
-            gap: 8px;
         }
         
-        .timeline-time .emoji {
+        h2 .emoji {
+            font-size: 1.6rem;
+            margin-right: 12px;
+        }
+        
+        h3 {
             font-size: 1.2rem;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+            color: var(--text-color);
         }
         
-        .timeline-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+        ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        
+        .note {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--note-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 12px 12px 0;
+            font-size: 1rem;
+        }
+        
+        .warning {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 0 12px 12px 0;
+            font-size: 1rem;
+        }
+        
+        .link {
+            color: var(--accent-color);
+            text-decoration: none;
+            word-break: break-all;
+            font-weight: 500;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        .program {
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 18px;
+            border-radius: 12px;
+            margin: 16px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .program h3 {
+            margin-top: 0;
             color: var(--accent-color);
         }
         
-        .timeline-caption {
-            font-size: 0.95rem;
-            color: var(--subtitle-color);
-            line-height: 1.5;
-        }
-        
-        .timeline-caption strong {
-            color: var(--text-color);
-            font-weight: 600;
+        .footer-note {
+            font-size: 0.9rem;
+            color: var(--footer-color);
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
         }
         
         .back-button {
@@ -191,183 +184,97 @@
             background: var(--bg-color);
             transform: scale(1.05);
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: var(--footer-color);
-        }
-        
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .timeline-item {
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        /* Date color variations */
-        .date-color-1 { color: #e74c3c; }
-        .date-color-2 { color: #3498db; }
-        .date-color-3 { color: #2ecc71; }
-        .date-color-4 { color: #f39c12; }
-        .date-color-5 { color: #9b59b6; }
-        .date-color-6 { color: #1abc9c; }
     </style>
 </head>
 <body>
     <a href="javascript:history.back()" class="back-button">
-        <span>←</span>
+        <span class="emoji">←</span>
     </a>
     
     <div class="container">
         <header>
-            <h1>Πρόγραμμα Ταξιδιού</h1>
-            <p class="subtitle">Βουδαπέστη 🗓️✨</p>
+            <h1>Βουδαπέστη | Προετοιμασία</h1>
+            <p class="subtitle">Πράγματα & τι θα κάνουμε 📝</p>
         </header>
         
-        <div class="timeline" id="timeline">
-            <!-- Timeline items will be automatically sorted by JavaScript -->
+        <div class="section">
+            <h2><span class="emoji">📄</span>Απαραίτητα έγγραφα</h2>
+            <ul>
+                <li>Ταυτότητα</li>
+                <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
+                <li>Revolut κάρτα I</li>
+                <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
+                <li>Κάρτα μετακινήσεων II</li>
+            </ul>
         </div>
         
-        <div class="footer">
-            BudaPortal &copy; 2023 by Nteman
+        <div class="section">
+            <h2><span class="emoji">🎒</span>Αντικείμενα στο ταξίδι</h2>
+            <ul>
+                <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
+                <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό,</li>
+                <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
+                <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2><span class="emoji">✈️</span>Προσέχω για το αεροπλάνο</h2>
+            <ul>
+                <li>Επιτρέπεται έως 1L υγρών αντικειμένων</li>
+                <li>Καλώδια, powerbank και γενικά συσκευές ΟΧΙ στην βαλίτσα γιατί πρέπει να περαστούν από έλεγχο</li>
+            </ul>
+            
+            <h3>Αποσκευές:</h3>
+            <ul>
+                <li><strong>Μέγεθος</strong></li>
+                <li>1 x Χειραποσκευή: με διάσταση 40x30x20</li>
+                <li>1 x Βαλίτσα καμπίνας: μέχρι 10kg με διάσταση 55x40x20</li>
+            </ul>
+            
+            <div class="note">
+                Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
+            </div>
+            
+            <div class="warning">
+                Τουλάχιστον 2.5 ώρες νωρίτερα στο αεροδρόμιο πριν την ώρα της πτήσης
+            </div>
+            
+            <div class="warning">
+                Απαγορεύονται τρόφιμα, νερό κλπ
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><span class="emoji">📅</span>Πρόγραμμα</h2>
+            <div class="program">
+                <h3>Κρουαζιέρα στον Δούναβη</h3>
+                <p>23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><span class="emoji">💡</span>Σημειώσεις</h2>
+            <div class="note">
+                I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
+            </div>
+            
+            <div class="note">
+                II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
+                <br><br>
+                <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
+                <br><br>
+                <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
+            </div>
+            
+            <div class="warning">
+                * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            BudaPortal &copy; 2025 by Nteman
         </div>
     </div>
-
-    <script>
-        // Timeline data - simply add new items here and they will be automatically sorted
-        const timelineData = [
-            {
-                date: "22 Νοεμβρίου",
-                time: "05:00",
-                emoji: "🚌",
-                title: "Bus 214",
-                caption: "Δρομολόγια 5:00 και 5:20 από το σπίτι προς αεροδρόμιο"
-            },
-            {
-                date: "22 Νοεμβρίου", 
-                time: "05:45",
-                emoji: "✈️",
-                title: "Check-in Αεροδρομίου",
-                caption: "Check-in και ασφάλεια - τουλάχιστον 2.5 ώρες πριν την πτήση"
-            },
-            {
-                date: "22 Νοεμβρίου",
-                time: "09:55", 
-                emoji: "🛫",
-                title: "ATH → BUD",
-                caption: "*FR 1242* (Ryanair)\nConfirmation: *PS18VP*\nΑναχώρηση: *09:55 EET*\nΆφιξη: *11:00 CET*"
-            },
-            {
-                date: "22 Νοεμβρίου",
-                time: "11:30",
-                emoji: "🚕", 
-                title: "Μεταφορά στο ξενοδοχείο",
-                caption: "Bolt taxi από αεροδρόμιο προς ξενοδοχείο\nΚόστος: ~15-20€"
-            },
-            {
-                date: "22 Νοεμβρίου",
-                time: "14:00",
-                emoji: "🏨",
-                title: "Check-in ξενοδοχείο",
-                caption: "Αφήγηση αποσκευών και ξεκούραση"
-            },
-            {
-                date: "22 Νοεμβρίου", 
-                time: "15:30",
-                emoji: "🏛️",
-                title: "Κρουαζιέρα Δούναβη",
-                caption: "Κρουαζιέρα στον Δούναβη - Εισιτήρια στο Apple Wallet"
-            },
-            {
-                date: "23 Νοεμβρίου",
-                time: "09:00", 
-                emoji: "🍽️",
-                title: "Πρωινό",
-                caption: "Πρωινό σε τοπικό café\nΔοκιμή παραδοσιακών εδέσματα"
-            },
-            {
-                date: "23 Νοεμβρίου",
-                time: "11:00",
-                emoji: "🏰", 
-                title: "Παλάτι της Βουδαπέστης",
-                caption: "Επίσκεψη στο Παλάτι και τοποθεσίες γύρω από αυτό"
-            },
-            {
-                date: "24 Νοεμβρίου",
-                time: "10:00",
-                emoji: "🌉",
-                title: "Γέφυρες του Δούναβη",
-                caption: "Περπάτημα στις γέφυρες και φωτογραφίες"
-            }
-        ];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const timeline = document.getElementById('timeline');
-            
-            // Sort timeline items by date and time
-            const sortedData = timelineData.sort((a, b) => {
-                const dateCompare = a.date.localeCompare(b.date);
-                if (dateCompare !== 0) return dateCompare;
-                return a.time.localeCompare(b.time);
-            });
-            
-            // Get unique dates and assign colors
-            const uniqueDates = [...new Set(sortedData.map(item => item.date))];
-            const dateColors = {};
-            
-            uniqueDates.forEach((date, index) => {
-                dateColors[date] = `date-color-${(index % 6) + 1}`;
-            });
-            
-            // Group items by date
-            const groupedData = {};
-            sortedData.forEach(item => {
-                if (!groupedData[item.date]) {
-                    groupedData[item.date] = [];
-                }
-                groupedData[item.date].push(item);
-            });
-            
-            // Create timeline items
-            Object.keys(groupedData).forEach(date => {
-                const dateColorClass = dateColors[date];
-                
-                groupedData[date].forEach((item, index) => {
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = 'timeline-item';
-                    timelineItem.style.animationDelay = `${index * 0.1}s`;
-                    
-                    timelineItem.innerHTML = `
-                        <div class="timeline-date ${dateColorClass}">
-                            <div class="day">${item.date.split(' ')[0]}</div>
-                            <div class="month">${item.date.split(' ')[1]}</div>
-                        </div>
-                        <div class="timeline-marker" style="background: var(--${dateColorClass.replace('date-color-', 'color-')})"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-time">
-                                <span class="emoji">${item.emoji}</span>
-                                ${item.time}
-                            </div>
-                            <div class="timeline-title">${item.title}</div>
-                            <div class="timeline-caption">${item.caption.replace(/\n/g, '<br>')}</div>
-                        </div>
-                    `;
-                    
-                    timeline.appendChild(timelineItem);
-                });
-            });
-        });
-    </script>
 </body>
 </html>
