@@ -1,1 +1,349 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal | Πρόγραμμα</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+            --timeline-color: #e74c3c;
+        }
 
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+                --timeline-color: #ff6b6b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--timeline-color);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 70px;
+        }
+        
+        .timeline-date {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--timeline-color);
+        }
+        
+        .timeline-date .day {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+        
+        .timeline-date .month {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 25px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--timeline-color);
+            border: 3px solid var(--bg-color);
+            z-index: 2;
+        }
+        
+        .timeline-content {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .timeline-time {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timeline-time .emoji {
+            font-size: 1.2rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+        }
+        
+        .timeline-caption {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            line-height: 1.5;
+        }
+        
+        .timeline-caption strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .timeline-item {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">
+        <span>←</span>
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>Πρόγραμμα Ταξιδιού</h1>
+            <p class="subtitle">Βουδαπέστη 🗓️✨</p>
+        </header>
+        
+        <div class="timeline" id="timeline">
+            <!-- Timeline items will be automatically sorted by JavaScript -->
+        </div>
+        
+        <div class="footer">
+            BudaPortal &copy; 2025 by Nteman
+        </div>
+    </div>
+
+    <script>
+        // Timeline data - simply add new items here and they will be automatically sorted
+        const timelineData = [
+            {
+                date: "22 Νοεμβρίου",
+                time: "05:00",
+                emoji: "🚌",
+                title: "Bus 214",
+                caption: "Δρομολόγια 5:00 και 5:20 από το σπίτι προς αεροδρόμιο"
+            },
+            {
+                date: "22 Νοεμβρίου", 
+                time: "05:45",
+                emoji: "✈️",
+                title: "Check-in Αεροδρομίου",
+                caption: "Check-in και ασφάλεια - τουλάχιστον 2.5 ώρες πριν την πτήση"
+            },
+            {
+                date: "22 Νοεμβρίου",
+                time: "09:55", 
+                emoji: "🛫",
+                title: "ATH → BUD",
+                caption: "*FR 1242* (Ryanair)\nConfirmation: *PS18VP*\nΑναχώρηση: *09:55 EET*\nΆφιξη: *11:00 CET*"
+            },
+            {
+                date: "22 Νοεμβρίου",
+                time: "11:30",
+                emoji: "🚕", 
+                title: "Μεταφορά στο ξενοδοχείο",
+                caption: "Bolt taxi από αεροδρόμιο προς ξενοδοχείο\nΚόστος: ~15-20€"
+            },
+            {
+                date: "22 Νοεμβρίου",
+                time: "14:00",
+                emoji: "🏨",
+                title: "Check-in ξενοδοχείο",
+                caption: "Αφήγηση αποσκευών και ξεκούραση"
+            },
+            {
+                date: "22 Νοεμβρίου", 
+                time: "15:30",
+                emoji: "🏛️",
+                title: "Κρουαζιέρα Δούναβη",
+                caption: "Κρουαζιέρα στον Δούναβη - Εισιτήρια στο Apple Wallet"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "09:00", 
+                emoji: "🍽️",
+                title: "Πρωινό",
+                caption: "Πρωινό σε τοπικό café\nΔοκιμή παραδοσιακών εδέσματα"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "11:00",
+                emoji: "🏰", 
+                title: "Παλάτι της Βουδαπέστης",
+                caption: "Επίσκεψη στο Παλάτι και τοποθεσίες γύρω από αυτό"
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeline = document.getElementById('timeline');
+            
+            // Sort timeline items by date and time
+            const sortedData = timelineData.sort((a, b) => {
+                const dateCompare = a.date.localeCompare(b.date);
+                if (dateCompare !== 0) return dateCompare;
+                return a.time.localeCompare(b.time);
+            });
+            
+            // Group items by date
+            const groupedData = {};
+            sortedData.forEach(item => {
+                if (!groupedData[item.date]) {
+                    groupedData[item.date] = [];
+                }
+                groupedData[item.date].push(item);
+            });
+            
+            // Create timeline items
+            Object.keys(groupedData).forEach(date => {
+                groupedData[date].forEach((item, index) => {
+                    const timelineItem = document.createElement('div');
+                    timelineItem.className = 'timeline-item';
+                    timelineItem.style.animationDelay = `${index * 0.1}s`;
+                    
+                    timelineItem.innerHTML = `
+                        <div class="timeline-date">
+                            <div class="day">${item.date.split(' ')[0]}</div>
+                            <div class="month">${item.date.split(' ')[1]}</div>
+                        </div>
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">
+                                <span class="emoji">${item.emoji}</span>
+                                ${item.time}
+                            </div>
+                            <div class="timeline-title">${item.title}</div>
+                            <div class="timeline-caption">${item.caption.replace(/\n/g, '<br>')}</div>
+                        </div>
+                    `;
+                    
+                    timeline.appendChild(timelineItem);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
