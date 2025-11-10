@@ -15,7 +15,7 @@
             --shadow-color: rgba(0, 0, 0, 0.06);
             --footer-color: #95a5a6;
             --accent-color: #3498db;
-            --timeline-color: #e74c3c;
+            --timeline-color: #e0e0e0;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -28,7 +28,7 @@
                 --shadow-color: rgba(0, 0, 0, 0.2);
                 --footer-color: #8bb5e0;
                 --accent-color: #4dabf7;
-                --timeline-color: #ff6b6b;
+                --timeline-color: #2a4a6e;
             }
         }
 
@@ -56,7 +56,7 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px 0;
+            padding: 60px 0 20px 0;
         }
         
         h1 {
@@ -81,7 +81,7 @@
         .timeline::before {
             content: '';
             position: absolute;
-            left: 30px;
+            left: 35px;
             top: 0;
             bottom: 0;
             width: 3px;
@@ -91,40 +91,21 @@
         
         .timeline-item {
             position: relative;
-            margin-bottom: 30px;
-            padding-left: 70px;
-        }
-        
-        .timeline-date {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 60px;
-            text-align: center;
-            font-weight: 700;
-            color: var(--timeline-color);
-        }
-        
-        .timeline-date .day {
-            font-size: 1.4rem;
-            line-height: 1;
-        }
-        
-        .timeline-date .month {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            margin-bottom: 25px;
+            padding-left: 80px;
         }
         
         .timeline-marker {
             position: absolute;
             left: 25px;
-            top: 5px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--timeline-color);
+            top: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            transform: rotate(45deg);
             border: 3px solid var(--bg-color);
             z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         
         .timeline-content {
@@ -133,6 +114,20 @@
             padding: 18px;
             box-shadow: 0 2px 12px var(--shadow-color);
             border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .timeline-date-badge {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .timeline-time {
@@ -215,6 +210,21 @@
         .timeline-item {
             animation: fadeInUp 0.5s ease forwards;
         }
+
+        /* Date color variations */
+        .marker-color-1 { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .marker-color-2 { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .marker-color-3 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .marker-color-4 { background: linear-gradient(135deg, #f39c12, #d35400); }
+        .marker-color-5 { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .marker-color-6 { background: linear-gradient(135deg, #1abc9c, #16a085); }
+        
+        .badge-color-1 { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .badge-color-2 { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .badge-color-3 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .badge-color-4 { background: linear-gradient(135deg, #f39c12, #d35400); }
+        .badge-color-5 { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .badge-color-6 { background: linear-gradient(135deg, #1abc9c, #16a085); }
     </style>
 </head>
 <body>
@@ -228,12 +238,13 @@
             <p class="subtitle">Βουδαπέστη 🗓️✨</p>
         </header>
         
+        <!-- Timeline -->
         <div class="timeline" id="timeline">
             <!-- Timeline items will be automatically sorted by JavaScript -->
         </div>
         
         <div class="footer">
-            BudaPortal &copy; 2025 by Nteman
+            BudaPortal &copy; 2023 by Nteman
         </div>
     </div>
 
@@ -295,6 +306,13 @@
                 emoji: "🏰", 
                 title: "Παλάτι της Βουδαπέστης",
                 caption: "Επίσκεψη στο Παλάτι και τοποθεσίες γύρω από αυτό"
+            },
+            {
+                date: "24 Νοεμβρίου",
+                time: "10:00",
+                emoji: "🌉",
+                title: "Γέφυρες του Δούναβη",
+                caption: "Περπάτημα στις γέφυρες και φωτογραφίες"
             }
         ];
 
@@ -308,40 +326,38 @@
                 return a.time.localeCompare(b.time);
             });
             
-            // Group items by date
-            const groupedData = {};
-            sortedData.forEach(item => {
-                if (!groupedData[item.date]) {
-                    groupedData[item.date] = [];
-                }
-                groupedData[item.date].push(item);
+            // Get unique dates and assign colors
+            const uniqueDates = [...new Set(sortedData.map(item => item.date))];
+            const dateColors = {};
+            
+            uniqueDates.forEach((date, index) => {
+                dateColors[date] = index % 6 + 1;
             });
             
             // Create timeline items
-            Object.keys(groupedData).forEach(date => {
-                groupedData[date].forEach((item, index) => {
-                    const timelineItem = document.createElement('div');
-                    timelineItem.className = 'timeline-item';
-                    timelineItem.style.animationDelay = `${index * 0.1}s`;
-                    
-                    timelineItem.innerHTML = `
-                        <div class="timeline-date">
-                            <div class="day">${item.date.split(' ')[0]}</div>
-                            <div class="month">${item.date.split(' ')[1]}</div>
+            sortedData.forEach((item, index) => {
+                const colorIndex = dateColors[item.date];
+                const markerColorClass = `marker-color-${colorIndex}`;
+                const badgeColorClass = `badge-color-${colorIndex}`;
+                
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                timelineItem.style.animationDelay = `${index * 0.1}s`;
+                
+                timelineItem.innerHTML = `
+                    <div class="timeline-marker ${markerColorClass}"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date-badge ${badgeColorClass}">${item.date}</div>
+                        <div class="timeline-time">
+                            <span class="emoji">${item.emoji}</span>
+                            ${item.time}
                         </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-time">
-                                <span class="emoji">${item.emoji}</span>
-                                ${item.time}
-                            </div>
-                            <div class="timeline-title">${item.title}</div>
-                            <div class="timeline-caption">${item.caption.replace(/\n/g, '<br>')}</div>
-                        </div>
-                    `;
-                    
-                    timeline.appendChild(timelineItem);
-                });
+                        <div class="timeline-title">${item.title}</div>
+                        <div class="timeline-caption">${item.caption.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+                
+                timeline.appendChild(timelineItem);
             });
         });
     </script>
