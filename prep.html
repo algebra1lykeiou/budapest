@@ -4,91 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Βουδαπέστη | Προετοιμασία</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+            --warning-color: #e74c3c;
+            --note-color: #2ecc71;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+                --warning-color: #ff6b6b;
+                --note-color: #51cf66;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
         }
         
         body {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
             line-height: 1.6;
-            padding: 16px;
-            max-width: 600px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
             margin: 0 auto;
         }
         
         header {
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
         }
         
         h1 {
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .section {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 22px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
         }
         
         h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin: 24px 0 16px 0;
-            color: #2c3e50;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eaeaea;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 .emoji {
+            font-size: 1.6rem;
+            margin-right: 12px;
         }
         
         h3 {
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: 600;
             margin: 20px 0 12px 0;
-            color: #34495e;
+            color: var(--text-color);
         }
         
         ul {
-            padding-left: 20px;
+            padding-left: 24px;
             margin-bottom: 16px;
         }
         
         li {
-            margin-bottom: 8px;
-        }
-        
-        .section {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
         }
         
         .note {
-            background-color: #f0f7ff;
-            border-left: 4px solid #4dabf7;
-            padding: 12px 16px;
+            background-color: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid var(--note-color);
+            padding: 16px;
             margin: 16px 0;
-            border-radius: 0 8px 8px 0;
-            font-size: 14px;
+            border-radius: 0 12px 12px 0;
+            font-size: 1rem;
         }
         
         .warning {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 12px 16px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 16px;
             margin: 16px 0;
-            border-radius: 0 8px 8px 0;
-            font-size: 14px;
+            border-radius: 0 12px 12px 0;
+            font-size: 1rem;
         }
         
         .link {
-            color: #1971c2;
+            color: var(--accent-color);
             text-decoration: none;
             word-break: break-all;
+            font-weight: 500;
         }
         
         .link:hover {
@@ -96,108 +138,143 @@
         }
         
         .program {
-            background-color: #e6f7ff;
-            padding: 16px;
-            border-radius: 8px;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 18px;
+            border-radius: 12px;
             margin: 16px 0;
+            border-left: 4px solid var(--accent-color);
         }
         
         .program h3 {
             margin-top: 0;
-            color: #0056b3;
+            color: var(--accent-color);
         }
         
         .footer-note {
-            font-size: 14px;
-            color: #666;
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid #eaeaea;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Βουδαπέστη | Προετοιμασία, πράγματα & τι θα κάνουμε</h1>
-    </header>
+    <a href="javascript:history.back()" class="back-button">
+        <span class="emoji">←</span>
+    </a>
     
-    <div class="section">
-        <h2>Απαραίτητα έγγραφα</h2>
-        <ul>
-            <li>Ταυτότητα</li>
-            <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
-            <li>Revolut κάρτα I</li>
-            <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
-            <li>Κάρτα μετακινήσεων II</li>
-        </ul>
-    </div>
-    
-    <div class="section">
-        <h2>Αντικείμενα στο ταξίδι</h2>
-        <ul>
-            <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
-            <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό,</li>
-            <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
-            <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
-        </ul>
-    </div>
-    
-    <div class="section">
-        <h2>Προσέχω για το αεροπλάνο</h2>
-        <ul>
-            <li>Επιτρέπεται έως 1L υγρών αντικειμένων</li>
-            <li>Καλώδια, powerbank και γενικά συσκευές ΟΧΙ στην βαλίτσα γιατί πρέπει να περαστούν από έλεγχο</li>
-        </ul>
+    <div class="container">
+        <header>
+            <h1>Βουδαπέστη | Προετοιμασία</h1>
+            <p class="subtitle">Πράγματα & τι θα κάνουμε 📝</p>
+        </header>
         
-        <h3>Αποσκευές:</h3>
-        <ul>
-            <li><strong>Μέγεθος</strong></li>
-            <li>1 x Χειραποσκευή: με διάσταση 40x30x20</li>
-            <li>1 x Βαλίτσα καμπίνας: μέχρι 10kg με διάσταση 55x40x20</li>
-        </ul>
-        
-        <div class="note">
-            Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
+        <div class="section">
+            <h2><span class="emoji">📄</span>Απαραίτητα έγγραφα</h2>
+            <ul>
+                <li>Ταυτότητα</li>
+                <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
+                <li>Revolut κάρτα I</li>
+                <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
+                <li>Κάρτα μετακινήσεων II</li>
+            </ul>
         </div>
         
-        <div class="warning">
-            Τουλάχιστον 2.5 ώρες νωρίτερα στο αεροδρόμιο πριν την ώρα της πτήσης
+        <div class="section">
+            <h2><span class="emoji">🎒</span>Αντικείμενα στο ταξίδι</h2>
+            <ul>
+                <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
+                <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό,</li>
+                <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
+                <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
+            </ul>
         </div>
         
-        <div class="warning">
-            Απαγορεύονται τρόφιμα, νερό κλπ
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Πρόγραμμα</h2>
-        <div class="program">
-            <h3>Κρουαζιέρα στον Δούναβη</h3>
-            <p>23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</p>
-        </div>
-    </div>
-    
-    <div class="section">
-        <h2>Σημειώσεις</h2>
-        <div class="note">
-            I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
+        <div class="section">
+            <h2><span class="emoji">✈️</span>Προσέχω για το αεροπλάνο</h2>
+            <ul>
+                <li>Επιτρέπεται έως 1L υγρών αντικειμένων</li>
+                <li>Καλώδια, powerbank και γενικά συσκευές ΟΧΙ στην βαλίτσα γιατί πρέπει να περαστούν από έλεγχο</li>
+            </ul>
+            
+            <h3>Αποσκευές:</h3>
+            <ul>
+                <li><strong>Μέγεθος</strong></li>
+                <li>1 x Χειραποσκευή: με διάσταση 40x30x20</li>
+                <li>1 x Βαλίτσα καμπίνας: μέχρι 10kg με διάσταση 55x40x20</li>
+            </ul>
+            
+            <div class="note">
+                Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
+            </div>
+            
+            <div class="warning">
+                Τουλάχιστον 2.5 ώρες νωρίτερα στο αεροδρόμιο πριν την ώρα της πτήσης
+            </div>
+            
+            <div class="warning">
+                Απαγορεύονται τρόφιμα, νερό κλπ
+            </div>
         </div>
         
-        <div class="note">
-            II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
-            <br><br>
-            <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
-            <br><br>
-            <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
+        <div class="section">
+            <h2><span class="emoji">📅</span>Πρόγραμμα</h2>
+            <div class="program">
+                <h3>Κρουαζιέρα στον Δούναβη</h3>
+                <p>23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</p>
+            </div>
         </div>
         
-        <div class="warning">
-            * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
+        <div class="section">
+            <h2><span class="emoji">💡</span>Σημειώσεις</h2>
+            <div class="note">
+                I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
+            </div>
+            
+            <div class="note">
+                II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
+                <br><br>
+                <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
+                <br><br>
+                <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
+            </div>
+            
+            <div class="warning">
+                * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
+            </div>
         </div>
-    </div>
-    
-    <div class="footer-note">
-        Ολοκληρωμένο site με όλες τις πληροφορίες για το ταξίδι στη Βουδαπέστη.
+        
+        <div class="footer-note">
+            BudaPortal &copy; 2025 by Nteman
+        </div>
     </div>
 </body>
 </html>
