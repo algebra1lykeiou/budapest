@@ -1,10 +1,539 @@
 <!DOCTYPE html>
-<html>
+<html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://algebra1lykeiou.github.io/budapest/comming_soon.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal | Φαγητό - Ποτό - Γλυκό</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+            --food-color: #e74c3c;
+            --coffee-color: #d35400;
+            --drink-color: #9b59b6;
+            --sweet-color: #f39c12;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+                --food-color: #ff6b6b;
+                --coffee-color: #ffa94d;
+                --drink-color: #cc99ff;
+                --sweet-color: #ffd93d;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 60px 0 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        .category-section {
+            margin-bottom: 30px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .category-emoji {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .food-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .food-card {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .food-card:hover {
+            box-shadow: 0 6px 18px var(--shadow-color);
+            transform: translateY(-2px);
+        }
+        
+        .food-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .food-type {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .type-food { background: var(--food-color); color: white; }
+        .type-coffee { background: var(--coffee-color); color: white; }
+        .type-drink { background: var(--drink-color); color: white; }
+        .type-sweet { background: var(--sweet-color); color: white; }
+        
+        .food-description {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .food-location {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .food-tip {
+            font-size: 0.85rem;
+            color: var(--subtitle-color);
+            font-style: italic;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .maps-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+        
+        .maps-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .food-card {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .food-card:nth-child(1) { animation-delay: 0.05s; }
+        .food-card:nth-child(2) { animation-delay: 0.1s; }
+        .food-card:nth-child(3) { animation-delay: 0.15s; }
+        .food-card:nth-child(4) { animation-delay: 0.2s; }
+        .food-card:nth-child(5) { animation-delay: 0.25s; }
+    </style>
 </head>
 <body>
-    <p>Ανακατεύθυνση... <a href="comming_soon.html">Κάντε κλικ εδώ αν δεν γίνεται αυτόματα</a></p>
+    <a href="javascript:history.back()" class="back-button">
+        <span>←</span>
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>Φαγητό - Πρωινό - Ποτό</h1>
+            <p class="subtitle">Οι καλύτερες γευστικές εμπειρίες της Βουδαπέστης 🍽️✨</p>
+        </header>
+        
+        <!-- Καφέδες -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-emoji">☕</div>
+                <div class="category-title">Καφέ & Πρωινό</div>
+            </div>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-name">
+                        New York Café
+                        <span class="food-type type-coffee">Καφές</span>
+                    </div>
+                    <div class="food-description">
+                        Το "πιο όμορφο café στον κόσμο". Παλατιακό εσωτερικό, χρυσές διακοσμήσεις, ζωντανή μουσική. Ιδανικό για ειδική πρόταση ή πολυτελές πρωινό.
+                    </div>
+                    <div class="food-location">📍 Erzsébet krt. 9-11 (κοντά στο Astoria)</div>
+                    <div class="food-tip">
+                        💡 Πηγαίνετε νωρίς το πρωί για να αποφύγετε τις ουρές. Τελειώστε με έναν παραδοσιακό καφέ "Bécsi"
+                    </div>
+                    <a href="https://maps.google.com/?q=New+York+Cafe+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        My Little Melbourne
+                        <span class="food-type type-coffee">Καφές</span>
+                    </div>
+                    <div class="food-description">
+                        Αυθεντικός Αυστραλιανός καφές, υπέροχη ατμόσφαιρα, φρέσκα πρωινά. Τοπική αγαπημένη για ποιοτικό καφέ.
+                    </div>
+                    <div class="food-location">📍 Madách Imre út 3 (κοντά Deák tér)</div>
+                    <div class="food-tip">
+                        💡 Δοκιμάστε τον φίλτρου καφέ τους και τα αυγά μπενέντικτ
+                    </div>
+                    <a href="https://maps.google.com/?q=My+Little+Melbourne+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Παραδοσιακό Φαγητό -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-emoji">🍲</div>
+                <div class="category-title">Παραδοσιακό Φαγητό</div>
+            </div>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-name">
+                        Gettó Gulyás
+                        <span class="food-type type-food">Ουγγρικό</span>
+                    </div>
+                    <div class="food-description">
+                        Αυθεντική ουγγρική κουζίνα σε χαλαρή ατμόσφαιρα. Δοκιμάστε το πραγματικό goulash, chicken paprikash και langos.
+                    </div>
+                    <div class="food-location">📍 Wesselényi u. 18 (Jewish Quarter)</div>
+                    <div class="food-tip">
+                        💡 Must: Goulash σούπα και παραδοσιακό λανγκος με σметάνα και τυρί
+                    </div>
+                    <a href="https://maps.google.com/?q=Gettó+Gulyás+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Menza
+                        <span class="food-type type-food">Ουγγρικό</span>
+                    </div>
+                    <div class="food-description">
+                        Σύγχρονη ερμηνεία της ουγγρικής κουζίνας. Πολύ δημοφιλές, νεανική ατμόσφαιρα, εξαιρετική ποιότητα.
+                    </div>
+                    <div class="food-location">📍 Liszt Ferenc tér 2</div>
+                    <div class="food-tip">
+                        💡 Προτείνουμε: Duck liver (libamáj) και beef stew
+                    </div>
+                    <a href="https://maps.google.com/?q=Menza+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Central Market Hall
+                        <span class="food-type type-food">Αγορά & Φαγητό</span>
+                    </div>
+                    <div class="food-description">
+                        Το μεγαλύτερο και πιο γνωστό εσωτερικό market. Φρέσκα προϊόντα, τοπικά εδέσματα, σουβενίρ και φαγητό στο χέρι.
+                    </div>
+                    <div class="food-location">📍 Vámház krt. 1-3</div>
+                    <div class="food-tip">
+                        💡 Δοκιμάστε λανγκος στον 1ο όροφο και αγοράστε πάπρικα και σαλάμι σουβενίρ
+                    </div>
+                    <a href="https://maps.google.com/?q=Central+Market+Hall+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ποτό & Nightlife -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-emoji">🍻</div>
+                <div class="category-title">Ποτό & Nightlife</div>
+            </div>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-name">
+                        Szimpla Kert
+                        <span class="food-type type-drink">Ruin Bar</span>
+                    </div>
+                    <div class="food-description">
+                        Το πιο γνωστό ruin bar στον κόσμο! Βιομηχανικό στυλ, μοναδική ατμόσφαιρα, ποικιλία από μπύρες και κοκτέιλ.
+                    </div>
+                    <div class="food-location">📍 Kazinczy u. 14</div>
+                    <div class="food-tip">
+                        💡 Πηγαίνετε αργά το απόγευμα για καλύτερη ατμόσφαιρα. Δοκιμάστε τοπική μπύρα ή Unicum
+                    </div>
+                    <a href="https://maps.google.com/?q=Szimpla+Kert+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Instant-Fogasház
+                        <span class="food-type type-drink">Ruin Bar Complex</span>
+                    </div>
+                    <div class="food-description">
+                        Τεράστιο συγκρότημα με πολλά δωμάτια, μπαρ και χορευτικά πάτωματα. Μία από τις μεγαλύτερες νυχτερινές επιλογές.
+                    </div>
+                    <div class="food-location">📍 Akácfa u. 51</div>
+                    <div class="food-tip">
+                        💡 Ιδανικό για νύχτα με φίλους. Πολλές μουσικές επιλογές υπό μία στέγη
+                    </div>
+                    <a href="https://maps.google.com/?q=Instant+Fogashaz+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        ϵμ Unicum
+                        <span class="food-type type-drink">Παραδοσιακό Ποτό</span>
+                    </div>
+                    <div class="food-description">
+                        Το εθνικό ποτό της Ουγγαρίας. Βότανο λικέρ με 40+ βότανα. Ισχυρή γεύση - είτε το αγαπάς είτε το μισείς!
+                    </div>
+                    <div class="food-location">📍 Διαθέσιμο σε όλα τα μπαρ</div>
+                    <div class="food-tip">
+                        💡 Δοκιμάστε το σαν digestif μετά το γεύμα. Προσπαθήστε τουλάχιστον μια φορά!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Γλυκά & Επιδόρπια -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-emoji">🍰</div>
+                <div class="category-title">Γλυκά & Επιδόρπια</div>
+            </div>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-name">
+                        Gerbeaud Café
+                        <span class="food-type type-sweet">Ζαχαροπλαστείο</span>
+                    </div>
+                    <div class="food-description">
+                        Ιστορικό café από 1858. Πολυτελές εσωτερικό, παραδοσιακά ουγγρικά γλυκά. Θρύλος της Βουδαπέστης.
+                    </div>
+                    <div class="food-location">📍 Vörösmarty tér 7-8</div>
+                    <div class="food-tip">
+                        💡 Must: Dobos torte και Gerbeaud slice (παραδοσιακά ουγγρικά γλυκά)
+                    </div>
+                    <a href="https://maps.google.com/?q=Gerbeaud+Cafe+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Ruszwurm Cukrászda
+                        <span class="food-type type-sweet">Ζαχαροπλαστείο</span>
+                    </div>
+                    <div class="food-description">
+                        Το παλαιότερο ζαχαροπλαστείο της Βουδαπέστης (1827). Μικρό και γοητευτικό, στο κάστρο της Βούδας.
+                    </div>
+                    <div class="food-location">📍 Szentháromság u. 7 (Buda Castle)</div>
+                    <div class="food-tip">
+                        💡 Δοκιμάστε την κρέμα Ruszwurm και το eszterházy torte
+                    </div>
+                    <a href="https://maps.google.com/?q=Ruszwurm+Budapest" class="maps-button" target="_blank">
+                        <span>🗺️</span> Maps
+                    </a>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Kürtőskalács (Chimney Cake)
+                        <span class="food-type type-sweet">Δρόμου</span>
+                    </div>
+                    <div class="food-description">
+                        Παραδοσιακό γλυκό σε σχήμα καμινάδας. Ζυμάρι τυλιγμένο σε ξύλινο κύλινδρο, ψημένο και καλυμμένο με ζάχαρη.
+                    </div>
+                    <div class="food-location">📍 Πωλείται παντού (κυρίως Váci utca)</div>
+                    <div class="food-tip">
+                        💡 Ζητήστε με κανέλα και ζάχαρη. Τέλειο για βόλτα!
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Gundel Palacsinta
+                        <span class="food-type type-sweet">Επιδόρπιο</span>
+                    </div>
+                    <div class="food-description">
+                        Το πιο διάσημο ουγγρικό κρέπα. Γεμισμένο με καρύδια, σοκολάτα και ρόμ. Σερβιρίζεται φλεγόμενο.
+                    </div>
+                    <div class="food-location">📍 Διαθέσιμο σε πολλά εστιατόρια</div>
+                    <div class="food-tip">
+                        💡 Ζητήστε το ως επιδόρπιο σε παραδοσιακά εστιατόρια
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Πρωινά -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-emoji">🍳</div>
+                <div class="category-title">Παραδοσιακά Πρωινά</div>
+            </div>
+            
+            <div class="food-grid">
+                <div class="food-card">
+                    <div class="food-name">
+                        Ουγγρικό Πρωινό
+                        <span class="food-type type-food">Παραδοσιακό</span>
+                    </div>
+                    <div class="food-description">
+                        Τοπικές προτάσεις: kolbász (λουκάνικο), szalonna (μπέικον), tojás (αβγά), paprika και φρέσκο ψωμί.
+                    </div>
+                    <div class="food-location">📍 Σε παραδοσιακά cafés</div>
+                    <div class="food-tip">
+                        💡 Ζητήστε "Magyar reggeli" για παραδοσιακό ουγγρικό πρωινό
+                    </div>
+                </div>
+                
+                <div class="food-card">
+                    <div class="food-name">
+                        Lángos
+                        <span class="food-type type-food">Σνακ</span>
+                    </div>
+                    <div class="food-description">
+                        Τηγανητό ζυμάρι που σερβίρεται με σметάνα, τυρί και σκόρδο. Τέλειο για γρήγορο σνακ οποιαδήποτε ώρα.
+                    </div>
+                    <div class="food-location">📍 Central Market Hall & πωλητές δρόμου</div>
+                    <div class="food-tip">
+                        💡 Κλασική έκδοση: σметάνα, τυρί και σκόρδο. Εξαιρετικό!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            BudaPortal &copy; 2025 by Nteman 👨‍💻
+        </div>
+    </div>
 </body>
 </html>
