@@ -1,10 +1,312 @@
 <!DOCTYPE html>
-<html>
+<html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://algebra1lykeiou.github.io/budapest/comming_soon.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal | Αξιοθέατα</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+            --map-color: #e74c3c;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+                --map-color: #ff6b6b;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 60px 0 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        .landmark-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 10px;
+        }
+        
+        .landmark-card {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 20px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .landmark-card:hover {
+            box-shadow: 0 6px 18px var(--shadow-color);
+            transform: translateY(-2px);
+        }
+        
+        .landmark-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .landmark-emoji {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .landmark-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+        
+        .landmark-description {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .maps-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--map-color);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .maps-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .landmark-card {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .landmark-card:nth-child(1) { animation-delay: 0.05s; }
+        .landmark-card:nth-child(2) { animation-delay: 0.1s; }
+        .landmark-card:nth-child(3) { animation-delay: 0.15s; }
+        .landmark-card:nth-child(4) { animation-delay: 0.2s; }
+        .landmark-card:nth-child(5) { animation-delay: 0.25s; }
+        .landmark-card:nth-child(6) { animation-delay: 0.3s; }
+        .landmark-card:nth-child(7) { animation-delay: 0.35s; }
+    </style>
 </head>
 <body>
-    <p>Ανακατεύθυνση... <a href="comming_soon.html">Κάντε κλικ εδώ αν δεν γίνεται αυτόματα</a></p>
+    <a href="javascript:history.back()" class="back-button">
+        <span>←</span>
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>Αξιοθέατα - Μουσεία - Μέρη</h1>
+            <p class="subtitle">Τα must-see της Βουδαπέστης 🏛️✨</p>
+        </header>
+        
+        <div class="landmark-grid">
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">🕍</div>
+                    <div>
+                        <div class="landmark-title">Dohány Street Synagogue</div>
+                        <div class="landmark-description">
+                            Λίγα λεπτά από Astoria. Εντυπωσιακό κτίριο & ιστορία.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Dohány+Street+Synagogue+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Άνοιγμα σε Maps
+                </a>
+            </div>
+            
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">🏛️</div>
+                    <div>
+                        <div class="landmark-title">Hungarian National Museum</div>
+                        <div class="landmark-description">
+                            Πολύ κοντά με τα πόδια. Ωραία για 1–2 ώρες.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Hungarian+National+Museum+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Maps
+                </a>
+            </div>
+            
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">👞</div>
+                    <div>
+                        <div class="landmark-title">Parliament & Shoes on the Danube</div>
+                        <div class="landmark-description">
+                            Must για φωτογραφίες & ιστορικό σημείο.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Shoes+on+the+Danube+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Maps
+                </a>
+            </div>
+            
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">🏰</div>
+                    <div>
+                        <div class="landmark-title">Buda Castle & Fisherman's Bastion</div>
+                        <div class="landmark-description">
+                            Κλασική postcard θέα. Πήγαινε πρωί ή golden hour.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Fisherman's+Bastion+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Maps
+                </a>
+            </div>
+            
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">🏞️</div>
+                    <div>
+                        <div class="landmark-title">Heroes' Square & City Park</div>
+                        <div class="landmark-description">
+                            Συνδυάζεται με Széchenyi Bath.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Heroes+Square+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Maps
+                </a>
+            </div>
+            
+            <div class="landmark-card">
+                <div class="landmark-header">
+                    <div class="landmark-emoji">🏝️</div>
+                    <div>
+                        <div class="landmark-title">Margaret Island</div>
+                        <div class="landmark-description">
+                            Νησί-πάρκο για χαλάρωση, τρέξιμο, βόλτα.
+                        </div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Margaret+Island+Budapest" class="maps-button" target="_blank">
+                    <span>🗺️</span> Maps
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            BudaPortal &copy; 2023 by Nteman
+        </div>
+    </div>
 </body>
 </html>
