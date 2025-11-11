@@ -184,6 +184,17 @@
             background: var(--bg-color);
             transform: scale(1.05);
         }
+
+        sup a {
+          text-decoration: none;
+          color: #555;
+          font-size: 0.75em;
+          vertical-align: super;
+        }
+        
+        sup a:hover {
+          color: #007bff;
+        }
     </style>
 </head>
 <body>
@@ -198,23 +209,23 @@
         </header>
         
         <div class="section">
-            <h2><span class="emoji">📄</span>Απαραίτητα έγγραφα</h2>
-            <ul>
-                <li>Ταυτότητα</li>
-                <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
-                <li>Revolut κάρτα I</li>
-                <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
-                <li>Κάρτα μετακινήσεων II</li>
-            </ul>
+          <h2><span class="emoji">📄</span>Απαραίτητα έγγραφα</h2>
+          <ul>
+            <li>Ταυτότητα</li>
+            <li>Boarding Pass (MONO μέσα από το app της Ryanair!)</li>
+            <li>Revolut κάρτα <sup><a href="#note1">I</a></sup></li>
+            <li>Ακαδημαϊκή ταυτότητα ή ISIC (ή European Youth Card)</li>
+            <li>Κάρτα μετακινήσεων <sup><a href="#note2">II</a></sup></li>
+          </ul>
         </div>
         
         <div class="section">
             <h2><span class="emoji">🎒</span>Αντικείμενα στο ταξίδι</h2>
             <ul>
-                <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
                 <li>Υγιεινή: σαμπουάν, αφρόλουτρο, οδοντόκρεμα, οδοντόβουρτσα, κολώνια, αποσμητικό,</li>
                 <li>Αξεσουάρ: καλώδιο, φορτιστής, powerbank, ακουστικά</li>
-                <li>Ρούχα: φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
+                <li>Ρούχα: σκουφί-γάντια, φούτερ, παντελόνια, εσώρουχα, κάλτσες, μπουφάν, ζακέτα, ισοθερμικό!</li>
+                <li>Γυαλιά (για εμάς τους τυφλούς) & γυαλιά ηλίου (μπααα...)</li>
             </ul>
         </div>
         
@@ -233,7 +244,7 @@
             </ul>
             
             <div class="note">
-                Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί α περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
+                Να την πάρω μαζί μου στην καμπίνα για ευκολία, ΟΧΙ check-in γιατί μπορεί να περιμένω πολύ ώρα όταν βγω από το αεροπλάνο για να την παραλάβω
             </div>
             
             <div class="warning">
@@ -246,7 +257,7 @@
         </div>
         
         <div class="section">
-            <h2><span class="emoji">📅</span>Πρόγραμμα</h2>
+            <h2><span class="emoji">📅</span>Προγραμματισμένες δραστηριότητες</h2>
             <div class="program">
                 <h3>Κρουαζιέρα στον Δούναβη</h3>
                 <p>23 Νοεμβρίου 2025 (15:00) – Εισιτήρια στο Apple Wallet</p>
@@ -254,22 +265,23 @@
         </div>
         
         <div class="section">
-            <h2><span class="emoji">💡</span>Σημειώσεις</h2>
-            <div class="note">
-                I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
-            </div>
-            
-            <div class="note">
-                II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
-                <br><br>
-                <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
-                <br><br>
-                <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
-            </div>
-            
-            <div class="warning">
-                * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
-            </div>
+          <h2><span class="emoji">💡</span>Σημειώσεις</h2>
+        
+          <div class="note" id="note1">
+            I. Προσέχω ότι μετατροπή σε συνάλλαγμα γίνεται Δευτέρα με Παρασκευή! (EUR → HUF)
+          </div>
+        
+          <div class="note" id="note2">
+            II. Καλό είναι να κάνω εγγραφή στο "Budapest Go" για να αγοράζω εύκολα εισιτήρια
+            <br><br>
+            <a href="https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share" class="link">Playstore: https://play.google.com/store/apps/details?id=hu.webvalto.bkkfutar&pcampaignid=web_share</a>
+            <br><br>
+            <a href="https://apps.apple.com/us/app/budapestgo/id916193835" class="link">App Store: https://apps.apple.com/us/app/budapestgo/id916193835</a>
+          </div>
+        
+          <div class="warning">
+            * Σε κάποια λίγα μέσα χρειάζεται μετρητά για την αγορά εισιτηρίου!
+          </div>
         </div>
         
         <div class="footer-note">
