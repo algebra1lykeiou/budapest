@@ -235,7 +235,7 @@
     <div class="container">
         <header>
             <h1>Πρόγραμμα Ταξιδιού</h1>
-            <p class="subtitle">Βουδαπέστη 🗓️✨</p>
+            <p class="subtitle">Βουδαπέστη 22-27 Νοεμβρίου 🗓️✨</p>
         </header>
         
         <!-- Timeline -->
@@ -251,12 +251,13 @@
     <script>
         // Timeline data - simply add new items here and they will be automatically sorted
         const timelineData = [
+            // 22 Νοεμβρίου - Άφιξη
             {
                 date: "22 Νοεμβρίου",
                 time: "05:00",
                 emoji: "🚌",
-                title: "Bus 214",
-                caption: "Δρομολόγια 5:00 και 5:20 από το σπίτι προς αεροδρόμιο"
+                title: "Bus 214 προς αεροδρόμιο",
+                caption: "Δρομολόγια 5:00 και 5:20 από το σπίτι"
             },
             {
                 date: "22 Νοεμβρίου", 
@@ -275,24 +276,33 @@
             {
                 date: "22 Νοεμβρίου",
                 time: "11:30",
-                emoji: "🚕", 
-                title: "Μεταφορά στο ξενοδοχείο",
-                caption: "Bolt taxi από αεροδρόμιο προς ξενοδοχείο\nΚόστος: ~15-20€"
+                emoji: "🚌", 
+                title: "Μεταφορά προς κέντρο",
+                caption: "100E Airport Express προς Kálvin tér / Astoria\nΓρήγορη πρόσβαση στην περιοχή καταλύματος"
             },
             {
                 date: "22 Νοεμβρίου",
-                time: "14:00",
+                time: "12:30",
                 emoji: "🏨",
                 title: "Check-in ξενοδοχείο",
-                caption: "Αφήγηση αποσκευών και ξεκούραση"
+                caption: "Άφησε βαλίτσες στη ρεσεψιόν αν δεν είναι έτοιμο το δωμάτιο\nCheck-in επίσημα στις 16:00"
             },
             {
                 date: "22 Νοεμβρίου", 
-                time: "15:30",
-                emoji: "🏛️",
-                title: "Κρουαζιέρα Δούναβη",
-                caption: "Κρουαζιέρα στον Δούναβη - Εισιτήρια στο Apple Wallet"
+                time: "16:00",
+                emoji: "🚶",
+                title: "Πρώτη γνωριμία με την πόλη",
+                caption: "Βόλτα γύρω από Astoria, Dohány Synagogue, Károlyi Kert\nΣυνέχισε προς Váci utca & παραποτάμια διαδρομή"
             },
+            {
+                date: "22 Νοεμβρίου",
+                time: "19:00", 
+                emoji: "🍽️",
+                title: "Βραδινό & θέα Parliament",
+                caption: "Φαγητό στο κέντρο (Pest)\nΘέα Parliament από Promenade\nΉρεμο κλείσιμο, ξεκούραση από το ταξίδι"
+            },
+
+            // 23 Νοεμβρίου - Pest Highlights
             {
                 date: "23 Νοεμβρίου",
                 time: "09:00", 
@@ -302,17 +312,165 @@
             },
             {
                 date: "23 Νοεμβρίου",
-                time: "11:00",
-                emoji: "🏰", 
-                title: "Παλάτι της Βουδαπέστης",
-                caption: "Επίσκεψη στο Παλάτι και τοποθεσίες γύρω από αυτό"
+                time: "10:00",
+                emoji: "⛪", 
+                title: "St. Stephen's Basilica",
+                caption: "Επίσκεψη στη Βασιλική & ταράτσα για πανοραμική θέα"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "11:30",
+                emoji: "🏛️",
+                title: "Parliament & Shoes on the Danube",
+                caption: "Περπάτημα προς Parliament & μνημείο Shoes on the Danube\nΙστορικό σημείο & φωτογραφίες"
+            },
+            {
+                date: "23 Νοεμβρίου", 
+                time: "14:30",
+                emoji: "🚢",
+                title: "Μετάβαση για κρουαζιέρα",
+                caption: "Προς αποβάθρα (κοντά Erzsébet / Chain Bridge)\nDock 7–10 ανάλογα την εταιρεία"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "15:00", 
+                emoji: "⛴️",
+                title: "Κρουαζιέρα Δούναβη",
+                caption: "Κρουαζιέρα στον Δούναβη 15:00–16:00\nΕισιτήρια στο Apple Wallet\nΚράτα χρόνο για επιβίβαση νωρίτερα"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "17:30",
+                emoji: "🌉", 
+                title: "Sunset στη Chain Bridge",
+                caption: "Βόλτα στη γέφυρα Chain Bridge κατά το ηλιοβασίλεμα"
+            },
+            {
+                date: "23 Νοεμβρίου",
+                time: "19:00",
+                emoji: "☕",
+                title: "Απογευματινό διάλειμμα",
+                caption: "Στάση σε καφέ ή ζαχαροπλαστείο\nΠεριοχή Deák Ferenc tér"
+            },
+
+            // 24 Νοεμβρίου - Buda Castle
+            {
+                date: "24 Νοεμβρίου",
+                time: "09:30", 
+                emoji: "🏰",
+                title: "Buda Castle",
+                caption: "Ανάβαση προς Buda Castle (πεζή ή με λεωφορείο)\nMatthias Church & Fisherman's Bastion"
             },
             {
                 date: "24 Νοεμβρίου",
-                time: "10:00",
+                time: "12:00",
+                emoji: "📸", 
+                title: "Φωτογραφίες & θέα",
+                caption: "Iconic θέα στη Pest από Fisherman's Bastion\nΤέλεια σημεία για φωτογραφίες"
+            },
+            {
+                date: "24 Νοεμβρίου",
+                time: "14:00",
+                emoji: "🍰",
+                title: "Διάλειμμα για καφέ",
+                caption: "Καφές/γλυκό στην περιοχή του Castle\nΑνάπαυση με θέα"
+            },
+            {
+                date: "24 Νοεμβρίου", 
+                time: "16:00",
                 emoji: "🌉",
-                title: "Γέφυρες του Δούναβη",
-                caption: "Περπάτημα στις γέφυρες και φωτογραφίες"
+                title: "Επιστροφή μέσω γεφυρών",
+                caption: "Επιστροφή μέσω Chain Bridge ή Liberty Bridge"
+            },
+            {
+                date: "24 Νοεμβρίου",
+                time: "20:00", 
+                emoji: "🍻",
+                title: "Βραδινό & nightlife",
+                caption: "Προαιρετικά: χαλαρή βόλτα σε ruin bar (Szimpla)\nΗ pub street κοντά στο Astoria"
+            },
+
+            // 25 Νοεμβρίου - Θερμά Λουτρά
+            {
+                date: "25 Νοεμβρίου",
+                time: "09:30", 
+                emoji: "🏞️",
+                title: "Heroes' Square & City Park",
+                caption: "Επίσκεψη στην Πλατεία Ηρώων\nΒόλτα στο City Park"
+            },
+            {
+                date: "25 Νοεμβρίου",
+                time: "11:00",
+                emoji: "♨️", 
+                title: "Széchenyi Thermal Bath",
+                caption: "Θερμά λουτρά Széchenyi\n2–3 ώρες χαλάρωση και αναζωογόνηση"
+            },
+            {
+                date: "25 Νοεμβρίου",
+                time: "15:00",
+                emoji: "🏰",
+                title: "Vajdahunyad Castle",
+                caption: "Βόλτα στο πάρκο\nΦωτογραφίες στο Vajdahunyad Castle"
+            },
+            {
+                date: "25 Νοεμβρίου", 
+                time: "19:00",
+                emoji: "🍽️",
+                title: "Βραδινό & βόλτα",
+                caption: "Δείπνο στο κέντρο\nΒόλτα με φωτισμένα κτίρια"
+            },
+
+            // 26 Νοεμβρίου - Margaret Island & Central Market
+            {
+                date: "26 Νοεμβρίου",
+                time: "09:00", 
+                emoji: "🛍️",
+                title: "Central Market Hall",
+                caption: "Σουβενίρ & τοπικά προϊόντα\nΓεύση ουγγρικών ειδών"
+            },
+            {
+                date: "26 Νοεμβρίου",
+                time: "12:00",
+                emoji: "🏝️", 
+                title: "Margaret Island",
+                caption: "Μετάβαση προς Margaret Island\nΒόλτα, πάρκο, χαλάρωση στο νησί"
+            },
+            {
+                date: "26 Νοεμβρίου",
+                time: "16:00",
+                emoji: "🔁",
+                title: "Ελεύθερος χρόνος",
+                caption: "Προσθέστε ό,τι αγαπήσατε & θέλετε να ξαναδείτε\nΕυελιξία ανάλογα με κούραση"
+            },
+            {
+                date: "26 Νοεμβρίου", 
+                time: "20:00",
+                emoji: "🌙",
+                title: "Νωρίς ύπνος",
+                caption: "Αναχώρηση την επόμενη μέρα\nΞεκούραση για πρωινή πτήση"
+            },
+
+            // 27 Νοεμβρίου - Αναχώρηση
+            {
+                date: "27 Νοεμβρίου",
+                time: "04:45", 
+                emoji: "🚗",
+                title: "Αναχώρηση προς αεροδρόμιο",
+                caption: "Αναχώρηση από Astoria περιοχή\n100E ή αντίστοιχη διαδρομή προς BUD"
+            },
+            {
+                date: "27 Νοεμβρίου",
+                time: "05:45",
+                emoji: "✈️", 
+                title: "Check-in αεροδρομίου",
+                caption: "Φτάσε στο BUD 2 ώρες πριν την πτήση\nCheck-in και ασφάλεια"
+            },
+            {
+                date: "27 Νοεμβρίου",
+                time: "07:55",
+                emoji: "🛫",
+                title: "Πτήση επιστροφής",
+                caption: "Αναχώρηση από Βουδαπέστη\nBUD → ATH"
             }
         ];
 
