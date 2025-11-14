@@ -6,11 +6,9 @@
     <title>BudaPortal</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Βασικό favicon για desktop browsers -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="site_logo.PNG">
-    <!-- Για iOS devices -->
     <link rel="apple-touch-icon" href="site_logo.PNG">
-    <!-- Για Android devices -->
     <link rel="icon" sizes="192x192" href="site_logo.PNG">
     <link rel="icon" sizes="128x128" href="site_logo.PNG">
     
@@ -21,19 +19,25 @@
             --text-color: #2c3e50;
             --subtitle-color: #7f8c8d;
             --border-color: #eaeaea;
-            --shadow-color: rgba(0, 0, 0, 0.06);
+            --shadow-color: rgba(0, 0, 0, 0.1);
             --footer-color: #95a5a6;
+            --button-gradient-1: linear-gradient(145deg, #ffffff, #f0f0f0);
+            --button-gradient-2: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            --divider-color: rgba(0, 0, 0, 0.05);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #0a1929;
-                --card-color: #132f4c;
+                --card-color: #1a2d42;
                 --text-color: #e3f2fd;
                 --subtitle-color: #a0c4e0;
-                --border-color: #1e4976;
-                --shadow-color: rgba(0, 0, 0, 0.2);
+                --border-color: #2a4a6e;
+                --shadow-color: rgba(0, 0, 0, 0.3);
                 --footer-color: #8bb5e0;
+                --button-gradient-1: linear-gradient(145deg, #1a2d42, #152536);
+                --button-gradient-2: linear-gradient(145deg, #152536, #0f1d2d);
+                --divider-color: rgba(255, 255, 255, 0.05);
             }
         }
 
@@ -65,52 +69,181 @@
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 8px;
             color: var(--text-color);
-            letter-spacing: -0.5px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--subtitle-color);
             font-weight: 500;
         }
         
-        .button-grid {
+        /* Πρώτη Γραμμή - 2 κουμπιά */
+        .first-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        /* Δεύτερη Γραμμή - 3 κουμπιά */
+        .second-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .quick-button {
+            background: var(--button-gradient-1);
+            border-radius: 20px;
+            padding: 20px 12px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100px;
+            position: relative;
+            box-shadow: 
+                8px 8px 16px var(--shadow-color),
+                -8px -8px 16px rgba(255, 255, 255, 0.1);
+        }
+        
+        .second-row .quick-button {
+            min-height: 90px;
+            padding: 16px 8px;
+        }
+        
+        .quick-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                12px 12px 24px var(--shadow-color),
+                -12px -12px 24px rgba(255, 255, 255, 0.1);
+        }
+        
+        .quick-button:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 
+                4px 4px 8px var(--shadow-color),
+                -4px -4px 8px rgba(255, 255, 255, 0.1);
+        }
+        
+        .quick-button .emoji {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .second-row .quick-button .emoji {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .quick-button:hover .emoji {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .button-description {
+            font-size: 0.8rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+        
+        /* Διαχωριστικό */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: var(--divider-color);
+        }
+        
+        .divider-text {
+            padding: 0 15px;
+            font-size: 0.85rem;
+            color: var(--subtitle-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        
+        /* Κάτω Μενού */
+        .main-buttons {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin-top: 10px;
         }
         
         .portal-button {
-            background: var(--card-color);
-            border-radius: 16px;
-            padding: 22px 24px;
+            background: var(--button-gradient-1);
+            border-radius: 20px;
+            padding: 22px 20px;
             color: var(--text-color);
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 12px var(--shadow-color);
-            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
             display: flex;
             align-items: center;
-            min-height: 85px;
+            min-height: 80px;
+            position: relative;
+            box-shadow: 
+                8px 8px 16px var(--shadow-color),
+                -8px -8px 16px rgba(255, 255, 255, 0.1);
         }
         
         .portal-button:hover {
-            box-shadow: 0 6px 18px var(--shadow-color);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                12px 12px 24px var(--shadow-color),
+                -12px -12px 24px rgba(255, 255, 255, 0.1);
+        }
+        
+        .portal-button:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 
+                4px 4px 8px var(--shadow-color),
+                -4px -4px 8px rgba(255, 255, 255, 0.1);
         }
         
         .portal-button .emoji {
             font-size: 2rem;
-            margin-right: 20px;
+            margin-right: 18px;
             width: 50px;
             text-align: center;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .portal-button:hover .emoji {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .portal-button-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
         
         .content-frame {
@@ -131,22 +264,26 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--card-color);
+            background: var(--button-gradient-1);
             color: var(--text-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             z-index: 101;
             cursor: pointer;
-            box-shadow: 0 2px 12px var(--shadow-color);
-            transition: all 0.2s ease;
-            border: 1px solid var(--border-color);
+            box-shadow: 
+                6px 6px 12px var(--shadow-color),
+                -6px -6px 12px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            border: none;
         }
         
         .back-button:hover {
-            background: var(--bg-color);
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 
+                8px 8px 16px var(--shadow-color),
+                -8px -8px 16px rgba(255, 255, 255, 0.1);
         }
         
         iframe {
@@ -157,16 +294,18 @@
         
         .footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9rem;
+            margin-top: 35px;
+            font-size: 0.85rem;
             color: var(--footer-color);
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
         }
         
-        /* Animation for buttons */
-        @keyframes fadeIn {
+        /* Animation */
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -174,62 +313,80 @@
             }
         }
         
-        .portal-button {
-            animation: fadeIn 0.4s ease forwards;
+        .quick-button, .portal-button {
+            animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
         
-        .portal-button:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-        
-        .portal-button:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-        
-        .portal-button:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-        
-        .portal-button:nth-child(4) {
-            animation-delay: 0.2s;
-        }
-        
-        .portal-button:nth-child(5) {
-            animation-delay: 0.25s;
-        }
+        .first-row .quick-button:nth-child(1) { animation-delay: 0.1s; }
+        .first-row .quick-button:nth-child(2) { animation-delay: 0.15s; }
+        .second-row .quick-button:nth-child(1) { animation-delay: 0.2s; }
+        .second-row .quick-button:nth-child(2) { animation-delay: 0.25s; }
+        .second-row .quick-button:nth-child(3) { animation-delay: 0.3s; }
+        .portal-button:nth-child(1) { animation-delay: 0.35s; }
+        .portal-button:nth-child(2) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>BudaPortal</h1>
-            <p class="subtitle">Οδηγός για τη Βουδαπέστη ✨</p>
+            <p class="subtitle">Τα πάντα για το ταξίδι σας ✈️</p>
         </header>
         
-        <div class="button-grid">
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/prep.html">
-                <div class="emoji">📚</div>
-                <span>Προετοιμασία</span>
-            </div>
-            
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/prog.html">
+        <!-- Πρώτη Γραμμή - 2 κουμπιά -->
+        <div class="first-row">
+            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/prog.html">
                 <div class="emoji">📅</div>
-                <span>Πρόγραμμα</span>
+                <div>Πρόγραμμα<br><span class="button-description">Τι κάνουμε τώρα;</span></div>
             </div>
             
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/landmarks.html">
+            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/landmarks.html">
                 <div class="emoji">🏛️</div>
-                <span>Αξιοθέατα - Μουσεία - Μέρη</span>
+                <div>Αξιοθέατα<br><span class="button-description">Πού θα πάμε;</span></div>
             </div>
-            
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/food.html">
+        </div>
+        
+        <!-- Δεύτερη Γραμμή - 3 κουμπιά -->
+        <div class="second-row">
+            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/food.html">
                 <div class="emoji">🍽️</div>
-                <span>Φαγητό - Πρωινό</span>
+                <div>Φαγητό<br><span class="button-description">Πού θα φάμε;</span></div>
             </div>
             
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/template">
-                <div class="emoji">✨</div>
-                <span>Επόμενο Κουμπί</span>
+            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/drink.html">
+                <div class="emoji">🍻</div>
+                <div>Ποτό<br><span class="button-description">Πού θα πιούμε;</span></div>
+            </div>
+            
+            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/breakfast.html">
+                <div class="emoji">☕</div>
+                <div>Πρωινό<br><span class="button-description">Πού θα φάμε πρωί;</span></div>
+            </div>
+        </div>
+        
+        <!-- Διαχωριστικό -->
+        <div class="section-divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">Πληροφορίες</div>
+            <div class="divider-line"></div>
+        </div>
+        
+        <!-- Κάτω Μενού -->
+        <div class="main-buttons">
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/apps.html">
+                <div class="emoji">📱</div>
+                <div class="portal-button-content">
+                    Χρήσιμα Apps
+                    <div class="button-description">Εφαρμογές για το ταξίδι</div>
+                </div>
+            </div>
+            
+            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/prep.html">
+                <div class="emoji">🎒</div>
+                <div class="portal-button-content">
+                    Προετοιμασία
+                    <div class="button-description">Έγγραφα, βαλίτσα, συμβουλές</div>
+                </div>
             </div>
         </div>
         
@@ -240,14 +397,14 @@
     
     <div class="content-frame" id="contentFrame">
         <div class="back-button" id="backButton">
-            <span class="emoji">←</span>
+            <span>←</span>
         </div>
         <iframe id="contentIframe"></iframe>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.portal-button');
+            const buttons = document.querySelectorAll('.portal-button, .quick-button');
             const contentFrame = document.getElementById('contentFrame');
             const contentIframe = document.getElementById('contentIframe');
             const backButton = document.getElementById('backButton');
@@ -255,7 +412,7 @@
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
                     const url = this.getAttribute('data-url');
-                    if (url && url !== '#') {
+                    if (url) {
                         contentIframe.src = url;
                         contentFrame.style.display = 'block';
                     }
@@ -265,6 +422,25 @@
             backButton.addEventListener('click', function() {
                 contentFrame.style.display = 'none';
                 contentIframe.src = '';
+            });
+
+            // Auto-close frame when clicking outside content (on mobile)
+            contentFrame.addEventListener('click', function(e) {
+                if (e.target === contentFrame) {
+                    contentFrame.style.display = 'none';
+                    contentIframe.src = '';
+                }
+            });
+
+            // Enhanced touch feedback
+            buttons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(2px) scale(0.98)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
             });
         });
     </script>
