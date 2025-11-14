@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BudaPortal | Φαγητό - Ποτό - Γλυκό</title>
+    <title>BudaPortal | Φαγητό</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -78,6 +78,54 @@
             font-weight: 500;
         }
         
+        /* Φίλτρα κατηγοριών */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-color: var(--card-color);
+            color: var(--text-color);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+        
+        .filter-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .filter-fastfood.active {
+            background-color: var(--food-color);
+        }
+        
+        .filter-coffee.active {
+            background-color: var(--coffee-color);
+        }
+        
+        .filter-meal.active {
+            background-color: var(--accent-color);
+        }
+        
+        .filter-all.active {
+            background-color: var(--subtitle-color);
+        }
+        
         .category-section {
             margin-bottom: 30px;
         }
@@ -119,11 +167,16 @@
             box-shadow: 0 2px 12px var(--shadow-color);
             border: 1px solid var(--border-color);
             position: relative;
+            cursor: pointer;
         }
         
         .food-card:hover {
             box-shadow: 0 6px 18px var(--shadow-color);
             transform: translateY(-2px);
+        }
+        
+        .food-card.expanded {
+            padding-bottom: 30px;
         }
         
         .food-name {
@@ -154,6 +207,16 @@
             margin-bottom: 12px;
         }
         
+        .food-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .food-card.expanded .food-details {
+            max-height: 500px;
+        }
+        
         .food-location {
             font-size: 0.9rem;
             color: var(--accent-color);
@@ -169,6 +232,18 @@
             background: rgba(0,0,0,0.03);
             border-radius: 8px;
             border-left: 3px solid var(--accent-color);
+            margin-bottom: 12px;
+        }
+        
+        .food-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: none;
+        }
+        
+        .food-card.expanded .food-image {
+            display: block;
         }
         
         .maps-button {
@@ -184,6 +259,14 @@
             font-size: 0.85rem;
             transition: all 0.2s ease;
             margin-top: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .food-card.expanded .maps-button {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .maps-button:hover {
@@ -245,6 +328,11 @@
         .food-card:nth-child(3) { animation-delay: 0.15s; }
         .food-card:nth-child(4) { animation-delay: 0.2s; }
         .food-card:nth-child(5) { animation-delay: 0.25s; }
+        
+        /* Κρυφά στοιχεία */
+        .food-card.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -254,286 +342,331 @@
     
     <div class="container">
         <header>
-            <h1>Φαγητό - Πρωινό - Ποτό</h1>
-            <p class="subtitle">Οι καλύτερες γευστικές εμπειρίες της Βουδαπέστης 🍽️✨</p>
+            <h1>Φαγητό</h1>
+            <p class="subtitle">Οι καλύτερες γευστικές εμπειρίες της Βουδαπέστης 🍽️</p>
         </header>
+        
+        <!-- Φίλτρα κατηγοριών -->
+        <div class="filter-container">
+            <button class="filter-btn filter-all active" data-filter="all">Όλα</button>
+            <button class="filter-btn filter-fastfood" data-filter="fastfood">Fast food</button>
+            <button class="filter-btn filter-coffee" data-filter="coffee">Καφές-γλυκό-πρωϊνό</button>
+            <button class="filter-btn filter-meal" data-filter="meal">Γεύμα</button>
+        </div>
         
         <!-- Καφέδες -->
         <div class="category-section">
-            <div class="category-header">
-                <div class="category-emoji">☕</div>
-                <div class="category-title">Καφέ & Πρωινό</div>
-            </div>
             
             <div class="food-grid">
-                <div class="food-card">
+                <div class="food-card" data-category="meal">
                     <div class="food-name">
-                        New York Café
-                        <span class="food-type type-coffee">Καφές</span>
+                        VAGON Étterem
+                        <span class="food-type type-coffee">Γεύμα</span>
                     </div>
                     <div class="food-description">
-                        Το "πιο όμορφο café στον κόσμο". Παλατιακό εσωτερικό, χρυσές διακοσμήσεις, ζωντανή μουσική. Ιδανικό για ειδική πρόταση ή πολυτελές πρωινό.
+                        Τρένο μεταφοράς στο πλάι του πάρκου μετατράπηκε σε ένα εστιατόριο, πραγματικά αυθεντικό
                     </div>
-                    <div class="food-location">📍 Erzsébet krt. 9-11 (κοντά στο Astoria)</div>
-                    <div class="food-tip">
-                        💡 Πηγαίνετε νωρίς το πρωί για να αποφύγετε τις ουρές. Τελειώστε με έναν παραδοσιακό καφέ "Bécsi"
-                    </div>
-                    <a href="https://maps.google.com/?q=New+York+Cafe+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        My Little Melbourne
-                        <span class="food-type type-coffee">Καφές</span>
-                    </div>
-                    <div class="food-description">
-                        Αυθεντικός Αυστραλιανός καφές, υπέροχη ατμόσφαιρα, φρέσκα πρωινά. Τοπική αγαπημένη για ποιοτικό καφέ.
-                    </div>
-                    <div class="food-location">📍 Madách Imre út 3 (κοντά Deák tér)</div>
-                    <div class="food-tip">
-                        💡 Δοκιμάστε τον φίλτρου καφέ τους και τα αυγά μπενέντικτ
-                    </div>
-                    <a href="https://maps.google.com/?q=My+Little+Melbourne+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Παραδοσιακό Φαγητό -->
-        <div class="category-section">
-            <div class="category-header">
-                <div class="category-emoji">🍲</div>
-                <div class="category-title">Παραδοσιακό Φαγητό</div>
-            </div>
-            
-            <div class="food-grid">
-                <div class="food-card">
-                    <div class="food-name">
-                        Gettó Gulyás
-                        <span class="food-type type-food">Ουγγρικό</span>
-                    </div>
-                    <div class="food-description">
-                        Αυθεντική ουγγρική κουζίνα σε χαλαρή ατμόσφαιρα. Δοκιμάστε το πραγματικό goulash, chicken paprikash και langos.
-                    </div>
-                    <div class="food-location">📍 Wesselényi u. 18 (Jewish Quarter)</div>
-                    <div class="food-tip">
-                        💡 Must: Goulash σούπα και παραδοσιακό λανγκος με σметάνα και τυρί
-                    </div>
-                    <a href="https://maps.google.com/?q=Gettó+Gulyás+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        Menza
-                        <span class="food-type type-food">Ουγγρικό</span>
-                    </div>
-                    <div class="food-description">
-                        Σύγχρονη ερμηνεία της ουγγρικής κουζίνας. Πολύ δημοφιλές, νεανική ατμόσφαιρα, εξαιρετική ποιότητα.
-                    </div>
-                    <div class="food-location">📍 Liszt Ferenc tér 2</div>
-                    <div class="food-tip">
-                        💡 Προτείνουμε: Duck liver (libamáj) και beef stew
-                    </div>
-                    <a href="https://maps.google.com/?q=Menza+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        Central Market Hall
-                        <span class="food-type type-food">Αγορά & Φαγητό</span>
-                    </div>
-                    <div class="food-description">
-                        Το μεγαλύτερο και πιο γνωστό εσωτερικό market. Φρέσκα προϊόντα, τοπικά εδέσματα, σουβενίρ και φαγητό στο χέρι.
-                    </div>
-                    <div class="food-location">📍 Vámház krt. 1-3</div>
-                    <div class="food-tip">
-                        💡 Δοκιμάστε λανγκος στον 1ο όροφο και αγοράστε πάπρικα και σαλάμι σουβενίρ
-                    </div>
-                    <a href="https://maps.google.com/?q=Central+Market+Hall+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Ποτό & Nightlife -->
-        <div class="category-section">
-            <div class="category-header">
-                <div class="category-emoji">🍻</div>
-                <div class="category-title">Ποτό & Nightlife</div>
-            </div>
-            
-            <div class="food-grid">
-                <div class="food-card">
-                    <div class="food-name">
-                        Szimpla Kert
-                        <span class="food-type type-drink">Ruin Bar</span>
-                    </div>
-                    <div class="food-description">
-                        Το πιο γνωστό ruin bar στον κόσμο! Βιομηχανικό στυλ, μοναδική ατμόσφαιρα, ποικιλία από μπύρες και κοκτέιλ.
-                    </div>
-                    <div class="food-location">📍 Kazinczy u. 14</div>
-                    <div class="food-tip">
-                        💡 Πηγαίνετε αργά το απόγευμα για καλύτερη ατμόσφαιρα. Δοκιμάστε τοπική μπύρα ή Unicum
-                    </div>
-                    <a href="https://maps.google.com/?q=Szimpla+Kert+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        Instant-Fogasház
-                        <span class="food-type type-drink">Ruin Bar Complex</span>
-                    </div>
-                    <div class="food-description">
-                        Τεράστιο συγκρότημα με πολλά δωμάτια, μπαρ και χορευτικά πάτωματα. Μία από τις μεγαλύτερες νυχτερινές επιλογές.
-                    </div>
-                    <div class="food-location">📍 Akácfa u. 51</div>
-                    <div class="food-tip">
-                        💡 Ιδανικό για νύχτα με φίλους. Πολλές μουσικές επιλογές υπό μία στέγη
-                    </div>
-                    <a href="https://maps.google.com/?q=Instant+Fogashaz+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        ϵμ Unicum
-                        <span class="food-type type-drink">Παραδοσιακό Ποτό</span>
-                    </div>
-                    <div class="food-description">
-                        Το εθνικό ποτό της Ουγγαρίας. Βότανο λικέρ με 40+ βότανα. Ισχυρή γεύση - είτε το αγαπάς είτε το μισείς!
-                    </div>
-                    <div class="food-location">📍 Διαθέσιμο σε όλα τα μπαρ</div>
-                    <div class="food-tip">
-                        💡 Δοκιμάστε το σαν digestif μετά το γεύμα. Προσπαθήστε τουλάχιστον μια φορά!
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipPW6ES1JVMABLqppGJCCglbL1oWQEkyfoiPvy6I=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <a href="https://share.google/bWKlrkYsWkG3MMIHT" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Γλυκά & Επιδόρπια -->
-        <div class="category-section">
-            <div class="category-header">
-                <div class="category-emoji">🍰</div>
-                <div class="category-title">Γλυκά & Επιδόρπια</div>
-            </div>
-            
-            <div class="food-grid">
-                <div class="food-card">
+
+                <div class="food-card" data-category="fastfood">
                     <div class="food-name">
-                        Gerbeaud Café
-                        <span class="food-type type-sweet">Ζαχαροπλαστείο</span>
+                        Lángosom Sütő utca
+                        <span class="food-type type-coffee">Fast food</span>
                     </div>
                     <div class="food-description">
-                        Ιστορικό café από 1858. Πολυτελές εσωτερικό, παραδοσιακά ουγγρικά γλυκά. Θρύλος της Βουδαπέστης.
+                        Lángos κλπ στο χέρι
                     </div>
-                    <div class="food-location">📍 Vörösmarty tér 7-8</div>
-                    <div class="food-tip">
-                        💡 Must: Dobos torte και Gerbeaud slice (παραδοσιακά ουγγρικά γλυκά)
-                    </div>
-                    <a href="https://maps.google.com/?q=Gerbeaud+Cafe+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        Ruszwurm Cukrászda
-                        <span class="food-type type-sweet">Ζαχαροπλαστείο</span>
-                    </div>
-                    <div class="food-description">
-                        Το παλαιότερο ζαχαροπλαστείο της Βουδαπέστης (1827). Μικρό και γοητευτικό, στο κάστρο της Βούδας.
-                    </div>
-                    <div class="food-location">📍 Szentháromság u. 7 (Buda Castle)</div>
-                    <div class="food-tip">
-                        💡 Δοκιμάστε την κρέμα Ruszwurm και το eszterházy torte
-                    </div>
-                    <a href="https://maps.google.com/?q=Ruszwurm+Budapest" class="maps-button" target="_blank">
-                        <span>🗺️</span> Maps
-                    </a>
-                </div>
-                
-                <div class="food-card">
-                    <div class="food-name">
-                        Kürtőskalács (Chimney Cake)
-                        <span class="food-type type-sweet">Δρόμου</span>
-                    </div>
-                    <div class="food-description">
-                        Παραδοσιακό γλυκό σε σχήμα καμινάδας. Ζυμάρι τυλιγμένο σε ξύλινο κύλινδρο, ψημένο και καλυμμένο με ζάχαρη.
-                    </div>
-                    <div class="food-location">📍 Πωλείται παντού (κυρίως Váci utca)</div>
-                    <div class="food-tip">
-                        💡 Ζητήστε με κανέλα και ζάχαρη. Τέλειο για βόλτα!
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSySeqRioEph9TXeFew-Mu4kQemJ3QsikU7i6DnYYjceI0iWkMVaELb65Kl-skyJRPvdRIC-6WwHwlyKhmtaXni9qh-sJE2ihdbmP7p8XaaZlt9xVshVQjnjIKMQF4BWjqiv1Ig5=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/JoaRHMf1vNxHizpo8" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
                     </div>
                 </div>
-                
-                <div class="food-card">
+
+                <div class="food-card" data-category="meal">
                     <div class="food-name">
-                        Gundel Palacsinta
-                        <span class="food-type type-sweet">Επιδόρπιο</span>
+                        Bombay Budapest
+                        <span class="food-type type-coffee">Γεύμα</span>
                     </div>
                     <div class="food-description">
-                        Το πιο διάσημο ουγγρικό κρέπα. Γεμισμένο με καρύδια, σοκολάτα και ρόμ. Σερβιρίζεται φλεγόμενο.
+                        Κυριλέ φαγητό
                     </div>
-                    <div class="food-location">📍 Διαθέσιμο σε πολλά εστιατόρια</div>
-                    <div class="food-tip">
-                        💡 Ζητήστε το ως επιδόρπιο σε παραδοσιακά εστιατόρια
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipNMXweJK9nA-qy7N_M-biYdOkFyfwPW4aBAXUmA=w408-h271-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/6fCfdpWBou5qppBc6" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Πρωινά -->
-        <div class="category-section">
-            <div class="category-header">
-                <div class="category-emoji">🍳</div>
-                <div class="category-title">Παραδοσιακά Πρωινά</div>
-            </div>
-            
-            <div class="food-grid">
-                <div class="food-card">
+
+                <div class="food-card" data-category="meal">
                     <div class="food-name">
-                        Ουγγρικό Πρωινό
-                        <span class="food-type type-food">Παραδοσιακό</span>
+                        Paprika Vendeglo
+                        <span class="food-type type-coffee">Γεύμα</span>
                     </div>
                     <div class="food-description">
-                        Τοπικές προτάσεις: kolbász (λουκάνικο), szalonna (μπέικον), tojás (αβγά), paprika και φρέσκο ψωμί.
+                        Παραδοσιακό φαγητό, απλό
                     </div>
-                    <div class="food-location">📍 Σε παραδοσιακά cafés</div>
-                    <div class="food-tip">
-                        💡 Ζητήστε "Magyar reggeli" για παραδοσιακό ουγγρικό πρωινό
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyVJHZRmEnWUiCSePBPtsIpGIsbsPuyDc7yEy9MgmAAv7LYjMr3HkuZ8jre9vzCyKvzguYk9CwInzl3ze3qlQNrQO-WYx7Pq54NenHW7X4LFXXHu7mO5uDAyfz67aMx-r_qwOT1yNFoMlpx=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/UNXMF7BewhrTdSXN9" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
                     </div>
                 </div>
-                
-                <div class="food-card">
+
+                <div class="food-card" data-category="meal">
                     <div class="food-name">
-                        Lángos
-                        <span class="food-type type-food">Σνακ</span>
+                        For Sale Pub
+                        <span class="food-type type-coffee">Γεύμα</span>
                     </div>
                     <div class="food-description">
-                        Τηγανητό ζυμάρι που σερβίρεται με σметάνα, τυρί και σκόρδο. Τέλειο για γρήγορο σνακ οποιαδήποτε ώρα.
+                        Παραδοσιακό φαγητό
                     </div>
-                    <div class="food-location">📍 Central Market Hall & πωλητές δρόμου</div>
-                    <div class="food-tip">
-                        💡 Κλασική έκδοση: σметάνα, τυρί και σκόρδο. Εξαιρετικό!
+                    <div class="food-details">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/70/66/24/for-sale-pub.jpg?w=1000&h=-1&s=1" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/Q3zwxtBpv9kTWynB7" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="coffee">
+                    <div class="food-name">
+                        Cookie Beacon Brunch
+                        <span class="food-type type-coffee">Καφές-γλυκό-πρωϊνό</span>
+                    </div>
+                    <div class="food-description">
+                        Τα καλύτερα μπισκότα της Ευρώπης
+                    </div>
+                    <div class="food-details">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/df/17/e4/sunlit.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/qpqYnVLVQVr9mEqB8" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="fastfood">
+                    <div class="food-name">
+                        Karavan - Food Fair
+                        <span class="food-type type-coffee">Fast food</span>
+                    </div>
+                    <div class="food-description">
+                        Βρώμικο παραδοσιακό
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwxfBuU4cpTfnsl76h78ZjqNWl1M_FUiwuF6AE1TZ7cxJwhif1fby9tFB3MFt2m297sQ2qbJ2uY3qSKanMfkIYmCgK6_-is_swQJ0O4SP-fVvnVy_L0Fmm6wOEy3anVuC_UURYJ=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/fVoovnRyJUKtaC7SA" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="fastfood">
+                    <div class="food-name">
+                        Langos Papi'
+                        <span class="food-type type-coffee">Fast food</span>
+                    </div>
+                    <div class="food-description">
+                        Ίσως το ΚΑΛΥΤΕΡΟ langos!!!
+                    </div>
+                    <div class="food-details">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/dd/be/38/store-front-view.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/8YEnyqi5gEynavG19" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="coffee">
+                    <div class="food-name">
+                        Cat Cafe
+                        <span class="food-type type-coffee">Καφές-γλυκό-πρωϊνό</span>
+                    </div>
+                    <div class="food-description">
+                        Καφές με γάτες!
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyibWfbDS-dXtrBWTWs6X7BEQvZZmcbsulOc-DBrcQToOHrK5LnhI9hFqeDSMc7uc0hMtPfbpcO1wm8iGvUn6C7U1yFbdyQ5ijeKBEWZYuijQ3Q_BKz90ybX3G2NooLRMXMetpj=w408-h306-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/vTWC54TXxpdCbUV6A" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="meal">
+                    <div class="food-name">
+                        Pintxo Budapest
+                        <span class="food-type type-coffee">Γεύμα</span>
+                    </div>
+                    <div class="food-description">
+                        Authentic tapas and pinchos bar in downtown Budapest,
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzrYcYb2hVjHMn7Mepy3LJeu6xSnHYHvk4LeR7mn4qSSuNJ9rj6quhku7oYn-SHpnGKUgCYf5I6ck_oCdtYSDu76lZ97gr7_Wo-naGm54n7hMhsGoqT2LKPpfGFxNB0C5wkY_n46Q=w408-h272-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/7tAt2rAkBWnU7vTR9" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="coffee">
+                    <div class="food-name">
+                        David's Kitchen Brunch
+                        <span class="food-type type-coffee">Καφές-γλυκό-πρωϊνό</span>
+                    </div>
+                    <div class="food-description">
+                        Artisanal Bakery
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipOfvIQiqKL8ZM903vmR9OlqaHVQUvAPtUQBe188=w480-h240-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/X5ApiemDeNPv9mcJA" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="coffee">
+                    <div class="food-name">
+                        Flatty Coffee Shop
+                        <span class="food-type type-coffee">Καφές-γλυκό-πρωϊνό</span>
+                    </div>
+                    <div class="food-description">
+                        Καφές και περίεργα ροφήματα
+                    </div>
+                    <div class="food-details">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/90/8c/ad/caption.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/tHJ9Bgxd7xv4xCTLA" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="coffee">
+                    <div class="food-name">
+                        Chimney Cake Kürtős Legenda
+                        <span class="food-type type-coffee">Καφές-γλυκό-πρωϊνό</span>
+                    </div>
+                    <div class="food-description">
+                        Καμινάδααααα!
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipNv0lgtk52TwaKe_FYc3VXVJylYXZAU5iM7hz92=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/gLz2NNMQLMPbcM427" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="fastfood">
+                    <div class="food-name">
+                        Smashy Burger
+                        <span class="food-type type-coffee">Fast food</span>
+                    </div>
+                    <div class="food-description">
+                        Το καλύτερο μπέργκερ ίσως
+                    </div>
+                    <div class="food-details">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2b/c8/10/caption.jpg?w=900&h=500&s=1" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/yYjGqrvFUb3G3R1A8" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="meal">
+                    <div class="food-name">
+                        Twentysix Budapest
+                        <span class="food-type type-coffee">Γεύμα</span>
+                    </div>
+                    <div class="food-description">
+                        Πολύ όμορφο μέρος για γεύμα
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipOFsc7loPgarno0_-RpQT5tlYyZSiZGBLW5ak9k=w408-h272-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/YZu128hzJpW4QJB66" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+
+                <div class="food-card" data-category="fastfood">
+                    <div class="food-name">
+                        Buddy's Burger
+                        <span class="food-type type-coffee">Fast food</span>
+                    </div>
+                    <div class="food-description">
+                        Το 2ο καλύτερο μπέργκερ ίσως?
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxvVfU22aZfgBLYMPHmK9XFQRl508cBSXnciT6LOn-b5bS81Tzt20s6sE7Dbs65H1k8o-sDgo5TyrhyhM_ua5YwOyZmhwp7cYZJs5V1OE-fqoNt6JLpVfcDS__iVhOjZmYKt_Jk-g=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/yHy1m74Qg99Ahygb9" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             BudaPortal &copy; 2025 by Nteman 👨‍💻
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const foodCards = document.querySelectorAll('.food-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Λειτουργία επέκτασης/σύμπτυξης καρτών
+            foodCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Close all other expanded cards
+                    foodCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('expanded')) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    
+                    // Toggle current card
+                    this.classList.toggle('expanded');
+                });
+            });
+            
+            // Λειτουργία φίλτρων
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Ενημέρωση ενεργού κουμπιού
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Εφαρμογή φίλτρου
+                    foodCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.classList.remove('hidden');
+                        } else {
+                            if (card.getAttribute('data-category') === filter) {
+                                card.classList.remove('hidden');
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
