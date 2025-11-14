@@ -19,6 +19,7 @@
             --coffee-color: #d35400;
             --drink-color: #9b59b6;
             --sweet-color: #f39c12;
+            --meal-color: #27ae60;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -35,6 +36,7 @@
                 --coffee-color: #ffa94d;
                 --drink-color: #cc99ff;
                 --sweet-color: #ffd93d;
+                --meal-color: #51cf66;
             }
         }
 
@@ -119,7 +121,7 @@
         }
         
         .filter-meal.active {
-            background-color: var(--accent-color);
+            background-color: var(--meal-color);
         }
         
         .filter-all.active {
@@ -195,10 +197,9 @@
             font-weight: 600;
         }
         
-        .type-food { background: var(--food-color); color: white; }
+        .type-fastfood { background: var(--food-color); color: white; }
         .type-coffee { background: var(--coffee-color); color: white; }
-        .type-drink { background: var(--drink-color); color: white; }
-        .type-sweet { background: var(--sweet-color); color: white; }
+        .type-meal { background: var(--meal-color); color: white; }
         
         .food-description {
             font-size: 0.95rem;
@@ -361,13 +362,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         VAGON Étterem
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Τρένο μεταφοράς στο πλάι του πάρκου μετατράπηκε σε ένα εστιατόριο, πραγματικά αυθεντικό
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipPW6ES1JVMABLqppGJCCglbL1oWQEkyfoiPvy6I=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipPW6ES1JVMABLqppGJCCglbL1oWQEkyfoiPvy6I=s680-w680-h510-rw" alt="VAGON Étterem" class="food-image">
                         <a href="https://share.google/bWKlrkYsWkG3MMIHT" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -377,13 +378,13 @@
                 <div class="food-card" data-category="fastfood">
                     <div class="food-name">
                         Lángosom Sütő utca
-                        <span class="food-type type-coffee">Fast food</span>
+                        <span class="food-type type-fastfood">Fast food</span>
                     </div>
                     <div class="food-description">
                         Lángos κλπ στο χέρι
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSySeqRioEph9TXeFew-Mu4kQemJ3QsikU7i6DnYYjceI0iWkMVaELb65Kl-skyJRPvdRIC-6WwHwlyKhmtaXni9qh-sJE2ihdbmP7p8XaaZlt9xVshVQjnjIKMQF4BWjqiv1Ig5=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSySeqRioEph9TXeFew-Mu4kQemJ3QsikU7i6DnYYjceI0iWkMVaELb65Kl-skyJRPvdRIC-6WwHwlyKhmtaXni9qh-sJE2ihdbmP7p8XaaZlt9xVshVQjnjIKMQF4BWjqiv1Ig5=s680-w680-h510-rw" alt="Lángosom Sütő utca" class="food-image">
                         <a href="https://maps.app.goo.gl/JoaRHMf1vNxHizpo8" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -393,13 +394,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         Bombay Budapest
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Κυριλέ φαγητό
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipNMXweJK9nA-qy7N_M-biYdOkFyfwPW4aBAXUmA=w408-h271-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipNMXweJK9nA-qy7N_M-biYdOkFyfwPW4aBAXUmA=w408-h271-k-no" alt="Bombay Budapest" class="food-image">
                         <a href="https://maps.app.goo.gl/6fCfdpWBou5qppBc6" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -409,13 +410,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         Paprika Vendeglo
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Παραδοσιακό φαγητό, απλό
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyVJHZRmEnWUiCSePBPtsIpGIsbsPuyDc7yEy9MgmAAv7LYjMr3HkuZ8jre9vzCyKvzguYk9CwInzl3ze3qlQNrQO-WYx7Pq54NenHW7X4LFXXHu7mO5uDAyfz67aMx-r_qwOT1yNFoMlpx=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyVJHZRmEnWUiCSePBPtsIpGIsbsPuyDc7yEy9MgmAAv7LYjMr3HkuZ8jre9vzCyKvzguYk9CwInzl3ze3qlQNrQO-WYx7Pq54NenHW7X4LFXXHu7mO5uDAyfz67aMx-r_qwOT1yNFoMlpx=w426-h240-k-no" alt="Paprika Vendeglo" class="food-image">
                         <a href="https://maps.app.goo.gl/UNXMF7BewhrTdSXN9" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -425,13 +426,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         For Sale Pub
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Παραδοσιακό φαγητό
                     </div>
                     <div class="food-details">
-                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/70/66/24/for-sale-pub.jpg?w=1000&h=-1&s=1" alt="New York Café" class="food-image">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/70/66/24/for-sale-pub.jpg?w=1000&h=-1&s=1" alt="For Sale Pub" class="food-image">
                         <a href="https://maps.app.goo.gl/Q3zwxtBpv9kTWynB7" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -447,7 +448,7 @@
                         Τα καλύτερα μπισκότα της Ευρώπης
                     </div>
                     <div class="food-details">
-                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/df/17/e4/sunlit.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/df/17/e4/sunlit.jpg?w=1000&h=600&s=1" alt="Cookie Beacon Brunch" class="food-image">
                         <a href="https://maps.app.goo.gl/qpqYnVLVQVr9mEqB8" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -457,13 +458,13 @@
                 <div class="food-card" data-category="fastfood">
                     <div class="food-name">
                         Karavan - Food Fair
-                        <span class="food-type type-coffee">Fast food</span>
+                        <span class="food-type type-fastfood">Fast food</span>
                     </div>
                     <div class="food-description">
                         Βρώμικο παραδοσιακό
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwxfBuU4cpTfnsl76h78ZjqNWl1M_FUiwuF6AE1TZ7cxJwhif1fby9tFB3MFt2m297sQ2qbJ2uY3qSKanMfkIYmCgK6_-is_swQJ0O4SP-fVvnVy_L0Fmm6wOEy3anVuC_UURYJ=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwxfBuU4cpTfnsl76h78ZjqNWl1M_FUiwuF6AE1TZ7cxJwhif1fby9tFB3MFt2m297sQ2qbJ2uY3qSKanMfkIYmCgK6_-is_swQJ0O4SP-fVvnVy_L0Fmm6wOEy3anVuC_UURYJ=w426-h240-k-no" alt="Karavan - Food Fair" class="food-image">
                         <a href="https://maps.app.goo.gl/fVoovnRyJUKtaC7SA" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -473,13 +474,13 @@
                 <div class="food-card" data-category="fastfood">
                     <div class="food-name">
                         Langos Papi'
-                        <span class="food-type type-coffee">Fast food</span>
+                        <span class="food-type type-fastfood">Fast food</span>
                     </div>
                     <div class="food-description">
                         Ίσως το ΚΑΛΥΤΕΡΟ langos!!!
                     </div>
                     <div class="food-details">
-                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/dd/be/38/store-front-view.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/dd/be/38/store-front-view.jpg?w=1000&h=600&s=1" alt="Langos Papi" class="food-image">
                         <a href="https://maps.app.goo.gl/8YEnyqi5gEynavG19" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -495,7 +496,7 @@
                         Καφές με γάτες!
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyibWfbDS-dXtrBWTWs6X7BEQvZZmcbsulOc-DBrcQToOHrK5LnhI9hFqeDSMc7uc0hMtPfbpcO1wm8iGvUn6C7U1yFbdyQ5ijeKBEWZYuijQ3Q_BKz90ybX3G2NooLRMXMetpj=w408-h306-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyibWfbDS-dXtrBWTWs6X7BEQvZZmcbsulOc-DBrcQToOHrK5LnhI9hFqeDSMc7uc0hMtPfbpcO1wm8iGvUn6C7U1yFbdyQ5ijeKBEWZYuijQ3Q_BKz90ybX3G2NooLRMXMetpj=w408-h306-k-no" alt="Cat Cafe" class="food-image">
                         <a href="https://maps.app.goo.gl/vTWC54TXxpdCbUV6A" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -505,13 +506,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         Pintxo Budapest
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Authentic tapas and pinchos bar in downtown Budapest,
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzrYcYb2hVjHMn7Mepy3LJeu6xSnHYHvk4LeR7mn4qSSuNJ9rj6quhku7oYn-SHpnGKUgCYf5I6ck_oCdtYSDu76lZ97gr7_Wo-naGm54n7hMhsGoqT2LKPpfGFxNB0C5wkY_n46Q=w408-h272-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzrYcYb2hVjHMn7Mepy3LJeu6xSnHYHvk4LeR7mn4qSSuNJ9rj6quhku7oYn-SHpnGKUgCYf5I6ck_oCdtYSDu76lZ97gr7_Wo-naGm54n7hMhsGoqT2LKPpfGFxNB0C5wkY_n46Q=w408-h272-k-no" alt="Pintxo Budapest" class="food-image">
                         <a href="https://maps.app.goo.gl/7tAt2rAkBWnU7vTR9" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -527,7 +528,7 @@
                         Artisanal Bakery
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipOfvIQiqKL8ZM903vmR9OlqaHVQUvAPtUQBe188=w480-h240-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipOfvIQiqKL8ZM903vmR9OlqaHVQUvAPtUQBe188=w480-h240-k-no" alt="David's Kitchen Brunch" class="food-image">
                         <a href="https://maps.app.goo.gl/X5ApiemDeNPv9mcJA" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -543,7 +544,7 @@
                         Καφές και περίεργα ροφήματα
                     </div>
                     <div class="food-details">
-                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/90/8c/ad/caption.jpg?w=1000&h=600&s=1" alt="New York Café" class="food-image">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/90/8c/ad/caption.jpg?w=1000&h=600&s=1" alt="Flatty Coffee Shop" class="food-image">
                         <a href="https://maps.app.goo.gl/tHJ9Bgxd7xv4xCTLA" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -559,7 +560,7 @@
                         Καμινάδααααα!
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipNv0lgtk52TwaKe_FYc3VXVJylYXZAU5iM7hz92=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipNv0lgtk52TwaKe_FYc3VXVJylYXZAU5iM7hz92=w426-h240-k-no" alt="Chimney Cake Kürtős Legenda" class="food-image">
                         <a href="https://maps.app.goo.gl/gLz2NNMQLMPbcM427" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -569,13 +570,13 @@
                 <div class="food-card" data-category="fastfood">
                     <div class="food-name">
                         Smashy Burger
-                        <span class="food-type type-coffee">Fast food</span>
+                        <span class="food-type type-fastfood">Fast food</span>
                     </div>
                     <div class="food-description">
                         Το καλύτερο μπέργκερ ίσως
                     </div>
                     <div class="food-details">
-                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2b/c8/10/caption.jpg?w=900&h=500&s=1" alt="New York Café" class="food-image">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/2b/c8/10/caption.jpg?w=900&h=500&s=1" alt="Smashy Burger" class="food-image">
                         <a href="https://maps.app.goo.gl/yYjGqrvFUb3G3R1A8" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -585,13 +586,13 @@
                 <div class="food-card" data-category="meal">
                     <div class="food-name">
                         Twentysix Budapest
-                        <span class="food-type type-coffee">Γεύμα</span>
+                        <span class="food-type type-meal">Γεύμα</span>
                     </div>
                     <div class="food-description">
                         Πολύ όμορφο μέρος για γεύμα
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/p/AF1QipOFsc7loPgarno0_-RpQT5tlYyZSiZGBLW5ak9k=w408-h272-k-no" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipOFsc7loPgarno0_-RpQT5tlYyZSiZGBLW5ak9k=w408-h272-k-no" alt="Twentysix Budapest" class="food-image">
                         <a href="https://maps.app.goo.gl/YZu128hzJpW4QJB66" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
@@ -601,13 +602,13 @@
                 <div class="food-card" data-category="fastfood">
                     <div class="food-name">
                         Buddy's Burger
-                        <span class="food-type type-coffee">Fast food</span>
+                        <span class="food-type type-fastfood">Fast food</span>
                     </div>
                     <div class="food-description">
                         Το 2ο καλύτερο μπέργκερ ίσως?
                     </div>
                     <div class="food-details">
-                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxvVfU22aZfgBLYMPHmK9XFQRl508cBSXnciT6LOn-b5bS81Tzt20s6sE7Dbs65H1k8o-sDgo5TyrhyhM_ua5YwOyZmhwp7cYZJs5V1OE-fqoNt6JLpVfcDS__iVhOjZmYKt_Jk-g=s680-w680-h510-rw" alt="New York Café" class="food-image">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxvVfU22aZfgBLYMPHmK9XFQRl508cBSXnciT6LOn-b5bS81Tzt20s6sE7Dbs65H1k8o-sDgo5TyrhyhM_ua5YwOyZmhwp7cYZJs5V1OE-fqoNt6JLpVfcDS__iVhOjZmYKt_Jk-g=s680-w680-h510-rw" alt="Buddy's Burger" class="food-image">
                         <a href="https://maps.app.goo.gl/yHy1m74Qg99Ahygb9" class="maps-button" target="_blank">
                             <span>🗺️</span> Maps
                         </a>
