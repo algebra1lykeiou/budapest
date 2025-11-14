@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal | Ποτό</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.06);
+            --footer-color: #95a5a6;
+            --accent-color: #3498db;
+            --food-color: #e74c3c;
+            --coffee-color: #d35400;
+            --drink-color: #9b59b6;
+            --sweet-color: #f39c12;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #132f4c;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #1e4976;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --accent-color: #4dabf7;
+                --food-color: #ff6b6b;
+                --coffee-color: #ffa94d;
+                --drink-color: #cc99ff;
+                --sweet-color: #ffd93d;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 60px 0 20px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        /* Φίλτρα κατηγοριών */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-color: var(--card-color);
+            color: var(--text-color);
+            box-shadow: 0 2px 6px var(--shadow-color);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+        
+        .filter-btn.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .filter-fastfood.active {
+            background-color: var(--food-color);
+        }
+        
+        .filter-coffee.active {
+            background-color: var(--coffee-color);
+        }
+        
+        .filter-meal.active {
+            background-color: var(--accent-color);
+        }
+        
+        .filter-all.active {
+            background-color: var(--subtitle-color);
+        }
+        
+        .category-section {
+            margin-bottom: 30px;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .category-emoji {
+            font-size: 2rem;
+            width: 50px;
+            text-align: center;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .food-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .food-card {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .food-card:hover {
+            box-shadow: 0 6px 18px var(--shadow-color);
+            transform: translateY(-2px);
+        }
+        
+        .food-card.expanded {
+            padding-bottom: 30px;
+        }
+        
+        .food-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .food-type {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        
+        .type-food { background: var(--food-color); color: rgb(255, 255, 255); }
+        .type-coffee { background: var(--coffee-color); color: white; }
+        .type-drink { background: var(--drink-color); color: white; }
+        .type-sweet { background: var(--sweet-color); color: white; }
+        
+        .food-description {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .food-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .food-card.expanded .food-details {
+            max-height: 500px;
+        }
+        
+        .food-location {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .food-tip {
+            font-size: 0.85rem;
+            color: var(--subtitle-color);
+            font-style: italic;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+            margin-bottom: 12px;
+        }
+        
+        .food-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: none;
+        }
+        
+        .food-card.expanded .food-image {
+            display: block;
+        }
+        
+        .maps-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .food-card.expanded .maps-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .maps-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--card-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 101;
+            cursor: pointer;
+            box-shadow: 0 2px 12px var(--shadow-color);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            background: var(--bg-color);
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--footer-color);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .food-card {
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .food-card:nth-child(1) { animation-delay: 0.05s; }
+        .food-card:nth-child(2) { animation-delay: 0.1s; }
+        .food-card:nth-child(3) { animation-delay: 0.15s; }
+        .food-card:nth-child(4) { animation-delay: 0.2s; }
+        .food-card:nth-child(5) { animation-delay: 0.25s; }
+        
+        /* Κρυφά στοιχεία */
+        .food-card.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">
+        <span>←</span>
+    </a>
+    
+    <div class="container">
+        <header>
+            <h1>Ποτό</h1>
+            <p class="subtitle">Επιλογές για να μερακλώσουμε 🥂</p>
+        </header>
+        
+        
+        <div class="category-section">
+            
+            <div class="food-grid">
+                <div class="food-card" data-category="meal">
+                    <div class="food-name">
+                        Szimpla Kert
+                    </div>
+                    <div class="food-description">
+                        Μπαροκατάσταση και ποτάκι - σαν να λέμε 'ΓΚΑΖΙ'
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipNecoSJc0FB8t45Y0x4rsXpWvIoYT2FcjuvpFvq=w426-h240-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/jY3FxmUu6nB2Wvbj6" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="category-section">
+            
+            <div class="food-grid">
+                <div class="food-card" data-category="meal">
+                    <div class="food-name">
+                        La Siesta Budapest
+                    </div>
+                    <div class="food-description">
+                        Μπαροκατάσταση - εξαιρετικές κριτικές
+                    </div>
+                    <div class="food-details">
+                        <img src="https://lh3.googleusercontent.com/p/AF1QipOBrE68iGpQsn0bsjJon1GGRVixZ_RIpe313MYX=w408-h272-k-no" alt="New York Café" class="food-image">
+                        <a href="https://maps.app.goo.gl/cWGZLmpzRoKjXkkN6" class="maps-button" target="_blank">
+                            <span>🗺️</span> Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            BudaPortal &copy; 2025 by Nteman 👨‍💻
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const foodCards = document.querySelectorAll('.food-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Λειτουργία επέκτασης/σύμπτυξης καρτών
+            foodCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Close all other expanded cards
+                    foodCards.forEach(otherCard => {
+                        if (otherCard !== card && otherCard.classList.contains('expanded')) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    
+                    // Toggle current card
+                    this.classList.toggle('expanded');
+                });
+            });
+            
+            // Λειτουργία φίλτρων
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // Ενημέρωση ενεργού κουμπιού
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Εφαρμογή φίλτρου
+                    foodCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.classList.remove('hidden');
+                        } else {
+                            if (card.getAttribute('data-category') === filter) {
+                                card.classList.remove('hidden');
+                            } else {
+                                card.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
