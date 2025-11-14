@@ -81,20 +81,12 @@
             font-weight: 500;
         }
         
-        /* Πρώτη Γραμμή - 2 κουμπιά */
+        /* Πρώτη Γραμμή - 4 κουμπιά */
         .first-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 20px;
-        }
-        
-        /* Δεύτερη Γραμμή - 3 κουμπιά */
-        .second-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 30px;
         }
         
         .quick-button {
@@ -119,11 +111,6 @@
                 -8px -8px 16px rgba(255, 255, 255, 0.1);
         }
         
-        .second-row .quick-button {
-            min-height: 90px;
-            padding: 16px 8px;
-        }
-        
         .quick-button:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 
@@ -143,11 +130,6 @@
             margin-bottom: 10px;
             filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
-        }
-        
-        .second-row .quick-button .emoji {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
         }
         
         .quick-button:hover .emoji {
@@ -319,11 +301,10 @@
         
         .first-row .quick-button:nth-child(1) { animation-delay: 0.1s; }
         .first-row .quick-button:nth-child(2) { animation-delay: 0.15s; }
-        .second-row .quick-button:nth-child(1) { animation-delay: 0.2s; }
-        .second-row .quick-button:nth-child(2) { animation-delay: 0.25s; }
-        .second-row .quick-button:nth-child(3) { animation-delay: 0.3s; }
-        .portal-button:nth-child(1) { animation-delay: 0.35s; }
-        .portal-button:nth-child(2) { animation-delay: 0.4s; }
+        .first-row .quick-button:nth-child(3) { animation-delay: 0.2s; }
+        .first-row .quick-button:nth-child(4) { animation-delay: 0.25s; }
+        .portal-button:nth-child(1) { animation-delay: 0.3s; }
+        .portal-button:nth-child(2) { animation-delay: 0.35s; }
     </style>
 </head>
 <body>
@@ -333,7 +314,7 @@
             <p class="subtitle">Τα πάντα για το ταξίδι σας ✈️</p>
         </header>
         
-        <!-- Πρώτη Γραμμή - 2 κουμπιά -->
+        <!-- Πρώτη Γραμμή - 4 κουμπιά -->
         <div class="first-row">
             <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/prog.html">
                 <div class="emoji">📅</div>
@@ -344,10 +325,7 @@
                 <div class="emoji">🏛️</div>
                 <div>Αξιοθέατα<br><span class="button-description">Πού θα πάμε;</span></div>
             </div>
-        </div>
-        
-        <!-- Δεύτερη Γραμμή - 3 κουμπιά -->
-        <div class="second-row">
+            
             <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/food.html">
                 <div class="emoji">🍽️</div>
                 <div>Φαγητό<br><span class="button-description">Πού θα φάμε;</span></div>
@@ -356,11 +334,6 @@
             <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/drink.html">
                 <div class="emoji">🍻</div>
                 <div>Ποτό<br><span class="button-description">Πού θα πιούμε;</span></div>
-            </div>
-            
-            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/breakfast.html">
-                <div class="emoji">☕</div>
-                <div>Πρωινό<br><span class="button-description">Πού θα φάμε πρωί;</span></div>
             </div>
         </div>
         
