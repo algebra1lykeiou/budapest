@@ -19,7 +19,7 @@
             --text-color: #2c3e50;
             --subtitle-color: #7f8c8d;
             --border-color: #eaeaea;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.08);
             --footer-color: #95a5a6;
             --button-gradient-1: linear-gradient(145deg, #ffffff, #f0f0f0);
             --button-gradient-2: linear-gradient(145deg, #f8f9fa, #e9ecef);
@@ -33,7 +33,7 @@
                 --text-color: #e3f2fd;
                 --subtitle-color: #a0c4e0;
                 --border-color: #2a4a6e;
-                --shadow-color: rgba(0, 0, 0, 0.3);
+                --shadow-color: rgba(0, 0, 0, 0.2);
                 --footer-color: #8bb5e0;
                 --button-gradient-1: linear-gradient(145deg, #1a2d42, #152536);
                 --button-gradient-2: linear-gradient(145deg, #152536, #0f1d2d);
@@ -107,28 +107,28 @@
             min-height: 100px;
             position: relative;
             box-shadow: 
-                8px 8px 16px var(--shadow-color),
-                -8px -8px 16px rgba(255, 255, 255, 0.1);
+                0 4px 12px var(--shadow-color),
+                0 2px 6px rgba(0, 0, 0, 0.05);
         }
         
         .quick-button:hover {
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 
-                12px 12px 24px var(--shadow-color),
-                -12px -12px 24px rgba(255, 255, 255, 0.1);
+                0 8px 20px var(--shadow-color),
+                0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
         .quick-button:active {
-            transform: translateY(2px) scale(0.98);
+            transform: translateY(1px) scale(0.99);
             box-shadow: 
-                4px 4px 8px var(--shadow-color),
-                -4px -4px 8px rgba(255, 255, 255, 0.1);
+                0 2px 6px var(--shadow-color),
+                0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         .quick-button .emoji {
             font-size: 2.2rem;
             margin-bottom: 10px;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
         }
         
@@ -191,22 +191,22 @@
             min-height: 80px;
             position: relative;
             box-shadow: 
-                8px 8px 16px var(--shadow-color),
-                -8px -8px 16px rgba(255, 255, 255, 0.1);
+                0 4px 12px var(--shadow-color),
+                0 2px 6px rgba(0, 0, 0, 0.05);
         }
         
         .portal-button:hover {
-            transform: translateY(-4px) scale(1.02);
+            transform: translateY(-2px) scale(1.02);
             box-shadow: 
-                12px 12px 24px var(--shadow-color),
-                -12px -12px 24px rgba(255, 255, 255, 0.1);
+                0 8px 20px var(--shadow-color),
+                0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
         .portal-button:active {
-            transform: translateY(2px) scale(0.98);
+            transform: translateY(1px) scale(0.99);
             box-shadow: 
-                4px 4px 8px var(--shadow-color),
-                -4px -4px 8px rgba(255, 255, 255, 0.1);
+                0 2px 6px var(--shadow-color),
+                0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         .portal-button .emoji {
@@ -214,7 +214,7 @@
             margin-right: 18px;
             width: 50px;
             text-align: center;
-            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
         }
         
@@ -255,8 +255,8 @@
             z-index: 101;
             cursor: pointer;
             box-shadow: 
-                6px 6px 12px var(--shadow-color),
-                -6px -6px 12px rgba(255, 255, 255, 0.1);
+                0 4px 12px var(--shadow-color),
+                0 2px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             border: none;
         }
@@ -264,8 +264,8 @@
         .back-button:hover {
             transform: scale(1.1);
             box-shadow: 
-                8px 8px 16px var(--shadow-color),
-                -8px -8px 16px rgba(255, 255, 255, 0.1);
+                0 6px 16px var(--shadow-color),
+                0 3px 8px rgba(0, 0, 0, 0.08);
         }
         
         iframe {
@@ -408,7 +408,7 @@
             // Enhanced touch feedback
             buttons.forEach(button => {
                 button.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(2px) scale(0.98)';
+                    this.style.transform = 'translateY(1px) scale(0.99)';
                 });
                 
                 button.addEventListener('touchend', function() {
