@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudaPortal - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="site_logo.PNG">
+    <link rel="apple-touch-icon" href="site_logo.PNG">
+    <link rel="icon" sizes="192x192" href="site_logo.PNG">
+    <link rel="icon" sizes="128x128" href="site_logo.PNG">
+    
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --footer-color: #95a5a6;
+            --button-gradient-1: linear-gradient(145deg, #ffffff, #f0f0f0);
+            --button-gradient-2: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            --divider-color: rgba(0, 0, 0, 0.05);
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0a1929;
+                --card-color: #1a2d42;
+                --text-color: #e3f2fd;
+                --subtitle-color: #a0c4e0;
+                --border-color: #2a4a6e;
+                --shadow-color: rgba(0, 0, 0, 0.2);
+                --footer-color: #8bb5e0;
+                --button-gradient-1: linear-gradient(145deg, #1a2d42, #152536);
+                --button-gradient-2: linear-gradient(145deg, #152536, #0f1d2d);
+                --divider-color: rgba(255, 255, 255, 0.05);
+                --error-color: #e74c3c;
+                --success-color: #2ecc71;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.5;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        .login-card {
+            background: var(--card-color);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: 
+                0 8px 25px var(--shadow-color),
+                0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            font-weight: 500;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        label {
+            font-size: 0.9rem;
+            color: var(--subtitle-color);
+            font-weight: 600;
+        }
+        
+        input {
+            background: var(--button-gradient-1);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px 18px;
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        input:focus {
+            border-color: var(--subtitle-color);
+            box-shadow: 0 0 0 3px rgba(127, 140, 141, 0.1);
+        }
+        
+        .login-button {
+            background: var(--button-gradient-1);
+            border-radius: 16px;
+            padding: 18px;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            margin-top: 10px;
+            box-shadow: 
+                0 4px 12px var(--shadow-color),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 20px var(--shadow-color),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .login-button:active {
+            transform: translateY(1px);
+            box-shadow: 
+                0 2px 6px var(--shadow-color),
+                0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 10px;
+            min-height: 20px;
+            font-weight: 600;
+        }
+        
+        .guest-info {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            background: var(--button-gradient-2);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: var(--subtitle-color);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 0.85rem;
+            color: var(--footer-color);
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* Welcome Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background: var(--card-color);
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.2),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .modal-message {
+            font-size: 1rem;
+            color: var(--subtitle-color);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-button {
+            background: var(--button-gradient-1);
+            border-radius: 16px;
+            padding: 16px 30px;
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 
+                0 4px 12px var(--shadow-color),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 20px var(--shadow-color),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-card {
+            animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <header>
+                <h1>BudaPortal</h1>
+                <p class="subtitle">Συνδέσου για να συνεχίσεις 🔐</p>
+            </header>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username">Όνομα χρήστη</label>
+                    <input type="text" id="username" placeholder="Εισήγαγε το username σου" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Κωδικός πρόσβασης</label>
+                    <input type="password" id="password" placeholder="Εισήγαγε τον κωδικό σου" required>
+                </div>
+                
+                <button type="submit" class="login-button">
+                    Σύνδεση 🚀
+                </button>
+                
+                <div class="error-message" id="errorMessage"></div>
+            </form>
+            
+            <div class="guest-info">
+                <strong>Guest πρόσβαση:</strong><br>
+                Username: <code>guest</code> | Password: <code>1234</code>
+            </div>
+            
+            <div class="footer">
+                BudaPortal &copy; 2025 by Nteman 👨‍💻
+            </div>
+        </div>
+    </div>
+    
+    <!-- Welcome Modal -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal">
+            <div class="modal-emoji">👋</div>
+            <div class="modal-title">Καλωσήρθες Επισκέπτη!</div>
+            <div class="modal-message">Απολαμβάνεις πρόσβαση στο BudaPortal με guest λογαριασμό.</div>
+            <button class="modal-button" id="continueButton">Συνέχεια 🎉</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const welcomeModal = document.getElementById('welcomeModal');
+            const continueButton = document.getElementById('continueButton');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Clear previous error
+                errorMessage.textContent = '';
+                
+                // Check credentials
+                if (username === 'guest' && password === '1234') {
+                    // Show welcome modal
+                    welcomeModal.classList.add('active');
+                } else {
+                    errorMessage.textContent = 'Λάθος όνομα χρήστη ή κωδικός!';
+                }
+            });
+            
+            continueButton.addEventListener('click', function() {
+                // Redirect to main site
+                window.location.href = 'https://algebra1lykeiou.github.io/budapest';
+            });
+            
+            // Close modal if clicked outside
+            welcomeModal.addEventListener('click', function(e) {
+                if (e.target === welcomeModal) {
+                    welcomeModal.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
