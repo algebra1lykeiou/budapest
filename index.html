@@ -24,6 +24,9 @@
             --button-gradient-1: linear-gradient(145deg, #ffffff, #f0f0f0);
             --button-gradient-2: linear-gradient(145deg, #f8f9fa, #e9ecef);
             --divider-color: rgba(0, 0, 0, 0.05);
+            --accent-color: #3498db;
+            --accent-gradient: linear-gradient(135deg, #3498db, #2980b9);
+            --today-color: #27ae60;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -38,6 +41,9 @@
                 --button-gradient-1: linear-gradient(145deg, #1a2d42, #152536);
                 --button-gradient-2: linear-gradient(145deg, #152536, #0f1d2d);
                 --divider-color: rgba(255, 255, 255, 0.05);
+                --accent-color: #4dabf7;
+                --accent-gradient: linear-gradient(135deg, #4dabf7, #339af0);
+                --today-color: #2ecc71;
             }
         }
 
@@ -52,7 +58,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             min-height: 100vh;
-            padding: 20px;
+            padding: 20px 20px 80px 20px;
             line-height: 1.5;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -81,23 +87,222 @@
             font-weight: 500;
         }
         
-        /* Πρώτη Γραμμή - 4 κουμπιά */
-        .first-row {
+        /* Next Activity Card */
+        .next-activity-card {
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: white;
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .next-activity-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(52, 152, 219, 0.4);
+        }
+        
+        .next-activity-card.today {
+            background: linear-gradient(135deg, var(--today-color), #219653);
+        }
+        
+        .next-activity-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+        }
+        
+        .next-activity-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .next-activity-label .emoji {
+            font-size: 1rem;
+        }
+        
+        .next-activity-time {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .next-activity-time .emoji {
+            font-size: 1.8rem;
+        }
+        
+        .next-activity-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .next-activity-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .activity-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* Quick Stats */
+        .quick-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--subtitle-color);
+            font-weight: 600;
+        }
+        
+        /* Welcome Message */
+        .welcome-message {
+            background: var(--card-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+        
+        .welcome-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .welcome-subtext {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            line-height: 1.4;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-color);
+            border-top: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: var(--subtitle-color);
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 60px;
+        }
+        
+        .nav-button.active {
+            color: var(--accent-color);
+            background: var(--button-gradient-1);
+        }
+        
+        .nav-button .emoji {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+        
+        .nav-button .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            color: var(--accent-color);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        /* Food & Drink Submenu */
+        .submenu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             margin-bottom: 20px;
         }
         
-        .quick-button {
+        .submenu-button {
             background: var(--button-gradient-1);
-            border-radius: 20px;
-            padding: 20px 12px;
+            border-radius: 16px;
+            padding: 20px 15px;
             color: var(--text-color);
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s ease;
             border: none;
             display: flex;
             flex-direction: column;
@@ -105,182 +310,60 @@
             justify-content: center;
             text-align: center;
             min-height: 100px;
-            position: relative;
-            box-shadow: 
-                0 4px 12px var(--shadow-color),
-                0 2px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
         
-        .quick-button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 8px 20px var(--shadow-color),
-                0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .quick-button:active {
-            transform: translateY(1px) scale(0.99);
-            box-shadow: 
-                0 2px 6px var(--shadow-color),
-                0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-        
-        .quick-button .emoji {
-            font-size: 2.2rem;
+        .submenu-button .emoji {
+            font-size: 2rem;
             margin-bottom: 10px;
-            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
-            transition: transform 0.3s ease;
         }
         
-        .quick-button:hover .emoji {
-            transform: scale(1.1) rotate(5deg);
+        .submenu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
         
-        .button-description {
-            font-size: 0.8rem;
-            color: var(--subtitle-color);
-            font-weight: 500;
-            margin-top: 4px;
-            opacity: 0.9;
+        /* More Section */
+        .more-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
         
-        /* Διαχωριστικό */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 25px 0;
-            position: relative;
-        }
-        
-        .divider-line {
-            flex: 1;
-            height: 1px;
-            background: var(--divider-color);
-        }
-        
-        .divider-text {
-            padding: 0 15px;
-            font-size: 0.85rem;
-            color: var(--subtitle-color);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-        }
-        
-        /* Κάτω Μενού */
-        .main-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .portal-button {
+        .more-button {
             background: var(--button-gradient-1);
-            border-radius: 20px;
-            padding: 22px 20px;
+            border-radius: 16px;
+            padding: 20px 15px;
             color: var(--text-color);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: none;
-            display: flex;
-            align-items: center;
-            min-height: 80px;
-            position: relative;
-            box-shadow: 
-                0 4px 12px var(--shadow-color),
-                0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .portal-button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 8px 20px var(--shadow-color),
-                0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .portal-button:active {
-            transform: translateY(1px) scale(0.99);
-            box-shadow: 
-                0 2px 6px var(--shadow-color),
-                0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-        
-        .portal-button .emoji {
-            font-size: 2rem;
-            margin-right: 18px;
-            width: 50px;
-            text-align: center;
-            filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
-            transition: transform 0.3s ease;
-        }
-        
-        .portal-button:hover .emoji {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
-        .portal-button-content {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        
-        .content-frame {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--card-color);
-            z-index: 100;
-            display: none;
-        }
-        
-        .back-button {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--button-gradient-1);
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            z-index: 101;
-            cursor: pointer;
-            box-shadow: 
-                0 4px 12px var(--shadow-color),
-                0 2px 6px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
             border: none;
-        }
-        
-        .back-button:hover {
-            transform: scale(1.1);
-            box-shadow: 
-                0 6px 16px var(--shadow-color),
-                0 3px 8px rgba(0, 0, 0, 0.08);
-        }
-        
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-top: 35px;
-            font-size: 0.85rem;
-            color: var(--footer-color);
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
+            min-height: 100px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        
+        .more-button .emoji {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .more-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+        
+        .divider {
+            grid-column: 1 / -1;
+            height: 1px;
+            background: var(--divider-color);
+            margin: 10px 0;
         }
         
         /* Animation */
@@ -295,126 +378,340 @@
             }
         }
         
-        .quick-button, .portal-button {
-            animation: fadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        .next-activity-card, .stat-card, .welcome-message {
+            animation: fadeInUp 0.5s ease forwards;
         }
-        
-        .first-row .quick-button:nth-child(1) { animation-delay: 0.1s; }
-        .first-row .quick-button:nth-child(2) { animation-delay: 0.15s; }
-        .first-row .quick-button:nth-child(3) { animation-delay: 0.2s; }
-        .first-row .quick-button:nth-child(4) { animation-delay: 0.25s; }
-        .portal-button:nth-child(1) { animation-delay: 0.3s; }
-        .portal-button:nth-child(2) { animation-delay: 0.35s; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>BudaPortal</h1>
-            <p class="subtitle">Τα πάντα για το ταξίδι σας ✈️</p>
-        </header>
-        
-        <!-- Πρώτη Γραμμή - 4 κουμπιά -->
-        <div class="first-row">
-            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/prog.html">
-                <div class="emoji">📅</div>
-                <div>Πρόγραμμα<br><span class="button-description">Τι κάνουμε τώρα;</span></div>
+        <!-- Αρχική Σελίδα -->
+        <div id="home-section" class="content-section active">
+            <header>
+                <h1>BudaPortal</h1>
+                <p class="subtitle">Καλώς ήρθατε στη Βουδαπέστη! 🇭🇺</p>
+            </header>
+            
+            <!-- Επόμενη Δραστηριότητα -->
+            <div class="next-activity-card" id="next-activity" onclick="openExternalPage('prog')">
+                <div class="next-activity-label">
+                    <span id="next-label">Επόμενη Δραστηριότητα</span>
+                </div>
+                <div class="next-activity-time">
+                    <span class="emoji" id="next-emoji">🚌</span>
+                    <span id="next-time">--:--</span>
+                </div>
+                <div class="next-activity-title" id="next-title">Φόρτωση...</div>
+                <div class="next-activity-description" id="next-description">Γίνεται φόρτωση των πληροφοριών</div>
+                <div class="activity-date" id="next-date">22 Νοεμβρίου</div>
             </div>
             
-            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/landmarks.html">
-                <div class="emoji">🏛️</div>
-                <div>Αξιοθέατα<br><span class="button-description">Πού θα πάμε;</span></div>
-            </div>
-            
-            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/food.html">
-                <div class="emoji">🍽️</div>
-                <div>Φαγητό<br><span class="button-description">Πού θα φάμε;</span></div>
-            </div>
-            
-            <div class="quick-button" data-url="https://algebra1lykeiou.github.io/budapest/drink.html">
-                <div class="emoji">🍻</div>
-                <div>Ποτό<br><span class="button-description">Πού θα πιούμε;</span></div>
-            </div>
-        </div>
-        
-        <!-- Διαχωριστικό -->
-        <div class="section-divider">
-            <div class="divider-line"></div>
-            <div class="divider-text">Πληροφορίες</div>
-            <div class="divider-line"></div>
-        </div>
-        
-        <!-- Κάτω Μενού -->
-        <div class="main-buttons">
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/apps.html">
-                <div class="emoji">📱</div>
-                <div class="portal-button-content">
-                    Χρήσιμα Apps
-                    <div class="button-description">Εφαρμογές για το ταξίδι</div>
+            <!-- Γρήγορα Στατιστικά -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="days-count">6</div>
+                    <div class="stat-label">Μέρες Ταξίδι</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="activities-count">28</div>
+                    <div class="stat-label">Δραστηριότητες</div>
                 </div>
             </div>
             
-            <div class="portal-button" data-url="https://algebra1lykeiou.github.io/budapest/prep.html">
-                <div class="emoji">🎒</div>
-                <div class="portal-button-content">
-                    Προετοιμασία
-                    <div class="button-description">Έγγραφα, βαλίτσα, συμβουλές</div>
-                </div>
+            <!-- Welcome Message -->
+            <div class="welcome-message">
+                <div class="welcome-emoji">✨</div>
+                <div class="welcome-text">Καλό ταξίδι!</div>
+                <div class="welcome-subtext">Απολαύστε κάθε στιγμή της Βουδαπέστης με το BudaPortal ως οδηγό σας</div>
             </div>
         </div>
         
-        <div class="footer">
-            BudaPortal &copy; 2025 by Nteman 👨‍💻
+        <!-- Φαγητό-Ποτό Σελίδα -->
+        <div id="food-drink-section" class="content-section">
+            <header>
+                <h1>Φαγητό & Ποτό</h1>
+                <p class="subtitle">Γεύσεις της Βουδαπέστης 🍽️</p>
+            </header>
+            
+            <div class="submenu">
+                <button class="submenu-button" onclick="openExternalPage('food')">
+                    <div class="emoji">🍽️</div>
+                    <div>Φαγητό</div>
+                </button>
+                
+                <button class="submenu-button" onclick="openExternalPage('drink')">
+                    <div class="emoji">🍻</div>
+                    <div>Ποτό</div>
+                </button>
+            </div>
+            
+            <div class="welcome-message">
+                <div class="welcome-emoji">🍴</div>
+                <div class="welcome-text">Ουγγρική Κουζίνα</div>
+                <div class="welcome-subtext">Δοκιμάστε τα τοπικά εδέσματα και ποτά. Goulash, Langos, και τοπικές μπύρες!</div>
+            </div>
+        </div>
+        
+        <!-- Περισσότερα Σελίδα -->
+        <div id="more-section" class="content-section">
+            <header>
+                <h1>Περισσότερα</h1>
+                <p class="subtitle">Όλες οι πληροφορίες 📚</p>
+            </header>
+            
+            <div class="more-grid">
+                <button class="more-button" onclick="openExternalPage('prog')">
+                    <div class="emoji">📅</div>
+                    <div>Πρόγραμμα</div>
+                </button>
+                
+                <button class="more-button" onclick="openExternalPage('landmarks')">
+                    <div class="emoji">🏛️</div>
+                    <div>Αξιοθέατα</div>
+                </button>
+                
+                <button class="more-button" onclick="openExternalPage('food')">
+                    <div class="emoji">🍽️</div>
+                    <div>Φαγητό</div>
+                </button>
+                
+                <button class="more-button" onclick="openExternalPage('drink')">
+                    <div class="emoji">🍻</div>
+                    <div>Ποτό</div>
+                </button>
+                
+                <div class="divider"></div>
+                
+                <button class="more-button" onclick="openExternalPage('apps')">
+                    <div class="emoji">📱</div>
+                    <div>Χρήσιμα Apps</div>
+                </button>
+                
+                <button class="more-button" onclick="openExternalPage('prep')">
+                    <div class="emoji">🎒</div>
+                    <div>Προετοιμασία</div>
+                </button>
+            </div>
         </div>
     </div>
     
-    <div class="content-frame" id="contentFrame">
-        <div class="back-button" id="backButton">
-            <span>←</span>
-        </div>
-        <iframe id="contentIframe"></iframe>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-button active" onclick="showSection('home')">
+            <div class="emoji">🏠</div>
+            <div class="label">Αρχική</div>
+        </button>
+        
+        <button class="nav-button" onclick="openExternalPage('prog')">
+            <div class="emoji">📅</div>
+            <div class="label">Πρόγραμμα</div>
+        </button>
+        
+        <button class="nav-button" onclick="showSection('food-drink')">
+            <div class="emoji">🍽️</div>
+            <div class="label">Φαγητό-Ποτό</div>
+        </button>
+        
+        <button class="nav-button" onclick="openExternalPage('landmarks')">
+            <div class="emoji">🏛️</div>
+            <div class="label">Αξιοθέατα</div>
+        </button>
+        
+        <button class="nav-button" onclick="showSection('more')">
+            <div class="emoji">⋯</div>
+            <div class="label">Περισσότερα</div>
+        </button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.portal-button, .quick-button');
-            const contentFrame = document.getElementById('contentFrame');
-            const contentIframe = document.getElementById('contentIframe');
-            const backButton = document.getElementById('backButton');
-            
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const url = this.getAttribute('data-url');
-                    if (url) {
-                        contentIframe.src = url;
-                        contentFrame.style.display = 'block';
-                    }
-                });
-            });
-            
-            backButton.addEventListener('click', function() {
-                contentFrame.style.display = 'none';
-                contentIframe.src = '';
-            });
+        // Timeline data from prog.html
+        const timelineData = [
+            // 22 Νοεμβρίου - Άφιξη
+            { date: "22 Νοεμβρίου", time: "05:00", emoji: "🚌", title: "Bus 214 προς αεροδρόμιο", caption: "Δρομολόγια 5:00 και 5:20 από το σπίτι" },
+            { date: "22 Νοεμβρίου", time: "05:45", emoji: "✈️", title: "Check-in Αεροδρομίου", caption: "Check-in και ασφάλεια - τουλάχιστον 2.5 ώρες πριν την πτήση" },
+            { date: "22 Νοεμβρίου", time: "09:55", emoji: "🛫", title: "ATH → BUD", caption: "Πτήση FR 1242 (Ryanair) - Αναχώρηση: 09:55 EET" },
+            { date: "22 Νοεμβρίου", time: "11:30", emoji: "🚌", title: "Μεταφορά προς κέντρο", caption: "100E Airport Express προς Kálvin tér / Astoria" },
+            { date: "22 Νοεμβρίου", time: "12:30", emoji: "🏨", title: "Check-in ξενοδοχείο", caption: "Άφησε βαλίτσες στη ρεσεψιόν" },
+            { date: "22 Νοεμβρίου", time: "16:00", emoji: "🚶", title: "Πρώτη γνωριμία με την πόλη", caption: "Βόλτα γύρω από Astoria και παραποτάμια διαδρομή" },
+            { date: "22 Νοεμβρίου", time: "19:00", emoji: "🍽️", title: "Βραδινό & θέα Parliament", caption: "Φαγητό στο κέντρο (Pest)" },
 
-            // Auto-close frame when clicking outside content (on mobile)
-            contentFrame.addEventListener('click', function(e) {
-                if (e.target === contentFrame) {
-                    contentFrame.style.display = 'none';
-                    contentIframe.src = '';
-                }
-            });
+            // 23 Νοεμβρίου - Pest Highlights
+            { date: "23 Νοεμβρίου", time: "09:00", emoji: "🍽️", title: "Πρωινό", caption: "Πρωινό σε τοπικό café" },
+            { date: "23 Νοεμβρίου", time: "10:00", emoji: "⛪", title: "St. Stephen's Basilica", caption: "Επίσκεψη στη Βασιλική & ταράτσα" },
+            { date: "23 Νοεμβρίου", time: "11:30", emoji: "🏛️", title: "Parliament & Shoes on the Danube", caption: "Περπάτημα προς Parliament" },
+            { date: "23 Νοεμβρίου", time: "14:30", emoji: "🚢", title: "Μετάβαση για κρουαζιέρα", caption: "Προς αποβάθρα (κοντά Erzsébet / Chain Bridge)" },
+            { date: "23 Νοεμβρίου", time: "15:00", emoji: "⛴️", title: "Κρουαζιέρα Δούναβη", caption: "Κρουαζιέρα στον Δούναβη 15:00–16:00" },
+            { date: "23 Νοεμβρίου", time: "17:30", emoji: "🌉", title: "Sunset στη Chain Bridge", caption: "Βόλτα στη γέφυρα Chain Bridge" },
+            { date: "23 Νοεμβρίου", time: "19:00", emoji: "☕", title: "Απογευματινό διάλειμμα", caption: "Στάση σε καφέ ή ζαχαροπλαστείο" },
 
-            // Enhanced touch feedback
-            buttons.forEach(button => {
-                button.addEventListener('touchstart', function() {
-                    this.style.transform = 'translateY(1px) scale(0.99)';
-                });
+            // 24 Νοεμβρίου - Buda Castle
+            { date: "24 Νοεμβρίου", time: "09:30", emoji: "🏰", title: "Buda Castle", caption: "Ανάβαση προς Buda Castle" },
+            { date: "24 Νοεμβρίου", time: "12:00", emoji: "📸", title: "Φωτογραφίες & θέα", caption: "Iconic θέα στη Pest από Fisherman's Bastion" },
+            { date: "24 Νοεμβρίου", time: "14:00", emoji: "🍰", title: "Διάλειμμα για καφέ", caption: "Καφές/γλυκό στην περιοχή του Castle" },
+            { date: "24 Νοεμβρίου", time: "16:00", emoji: "🌉", title: "Επιστροφή μέσω γεφυρών", caption: "Επιστροφή μέσω Chain Bridge ή Liberty Bridge" },
+            { date: "24 Νοεμβρίου", time: "20:00", emoji: "🍻", title: "Βραδινό & nightlife", caption: "Προαιρετικά: χαλαρή βόλτα σε ruin bar" },
+
+            // 25 Νοεμβρίου - Θερμά Λουτρά
+            { date: "25 Νοεμβρίου", time: "09:30", emoji: "🏞️", title: "Heroes' Square & City Park", caption: "Επίσκεψη στην Πλατεία Ηρώων" },
+            { date: "25 Νοεμβρίου", time: "11:00", emoji: "♨️", title: "Széchenyi Thermal Bath", caption: "Θερμά λουτρά Széchenyi" },
+            { date: "25 Νοεμβρίου", time: "15:00", emoji: "🏰", title: "Vajdahunyad Castle", caption: "Βόλτα στο πάρκο" },
+            { date: "25 Νοεμβρίου", time: "19:00", emoji: "🍽️", title: "Βραδινό & βόλτα", caption: "Δείπνο στο κέντρο" },
+
+            // 26 Νοεμβρίου - Margaret Island & Central Market
+            { date: "26 Νοεμβρίου", time: "09:00", emoji: "🛍️", title: "Central Market Hall", caption: "Σουβενίρ & τοπικά προϊόντα" },
+            { date: "26 Νοεμβρίου", time: "12:00", emoji: "🏝️", title: "Margaret Island", caption: "Μετάβαση προς Margaret Island" },
+            { date: "26 Νοεμβρίου", time: "16:00", emoji: "🔁", title: "Ελεύθερος χρόνος", caption: "Προσθέστε ό,τι αγαπήσατε & θέλετε να ξαναδείτε" },
+            { date: "26 Νοεμβρίου", time: "20:00", emoji: "🌙", title: "Νωρίς ύπνος", caption: "Αναχώρηση την επόμενη μέρα" },
+
+            // 27 Νοεμβρίου - Αναχώρηση
+            { date: "27 Νοεμβρίου", time: "04:45", emoji: "🚗", title: "Αναχώρηση προς αεροδρόμιο", caption: "Αναχώρηση από Astoria περιοχή" },
+            { date: "27 Νοεμβρίου", time: "05:45", emoji: "✈️", title: "Check-in αεροδρομίου", caption: "Φτάσε στο BUD 2 ώρες πριν την πτήση" },
+            { date: "27 Νοεμβρίου", time: "07:55", emoji: "🛫", title: "Πτήση επιστροφής", caption: "Αναχώρηση από Βουδαπέστη" }
+        ];
+
+        // Navigation functions
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section and activate button
+            document.getElementById(section + '-section').classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function openExternalPage(page) {
+            const urls = {
+                'prog': 'https://algebra1lykeiou.github.io/budapest/prog.html',
+                'landmarks': 'https://algebra1lykeiou.github.io/budapest/landmarks.html',
+                'food': 'https://algebra1lykeiou.github.io/budapest/food.html',
+                'drink': 'https://algebra1lykeiou.github.io/budapest/drink.html',
+                'apps': 'https://algebra1lykeiou.github.io/budapest/apps.html',
+                'prep': 'https://algebra1lykeiou.github.io/budapest/prep.html'
+            };
+            
+            if (urls[page]) {
+                window.location.href = urls[page];
+            }
+        }
+
+        // Next activity calculation with days/hours
+        function updateNextActivity() {
+            const now = new Date();
+            const currentDate = now.toLocaleDateString('el-GR');
+            const currentTime = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            
+            // Convert Greek month names for date comparison
+            const monthMap = {
+                'Ιανουαρίου': '01', 'Φεβρουαρίου': '02', 'Μαρτίου': '03', 'Απριλίου': '04',
+                'Μαΐου': '05', 'Ιουνίου': '06', 'Ιουλίου': '07', 'Αυγούστου': '08',
+                'Σεπτεμβρίου': '09', 'Οκτωβρίου': '10', 'Νοεμβρίου': '11', 'Δεκεμβρίου': '12'
+            };
+            
+            // Find the next activity
+            let nextActivity = null;
+            let daysUntil = 0;
+            let isToday = false;
+            
+            for (const activity of timelineData) {
+                // Convert Greek date to comparable format
+                const [day, monthGreek] = activity.date.split(' ');
+                const month = monthMap[monthGreek];
+                const activityDate = `2025-${month}-${day.padStart(2, '0')}`;
                 
-                button.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                });
-            });
+                // Compare dates and times
+                const currentDateISO = now.toISOString().split('T')[0];
+                
+                if (activityDate > currentDateISO) {
+                    // Future date
+                    const activityDateTime = new Date(`2025-${month}-${day.padStart(2, '0')}T${activity.time}`);
+                    const timeDiff = activityDateTime - now;
+                    daysUntil = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+                    nextActivity = activity;
+                    break;
+                } else if (activityDate === currentDateISO && activity.time > currentTime) {
+                    // Today, future time
+                    nextActivity = activity;
+                    isToday = true;
+                    break;
+                }
+            }
+            
+            // If no next activity found, show first activity or message
+            if (!nextActivity) {
+                document.getElementById('next-label').textContent = 'Ταξίδι Ολοκληρώθηκε';
+                document.getElementById('next-emoji').textContent = '🎉';
+                document.getElementById('next-time').textContent = '00:00';
+                document.getElementById('next-title').textContent = 'Επιστροφή Σπίτι';
+                document.getElementById('next-description').textContent = 'Το ταξίδι στη Βουδαπέστη ολοκληρώθηκε!';
+                document.getElementById('next-date').textContent = '';
+                document.getElementById('next-activity').classList.remove('today');
+                return;
+            }
+            
+            // Update DOM based on whether it's today or future
+            const nextCard = document.getElementById('next-activity');
+            const nextTime = document.getElementById('next-time');
+            const nextLabel = document.getElementById('next-label');
+            
+            if (isToday) {
+                // Activity is today
+                nextCard.classList.add('today');
+                nextLabel.innerHTML = '<span class="emoji">📅</span> Σήμερα';
+                nextTime.textContent = nextActivity.time;
+            } else {
+                // Activity is in future days
+                nextCard.classList.remove('today');
+                nextLabel.innerHTML = `<span class="emoji">⏰</span> Σε ${daysUntil} ${daysUntil === 1 ? 'μέρα' : 'μέρες'}`;
+                nextTime.textContent = nextActivity.time;
+            }
+            
+            document.getElementById('next-emoji').textContent = nextActivity.emoji;
+            document.getElementById('next-title').textContent = nextActivity.title;
+            document.getElementById('next-description').textContent = nextActivity.caption;
+            document.getElementById('next-date').textContent = nextActivity.date;
+        }
+
+        // Calculate trip statistics
+        function updateTripStats() {
+            const startDate = new Date('2025-11-22');
+            const endDate = new Date('2025-11-27');
+            const now = new Date();
+            
+            // Calculate days until trip or days passed
+            let daysCount;
+            if (now < startDate) {
+                // Trip hasn't started
+                const timeDiff = startDate - now;
+                daysCount = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            } else if (now > endDate) {
+                // Trip ended
+                daysCount = 0;
+            } else {
+                // Trip in progress
+                const timeDiff = endDate - now;
+                daysCount = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            }
+            
+            document.getElementById('days-count').textContent = daysCount;
+            document.getElementById('activities-count').textContent = timelineData.length;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNextActivity();
+            updateTripStats();
+            
+            // Update every minute
+            setInterval(updateNextActivity, 60000);
+            // Update stats every hour
+            setInterval(updateTripStats, 3600000);
         });
     </script>
 </body>
