@@ -381,6 +381,87 @@
         .next-activity-card, .stat-card, .welcome-message {
             animation: fadeInUp 0.5s ease forwards;
         }
+
+        /* Notification Modal Styles */
+        .notification-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification-content {
+            background: var(--card-color);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.4s ease;
+        }
+
+        .notification-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .notification-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        .notification-message {
+            font-size: 0.95rem;
+            color: var(--subtitle-color);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .notification-button {
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .notification-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -527,6 +608,18 @@
             <div class="emoji">⋯</div>
             <div class="label">Περισσότερα</div>
         </button>
+    </div>
+
+    <!-- Notification Modal -->
+    <div id="viennaNotification" class="notification-modal">
+        <div class="notification-content">
+            <div class="notification-emoji">🚌</div>
+            <div class="notification-title">Πρόταση Εκδρομής</div>
+            <div class="notification-message">
+                Οργάνωσε επίσκεψη στην Βιέννη μιας και είναι πολύ κοντά στην Βουδαπέστη με FLIXBUS!
+            </div>
+            <button class="notification-button" onclick="closeNotification()">Κλείσιμο</button>
+        </div>
     </div>
 
     <script>
@@ -710,10 +803,43 @@
             document.getElementById('activities-count').textContent = timelineData.length;
         }
 
+        // Vienna Notification Functionality
+        function showViennaNotification() {
+            const today = new Date();
+            // Check if today is November 21, 2025
+            if (today.getFullYear() === 2025 && 
+                today.getMonth() === 10 && // November is month 10 (0-indexed)
+                today.getDate() === 21) {
+                
+                // Show notification after a short delay when site loads
+                setTimeout(() => {
+                    const modal = document.getElementById('viennaNotification');
+                    if (modal) {
+                        modal.style.display = 'flex';
+                    }
+                }, 1000); // 1 second delay after page load
+            }
+        }
+
+        function closeNotification() {
+            const modal = document.getElementById('viennaNotification');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal when clicking outside the content
+        document.getElementById('viennaNotification').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNotification();
+            }
+        });
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             updateNextActivity();
             updateTripStats();
+            showViennaNotification();
             
             // Update every minute
             setInterval(updateNextActivity, 60000);
