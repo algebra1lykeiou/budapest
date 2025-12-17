@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Πολιτικό Πολ: Προγραμματικές Θέσεις</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 25px 15px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #2d5cc2 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .intro-note {
+            background-color: #e8f4fc;
+            border-left: 4px solid #2d5cc2;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .question-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .question-number {
+            display: inline-block;
+            background-color: #2d5cc2;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .question-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a3a8f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-text {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #444;
+            padding-left: 10px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .option:hover {
+            background-color: #f0f5ff;
+        }
+        
+        .option.selected {
+            border-color: #2d5cc2;
+            background-color: #f0f5ff;
+        }
+        
+        .option-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #aaa;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .option.selected .option-circle {
+            border-color: #2d5cc2;
+            background-color: #2d5cc2;
+        }
+        
+        .option.selected .option-circle::after {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        
+        .option-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .thinking-note {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 15px;
+            text-align: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .save-btn {
+            background: linear-gradient(to right, #1a3a8f, #2d5cc2);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(26, 58, 143, 0.3);
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(26, 58, 143, 0.4);
+        }
+        
+        .save-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2d5cc2;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .question-title {
+                font-size: 1.1rem;
+            }
+            
+            .option {
+                padding: 12px;
+            }
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            height: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #2d5cc2, #1a3a8f);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Προγραμματικές Θέσεις – Θεμελιώδεις Αρχές</h1>
+        <div class="subtitle">Πάρτε μια στιγμή να σκεφτείτε πριν απαντήσετε σε κάθε ερώτηση</div>
+    </div>
+    
+    <div class="intro-note">
+        Αυτό το πολ αφορά τις βασικές προγραμματικές θέσεις. Παρακαλώ διαβάστε προσεκτικά κάθε θέση και σκεφτείτε την άποψή σας προτού απαντήσετε. Οι απαντήσεις σας θα αποθηκευτούν τοπικά στη συσκευή σας.
+    </div>
+    
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">0/10 ερωτήσεις απαντήθηκαν</div>
+    
+    <div id="questionsContainer">
+        <!-- Εδώ θα εισαχθούν οι ερωτήσεις μέσω JavaScript -->
+    </div>
+    
+    <div class="buttons">
+        <button class="save-btn" id="saveBtn">Αποθήκευση Απαντήσεων</button>
+    </div>
+    
+    <div class="notification" id="notification">Οι απαντήσεις σας αντιγράφηκαν στο πρόχειρο!</div>
+    
+    <script>
+        // Δεδομένα ερωτήσεων
+        const questions = [
+            {
+                id: 1,
+                title: "Ισχυρό Κοινωνικό Κράτος",
+                text: "Προτεραιότητα αποτελεί η οικοδόμηση ενός ισχυρού και αξιόπιστου κοινωνικού κράτους, με καθολική κρατική μέριμνα, δωρεάν, ποιοτική και ισότιμη ιατροφαρμακευτική περίθαλψη για όλους, αύξηση μισθών ιατρών και υγειονομικού προσωπικού."
+            },
+            {
+                id: 2,
+                title: "Παιδεία – Εκπαίδευση – Γνώση",
+                text: "Δωρεάν και ισότιμη πρόσβαση στην εκπαίδευση σε όλα τα επίπεδα, σύγχρονες υποδομές, ψηφιακός μετασχηματισμός, νέο εκπαιδευτικό σύστημα που προάγει κριτική σκέψη. Στην τριτοβάθμια: επαναφορά ΤΕΙ, δωρεάν δημόσια πανεπιστήμια, λιγότερα και ποιοτικότερα πανεπιστήμια."
+            },
+            {
+                id: 3,
+                title: "Άμεση Δημοκρατία & Συμμετοχή",
+                text: "Θεσμός μηχανισμών άμεσης δημοκρατίας: δημοψηφίσματα για κρίσιμα θέματα, δυνατότητα ασφαλούς ψηφιακής ψήφου από το σπίτι, συμμετοχή πολιτών σε εθνικό και δημοτικό επίπεδο. Ο πολίτης ως ενεργός συμμέτοχος στη λήψη αποφάσεων."
+            },
+            {
+                id: 4,
+                title: "Στήριξη Περιφέρειας – Αποσυμφόρηση Αθήνας",
+                text: "Επανεγκατάσταση πληθυσμού στην επαρχία μέσω αυξημένων χρηματοδοτήσεων, δημιουργίας θέσεων εργασίας, ενίσχυσης υποδομών και μετακινήσεων. Νέο αναπτυξιακό όραμα όπου η Αθήνα δεν απορροφά δυσανάλογα τους πόρους της χώρας."
+            },
+            {
+                id: 5,
+                title: "Δίκαιη και Προοδευτική Φορολογία",
+                text: "Προοδευτικό φορολογικό σύστημα όπου ο φόρος αυξάνεται αναλογικά με το εισόδημα, τα υψηλά εισοδήματα συνεισφέρουν περισσότερο, τα πρόστιμα υπολογίζονται βάσει οικονομικής δυνατότητας. Προνομιακή φορολόγηση για νέες και καινοτόμες επιχειρήσεις."
+            },
+            {
+                id: 6,
+                title: "Δημόσια Διοίκηση – Γραφειοκρατία",
+                text: "Ουσιαστική κατάργηση γραφειοκρατίας μέσω ψηφιοποίησης και αναδιοργάνωσης του κράτους. Μείωση δημοσίων υπαλλήλων μέσω αξιολόγησης και φυσικής αποχώρησης. Επαναφορά του 13ου και 14ου μισθού ως μέτρο κοινωνικής δικαιοσύνης."
+            },
+            {
+                id: 7,
+                title: "Κοινωνική Δημοκρατία – Πράσινη Μετάβαση",
+                text: "Πολιτικό πλαίσιο βασισμένο στην κοινωνική δημοκρατία και προοδευτικό ρεαλισμό. Έμφαση σε πράσινες μετακινήσεις, ριζική βελτίωση των μεταφορών σε Αθήνα και Θεσσαλονίκη, μείωση χρήσης ΙΧ. Στόχος: βιώσιμες πόλεις με περισσότερα πεζοδρόμια και πράσινους χώρους."
+            },
+            {
+                id: 8,
+                title: "Δικαιοσύνη & Θεσμοί",
+                text: "Δικαιοσύνη για το παρόν και παρελθόν με πλήρη λογοδοσία. Κατάργηση του πολιτικού ασύλου, ώστε κανείς να μην βρίσκεται υπεράνω του νόμου."
+            },
+            {
+                id: 9,
+                title: "Μεταναστευτική Πολιτική",
+                text: "Υποστήριξη ελεγχόμενων συνόρων με απόλυτη ασφάλεια, σεβασμό στη νομιμότητα και αποδοχή νόμιμων μεταναστών που εντάσσονται και εργάζονται στη χώρα."
+            },
+            {
+                id: 10,
+                title: "Πολιτικό Σύστημα – Διαφάνεια",
+                text: "Δραστική μείωση κομματικών χρηματοδοτήσεων, μισθών πολιτικών, προνομίων και δωρεάν παροχών. Ο πολιτικός ως λειτουργός της Δημοκρατίας και όχι προνομιούχος εις βάρος του πολίτη."
+            }
+        ];
+        
+        // Κατάσταση των απαντήσεων
+        let answers = {};
+        
+        // Αρχικοποίηση της εφαρμογής
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQuestions();
+            updateProgress();
+            
+            // Κουμπί αποθήκευσης
+            document.getElementById('saveBtn').addEventListener('click', saveAnswers);
+        });
+        
+        // Απόδοση ερωτήσεων στην οθόνη
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            questions.forEach(question => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                
+                questionCard.innerHTML = `
+                    <div class="question-title">
+                        <span class="question-number">${question.id}</span>
+                        ${question.title}
+                    </div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="thinking-note">Πάρτε μια στιγμή να σκεφτείτε πριν απαντήσετε</div>
+                    <div class="options">
+                        <div class="option" data-question="${question.id}" data-value="agree">
+                            <div class="option-circle"></div>
+                            <div class="option-text">Συμφωνώ</div>
+                        </div>
+                        <div class="option" data-question="${question.id}" data-value="disagree">
+                            <div class="option-circle"></div>
+                            <div class="option-text">Διαφωνώ</div>
+                        </div>
+                        <div class="option" data-question="${question.id}" data-value="neutral">
+                            <div class="option-circle"></div>
+                            <div class="option-text">Ουδέτερη/Ουδέτερη στάση</div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(questionCard);
+            });
+            
+            // Προσθήκη event listeners για επιλογές
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionId = this.getAttribute('data-question');
+                    const value = this.getAttribute('data-value');
+                    
+                    // Αποθήκευση απάντησης
+                    answers[questionId] = value;
+                    
+                    // Ενημέρωση εμφάνισης επιλογών
+                    updateOptionDisplay(questionId, value);
+                    
+                    // Ενημέρωση προόδου
+                    updateProgress();
+                });
+            });
+        }
+        
+        // Ενημέρωση εμφάνισης των επιλογών
+        function updateOptionDisplay(questionId, selectedValue) {
+            // Αφαίρεση επιλογής από όλες τις επιλογές αυτής της ερώτησης
+            document.querySelectorAll(`.option[data-question="${questionId}"]`).forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Προσθήκη επιλογής στη σωστή επιλογή
+            document.querySelector(`.option[data-question="${questionId}"][data-value="${selectedValue}"]`).classList.add('selected');
+        }
+        
+        // Ενημέρωση μπάρας προόδου
+        function updateProgress() {
+            const answeredCount = Object.keys(answers).length;
+            const totalQuestions = questions.length;
+            const percentage = (answeredCount / totalQuestions) * 100;
+            
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').textContent = `${answeredCount}/${totalQuestions} ερωτήσεις απαντήθηκαν`;
+        }
+        
+        // Συνάρτηση αποθήκευσης απαντήσεων
+        function saveAnswers() {
+            // Έλεγχος αν έχουν απαντηθεί όλες οι ερωτήσεις
+            if (Object.keys(answers).length < questions.length) {
+                alert(`Έχετε απαντήσει μόνο σε ${Object.keys(answers).length} από τις ${questions.length} ερωτήσεις. Θέλετε να συνεχίσετε;`);
+            }
+            
+            // Δημιουργία κειμένου με τις απαντήσεις
+            let answersText = "ΑΠΟΤΕΛΕΣΜΑΤΑ ΠΟΛ - ΠΡΟΓΡΑΜΜΑΤΙΚΕΣ ΘΕΣΕΙΣ\n\n";
+            answersText += `Ημερομηνία: ${new Date().toLocaleDateString('el-GR')}\n`;
+            answersText += `Ώρα: ${new Date().toLocaleTimeString('el-GR')}\n\n`;
+            
+            questions.forEach(question => {
+                const answer = answers[question.id];
+                let answerText = "Δεν απαντήθηκε";
+                
+                if (answer === "agree") {
+                    answerText = "Συμφωνώ";
+                } else if (answer === "disagree") {
+                    answerText = "Διαφωνώ";
+                } else if (answer === "neutral") {
+                    answerText = "Ουδέτερη/Ουδέτερη στάση";
+                }
+                
+                answersText += `${question.id}. ${question.title}\n`;
+                answersText += `Απάντηση: ${answerText}\n`;
+                answersText += `--------------------------------\n`;
+            });
+            
+            // Αντιγραφή στο πρόχειρο
+            copyToClipboard(answersText);
+            
+            // Εμφάνιση ειδοποίησης
+            showNotification();
+        }
+        
+        // Αντιγραφή κειμένου στο πρόχειρο
+        function copyToClipboard(text) {
+            // Δημιουργία προσωρινού στοιχείου textarea
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            
+            // Επιλογή και αντιγραφή
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Καθαρισμός
+            document.body.removeChild(textarea);
+        }
+        
+        // Εμφάνιση ειδοποίησης
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Προετοιμασία δεδομένων απαντήσεων (για αποθήκευση στη συσκευή)
+        function prepareAnswersForStorage() {
+            return {
+                timestamp: new Date().toISOString(),
+                answers: answers
+            };
+        }
+    </script>
+</body>
+</html>
