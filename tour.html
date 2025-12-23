@@ -3,310 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athens Uncovered: A Walk Through the Heart of the City</title>
+    <title>Αθήνα Ακάλυπτη | Real Athens Tour</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Georgia', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         body {
-            background-color: #f8f5f0;
-            color: #333;
-            line-height: 1.7;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
             padding: 20px;
             max-width: 100%;
             overflow-x: hidden;
         }
-        .container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 6px solid #4a6fa5;
+        
+        /* Language switcher */
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eeeeee;
         }
+        .language-switcher a {
+            color: #4a6fa5;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #4a6fa5;
+            font-size: 0.9em;
+        }
+        .language-switcher a:hover {
+            background-color: #4a6fa5;
+            color: white;
+        }
+
+        /* Main content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
         h1 {
             color: #2c3e5a;
-            font-size: 2.2em;
+            font-size: 1.8em;
             text-align: center;
             margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eae2d7;
+            font-weight: 700;
         }
+        
         h2 {
-            color: #4a6fa5;
-            font-size: 1.7em;
-            margin-top: 30px;
+            color: #2c3e5a;
+            font-size: 1.4em;
+            margin-top: 40px;
             margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f0f0;
+            font-weight: 600;
         }
+        
         h3 {
-            color: #d35400;
-            font-size: 1.3em;
+            color: #4a6fa5;
+            font-size: 1.2em;
             margin-top: 25px;
             margin-bottom: 10px;
+            font-weight: 600;
         }
-        h4 {
-            color: #27ae60;
-            font-size: 1.1em;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+        
         p {
-            margin-bottom: 15px;
-            text-align: justify;
-            font-size: 1.05em;
+            margin-bottom: 16px;
+            font-size: 1em;
         }
+        
         ul, ol {
-            padding-left: 25px;
+            margin-left: 20px;
             margin-bottom: 20px;
         }
+        
         li {
             margin-bottom: 10px;
         }
+
+        /* Navigation */
         .nav-box {
-            background-color: #eaf2f8;
+            background-color: #f8f9fa;
             border-radius: 10px;
             padding: 20px;
             margin: 25px 0;
-            border: 1px dashed #4a6fa5;
+            border-left: 4px solid #4a6fa5;
         }
+        
         .nav-box h3 {
             color: #2c3e5a;
             text-align: center;
             margin-top: 0;
+            font-size: 1.2em;
         }
+        
         .nav-list {
             list-style: none;
             padding-left: 0;
-            column-count: 1;
         }
+        
         .nav-list li {
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px dotted #bdc3c7;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            border-left: 3px solid #4a6fa5;
         }
+        
         .nav-list a {
             text-decoration: none;
-            color: #2980b9;
-            font-weight: bold;
+            color: #2c3e5a;
+            font-weight: 500;
             display: block;
-            padding: 5px;
-            border-radius: 5px;
-            transition: all 0.3s;
         }
+        
         .nav-list a:hover {
-            background-color: #d6eaf8;
-            padding-left: 10px;
+            color: #4a6fa5;
         }
-        .step-instruction {
-            background-color: #fffde7;
-            border-left: 4px solid #f1c40f;
+
+        /* Info boxes */
+        .practical-info {
+            background-color: #e8f4f8;
             padding: 15px;
+            border-radius: 8px;
             margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-            font-style: italic;
+            font-size: 0.95em;
         }
-        .info-box {
-            background-color: #e8f6f3;
-            border-left: 4px solid #1abc9c;
+        
+        .practical-info h4 {
+            color: #2c3e5a;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Route instructions */
+        .route-step {
+            background-color: #f9f9f9;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 3px solid #27ae60;
+            font-size: 0.95em;
+        }
+        
+        .route-step strong {
+            color: #2c3e5a;
+        }
+
+        /* Script sections */
+        .script-section {
+            background-color: #fff8e1;
             padding: 15px;
+            border-radius: 8px;
             margin: 20px 0;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid #f1c40f;
         }
+        
+        .script-section h4 {
+            color: #d35400;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Back to top */
         .back-to-top {
             text-align: center;
             margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            padding-top: 20px;
+            border-top: 1px solid #eeeeee;
         }
+        
         .back-to-top a {
-            background-color: #4a6fa5;
-            color: white;
+            color: #4a6fa5;
             text-decoration: none;
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-block;
+            font-weight: 500;
         }
-        .language-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        .language-switcher a {
-            background-color: #2c3e5a;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .language-switcher a:hover {
-            background-color: #4a6fa5;
-        }
-        @media (min-width: 768px) {
-            .nav-list {
-                column-count: 2;
-            }
+
+        /* Responsive */
+        @media (max-width: 768px) {
             body {
-                padding: 30px;
-                padding-top: 70px; /* Extra space for language switcher */
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            h2 {
+                font-size: 1.3em;
+            }
+            
+            .nav-list li {
+                padding: 8px;
             }
         }
     </style>
 </head>
 <body>
     <div class="language-switcher">
-        <!-- Change the link below to point to your Greek version file -->
+        <!-- Σύνδεσμος προς την ελληνική έκδοση -->
         <a href="tour_athens_real_life_GREEK.html">Ελληνικά</a>
     </div>
-
-    <div class="container">
+    
+    <div class="content">
         <h1>Athens Uncovered: A Walk Through the Heart of the City</h1>
+        
         <p><strong>Core Idea:</strong> This is <strong>not</strong> a historical tour. It is an experiential journey through the living, breathing daily life of Athenians. We will see how they live, move, in which neighborhoods they reside, and how modern life interacts with the traces of history.</p>
-
-        <div class="info-box">
-            <h4>Practical Information</h4>
+        
+        <div class="practical-info">
+            <h4>📝 Practical Information</h4>
             <ul>
-                <li><strong>Meeting Point:</strong> "Acropolis" Metro Station (exit towards Dionysiou Areopagitou).</li>
-                <li><strong>Duration & Distance:</strong> Approximately 3.5 hours / 10 km (on foot).</li>
-                <li><strong>Final Destination:</strong> "Evangelismos" Metro Station.</li>
-                <li><strong>Advice:</strong> Wear comfortable shoes and have water with you.</li>
+                <li><strong>Meeting Point:</strong> "Acropolis" Metro Station (exit towards Dionysiou Areopagitou)</li>
+                <li><strong>Duration:</strong> Approximately 3.5 hours</li>
+                <li><strong>Distance:</strong> About 10 km (on foot)</li>
+                <li><strong>Final Destination:</strong> "Evangelismos" Metro Station</li>
+                <li><strong>Advice:</strong> Wear comfortable shoes and bring water</li>
             </ul>
         </div>
 
         <div class="nav-box">
-            <h3>Contents - Stop Points</h3>
+            <h3>📍 Tour Route - Stop Points</h3>
             <ol class="nav-list">
-                <li><a href="#part1">Part 1: Starting from the Center</a></li>
-                <li><a href="#part2">Part 2: Ascending to Philopappou Hill</a></li>
-                <li><a href="#part3">Part 3: The Revelation of Koukaki</a></li>
-                <li><a href="#part4">Part 4: The Underground City & Kallimarmaro</a></li>
-                <li><a href="#part5">Part 5: The Pangrati Neighborhood</a></li>
-                <li><a href="#part6">Part 6: Finale & Further Explorations</a></li>
-                <li><a href="#script">The Complete Script for the Guided Tour</a></li>
+                <li><a href="#part1">1. Starting from the Center (Acropolis Metro)</a></li>
+                <li><a href="#part2">2. Ascending to Philopappou Hill</a></li>
+                <li><a href="#part3">3. The Revelation of Koukaki</a></li>
+                <li><a href="#part4">4. Underground City & Kallimarmaro</a></li>
+                <li><a href="#part5">5. The Pangrati Neighborhood</a></li>
+                <li><a href="#part6">6. Finale & Further Explorations</a></li>
+                <li><a href="#script">7. Complete Guide Script</a></li>
             </ol>
         </div>
-    </div>
 
-    <div class="container" id="part1">
-        <h2>Part 1: Starting from the Center (Acropolis Metro Station)</h2>
+        <!-- Part 1 -->
+        <h2 id="part1">1. Starting from the Center</h2>
         <h3>Stop 1: The Station-Museum</h3>
-        <p><strong>The Point:</strong> Inside the "Acropolis" metro station. Stay on the platform for a few minutes.</p>
-        <p><strong>What to tell the tourists (Script):</strong> "Welcome. What you see around you is not just a station. It's a museum. During the metro works, thousands of objects from the daily life of ancient Athenians came to light. Vessels, tools, toys. This place reminds us that a city's history is not only its grand monuments, but also the small, personal stories that lie <em>right beneath our feet</em>."</p>
-
-        <h3>Stop 2: The Acropolis as a Living Backdrop</h3>
-        <p><strong>The Route:</strong> Exit towards Dionysiou Areopagitou. At street level, turn your gaze towards the Acropolis hill.</p>
-        <p><strong>Script:</strong> "Look up there. The Acropolis. For us, this isn't just a tourist attraction. It's the <strong>backdrop</strong> of our daily lives. A neighbor. From here, we will begin moving away from it, not to forget it, but to see how the rest of the city lives <em>with it</em>."</p>
-
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
-
-    <div class="container" id="part2">
-        <h2>Part 2: Ascending to Philopappou Hill & Museum Hill</h2>
-        <h3>Stop 3: The Square and the Cobblestone Streets</h3>
-        <p><strong>The Route:</strong> Walk west on Dionysiou Areopagitou. At the first major intersection, turn right onto <strong>Petmeza Street</strong>. This is the key point: We leave the main road and enter the first quiet, cobblestone street.</p>
-        <div class="step-instruction">
-            <strong>Instructions for the Guide:</strong> "Turn right here. Notice how the atmosphere changes immediately. Low-rise apartment buildings, perforated balconies, flower pots. These are the <em>homes</em> you mentioned."
+        <div class="route-step">
+            <strong>Location:</strong> Inside "Acropolis" Metro Station, on the platform
         </div>
-
-        <h3>Stop 4: The Museum & the Local Residents</h3>
-        <p><strong>The Route:</strong> Continue ascending Petmeza. You will come out onto <strong>Apostolou Pavlou Street</strong>. Opposite you is the New Acropolis Museum. Do not enter.</p>
-        <p><strong>Script:</strong> "To our left, the world-famous museum. To our right, however, you see a small green space with benches. This is where local residents come for a walk with their dogs in the morning, or where elderly people sit in the afternoon. The city is a living composition: the global museum and the local square, one next to the other."</p>
-
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
-
-    <div class="container" id="part3">
-        <h2>Part 3: The Revelation of Koukaki</h2>
-        <h3>Stop 5: Entering the Neighborhoods</h3>
-        <p><strong>The Route:</strong> From the museum, take <strong>Makrigianni Street</strong> (parallel to Apostolou Pavlou) north. Turn right onto <strong>Doreou Street</strong> and immediately left onto <strong>Kerameikou Street</strong>. We have officially entered Koukaki.</p>
-        <p><strong>Script:</strong> "Welcome to Koukaki. Notice the architecture: 1930s neoclassical, postwar apartment blocks, renovated houses. Every building has a story. Look at the doors, the railings, the signs. Athens is a city of little 'villages', and Koukaki is one of the liveliest."</p>
-
-        <h3>Stop 6: The Pedestrian Streets & Cafe Life</h3>
-        <p><strong>The Route:</strong> Continue on Kerameikou until the small square. Here, turn left onto <strong>Dimitreos Street</strong>. This is one of the main pedestrian streets.</p>
-        <p><strong>Script:</strong> "This pedestrian street is the backbone of the neighborhood. This is where daily life unfolds. Small cafes frequented by locals, grocery stores with fresh produce, vintage clothing shops. You can smell coffee and fresh bread. Ask, if you wish, these people sitting at the tables what they do - they are programmers, teachers, artists. The real life of the city."</p>
-
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
-
-    <div class="container" id="part4">
-        <h2>Part 4: The Underground City & Kallimarmaro</h2>
-        <h3>Stop 7: The Underground Passage</h3>
-        <p><strong>The Route:</strong> From Dimitreos, continue east until <strong>Syngrou Avenue</strong>. Here we will use the large underground passage to cross to the other side, towards Zappeio.</p>
-        <p><strong>Script:</strong> "We must talk about the city's 'transportation organs'. This passage is an <strong>underground road</strong> for pedestrians. Every day, thousands of people cross it to go to work, school, the park. It is hidden, functional, and essential. Without such structures, the modern city doesn't function."</p>
-
-        <h3>Stop 8: Kallimarmaro & the Columns</h3>
-        <p><strong>The Route:</strong> After exiting the passage, you are at the level of the Zappeion gate. Follow the Syngrou sidewalk north (left). On your right is the Temple of Olympian Zeus with its columns.</p>
-        <p><strong>Script:</strong> "Look at those columns from here, through the traffic of Syngrou. We are not approaching them. We see them rising, <em>within</em> the urban landscape. Next to them, buses pass; underneath them, the metro runs. This is Athens: monuments that are not isolated in parks, but are integrated, 'kallimarmaro' (beautifully marbled), into the city's life."</p>
-
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
-
-    <div class="container" id="part5">
-        <h2>Part 5: The Pangrati Neighborhood</h2>
-        <h3>Stop 9: The Entrance & the Old Courtyards</h3>
-        <p><strong>The Route:</strong> Continue north on Syngrou until the "Syngrou-Fix" Metro Station. Stop. Here, we leave the central avenue and turn right onto <strong>Ymittou Street</strong>, entering Pangrati.</p>
-        <div class="step-instruction">
-            <strong>Instructions for the Guide:</strong> "Say: 'We leave behind the roar of the avenue. We enter the neighborhood. Ymittou is the central artery of Pangrati. Notice the low-rise apartment buildings, the courtyards visible through open front doors, the small workshops.'"
+        <p>Begin inside the station. This isn't just a transit point but an archaeological site revealing layers of Athenian life.</p>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Welcome. What you see around you is not just a station. It's a museum. During the metro works, thousands of objects from daily ancient Athenian life were uncovered. This reminds us that a city's history includes both grand monuments and small personal stories beneath our feet."</p>
         </div>
+        
+        <h3>Stop 2: The Acropolis as Backdrop</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Exit towards Dionysiou Areopagitou, turn gaze toward Acropolis hill
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Look up there. The Acropolis. For us, this is the backdrop of daily life. From here, we move away from it to see how the city lives with it."</p>
+        </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
 
-        <h3>Stop 10: The Central Square & End of the Route</h3>
-        <p><strong>The Route:</strong> Follow Ymittou until <strong>Pangrati Square</strong>. This is our final stop.</p>
-        <p><strong>Script:</strong> "Sit on a bench. This square is the neighborhood's living room. It has its café, its pharmacy, its kiosk, its taverna. Children play. This is a space for gathering and relaxation. The city needs such spaces for community to exist. We guided you from the center to one of the most authentic neighborhoods. You have seen an Athens beyond the monuments. You have seen the scenery of everyday life."</p>
+        <!-- Part 2 -->
+        <h2 id="part2">2. Ascending to Philopappou Hill</h2>
+        <h3>Stop 3: First Quiet Streets</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Walk west on Dionysiou Areopagitou → First major intersection → Turn right onto Petmeza Street
+        </div>
+        <p>Leaving the main road for quiet, cobblestone streets where daily Athenian life unfolds.</p>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Turn right here. Notice the immediate change: low-rise buildings, balconies with flowers. These are Athenian homes."</p>
+        </div>
+        
+        <h3>Stop 4: Museum & Local Life</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Continue up Petmeza → Emerge at Apostolou Pavlou Street → New Acropolis Museum opposite
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"To our left, the world-famous museum. To our right, a local green space where residents walk dogs and socialize. This juxtaposition defines Athens."</p>
+        </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
 
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
+        <!-- Part 3 -->
+        <h2 id="part3">3. The Revelation of Koukaki</h2>
+        <h3>Stop 5: Entering Koukaki</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Take Makrigianni Street north → Right on Doreou → Immediate left on Kerameikou
+        </div>
+        <p>Officially entering one of Athens' most vibrant residential neighborhoods.</p>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Welcome to Koukaki. Notice the architectural mix: 1930s neoclassical, postwar apartments, renovated homes. Athens consists of many 'villages' like this."</p>
+        </div>
+        
+        <h3>Stop 6: Pedestrian Street Life</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Continue on Kerameikou to small square → Left onto Dimitreos Street (pedestrian street)
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"This pedestrian street is the neighborhood's backbone. Smell the coffee and fresh bread. The people here are programmers, teachers, artists - real Athenian life."</p>
+        </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
 
-    <div class="container" id="part6">
-        <h2>Part 6: Finale & Further Explorations</h2>
-        <h3>Final Move: Evangelismos Metro</h3>
-        <p><strong>The Route:</strong> From the square, take <strong>Ypsilantou Street</strong> north. In 5-7 minutes you will be at the "Evangelismos" Metro Station.</p>
-        <p><strong>Script:</strong> "Our journey ends as it began: at a metro station. This network is what connects all these different 'villages' we saw today. Thank you for exploring the real Athens with me."</p>
+        <!-- Part 4 -->
+        <h2 id="part4">4. Underground City & Kallimarmaro</h2>
+        <h3>Stop 7: Underground Passage</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Continue east on Dimitreos → Syngrou Avenue → Use underground passage to cross to Zappeio
+        </div>
+        <p>Exploring the functional infrastructure that keeps the city moving.</p>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"This passage is an underground road for pedestrians. Thousands use it daily. Without such structures, the modern city wouldn't function."</p>
+        </div>
+        
+        <h3>Stop 8: Temple Columns in Urban Landscape</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Exit passage at Zappeion → Follow Syngrou sidewalk north → Temple of Olympian Zeus on right
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Look at these columns through the traffic. They're not isolated relics but integrated into the urban landscape, with buses and metro flowing around them."</p>
+        </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
 
-        <div class="info-box">
-            <h4>For Further Exploration</h4>
-            <p>We recommend visitors continue on their own to:
+        <!-- Part 5 -->
+        <h2 id="part5">5. The Pangrati Neighborhood</h2>
+        <h3>Stop 9: Entering Pangrati</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Continue north on Syngrou to "Syngrou-Fix" Metro → Turn right onto Ymittou Street
+        </div>
+        <p>Leaving the busy avenue for a traditional Athenian neighborhood.</p>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"We leave the avenue's noise behind. Ymittou is Pangrati's main artery. Notice the low buildings, visible courtyards, small workshops."</p>
+        </div>
+        
+        <h3>Stop 10: Central Square</h3>
+        <div class="route-step">
+            <strong>Route:</strong> Follow Ymittou to Pangrati Square
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Sit on a bench. This square is the neighborhood's living room - with cafes, pharmacy, kiosk, taverna. This is where community happens."</p>
+        </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
+
+        <!-- Part 6 -->
+        <h2 id="part6">6. Finale & Further Explorations</h2>
+        <h3>Final Move to Metro</h3>
+        <div class="route-step">
+            <strong>Route:</strong> From square, take Ypsilantou Street north → "Evangelismos" Metro Station (5-7 min walk)
+        </div>
+        
+        <div class="script-section">
+            <h4>🗣️ Guide's Script:</h4>
+            <p>"Our journey ends as it began: at a metro station. This network connects all the 'villages' we saw. Thank you for exploring real Athens with me."</p>
+        </div>
+        
+        <div class="practical-info">
+            <h4>🌟 Further Explorations</h4>
+            <p>After the tour, consider visiting:</p>
             <ul>
-                <li><strong>Psyrri & Monastiraki:</strong> For the popular, picturesque side of the city.</li>
-                <li><strong>Exarcheia:</strong> For a more bohemian, alternative atmosphere.</li>
-                <li><strong>Kato Patisia:</strong> To see the rapid regeneration of a historic working-class district.</li>
+                <li><strong>Psyrri & Monastiraki:</strong> Popular, picturesque areas</li>
+                <li><strong>Exarcheia:</strong> Bohemian, alternative atmosphere</li>
+                <li><strong>Kato Patisia:</strong> Rapidly regenerating historic district</li>
             </ul>
-            <p>And of course, to try the local cuisine in a taverna in Pangrati or Koukaki.</p>
+            <p>Try local cuisine at a taverna in Pangrati or Koukaki.</p>
         </div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
 
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
-    </div>
-
-    <div class="container" id="script">
-        <h2>The Complete Script for the Guided Tour</h2>
-        <p>This chapter contains the text you can read <strong>directly to the tourists</strong>, from start to finish, including transitional phrases between stops. It is written in a <strong>narrative</strong> and <strong>personal</strong> style, to connect with your audience.</p>
-
-        <div class="step-instruction">
-            <h3>[Start of the Tour - Acropolis Metro Station]</h3>
-            <p>"Good morning everyone and welcome to Athens. My name is [Your Name] and today I am not going to guide you through the monuments. Or at least, not the obvious ones. We will take a journey into the daily life of this city. We will see how the people who live here actually live. We will see the houses, the streets, the neighborhoods. And we start from a very symbolic point: <strong>from beneath our feet</strong>.</p>
-            <p>Take a look around this metro station. All these objects behind the glass - the broken vessels, the children's toys, the coins - were found here during excavations. They are from the daily life of people who lived on this very spot 2,500 years ago. History, therefore, is not only the Parthenons. It is also the small, personal stories. And it is everywhere.</p>
-            <p>Let's go up to the surface now, to see what this daily history looks like today."</p>
+        <!-- Complete Script -->
+        <h2 id="script">7. Complete Guide Script</h2>
+        <p>Full narrative to read to tourists throughout the tour:</p>
+        
+        <div class="script-section">
+            <h4>🎤 Opening at Acropolis Metro</h4>
+            <p>"Good morning everyone. Today we explore not monuments but daily Athenian life. We start symbolically beneath our feet - in this metro station that's also a museum of everyday ancient objects. History isn't just grand structures but personal stories everywhere around us."</p>
         </div>
-
-        <div class="step-instruction">
-            <h3>[Transition: From the Metro to Philopappou]</h3>
-            <p>"Please follow me. We'll walk a bit. A moment ago we were looking at closed exhibits. Now we will see the living museum. Look up there, the hill with the monument. For many, that is Athens. For us today, it is merely our reference point. The point from which we will move away, entering the paths and neighborhoods hidden behind it. One, two turns, and the world changes. Right here..."</p>
+        
+        <div class="script-section">
+            <h4>🚶 Transition to Neighborhoods</h4>
+            <p>"Now we move from closed exhibits to the living museum. The Acropolis will be our reference point as we enter the hidden neighborhoods behind it. Just a few turns and we're in a different world."</p>
         </div>
-
-        <div class="step-instruction">
-            <h3>[Closing in Pangrati]</h3>
-            <p>"We have arrived. This is Pangrati Square. The space where the neighborhood breathes. If you want to truly feel like locals, head to that taverna and order a meze and a local beer. Sit and watch the world go by.</p>
-            <p>Today, you walked more than 10 kilometers. But more importantly, you traveled from Athens-the-Monument, to Athens-the-Center, to Athens-the-Neighborhood. I hope you enjoyed this journey into the real lives that happen here. Thank you very much."</p>
+        
+        <div class="script-section">
+            <h4>🏁 Closing in Pangrati</h4>
+            <p>"We've arrived at Pangrati Square, where the neighborhood breathes. Today you walked 10km through different Athens layers - from monument to center to neighborhood. To truly feel local, visit a taverna here. Thank you for exploring real Athenian life with me."</p>
         </div>
-
-        <div class="back-to-top"><a href="#">Back to Contents</a></div>
+        
+        <div class="back-to-top"><a href="#">↑ Back to top</a></div>
     </div>
 </body>
 </html>
