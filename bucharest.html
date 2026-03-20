@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Βουκουρέστι — City Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #131319;
+    --surface2: #1c1c26;
+    --border: rgba(255,255,255,0.07);
+    --accent: #e8c97b;
+    --accent2: #b5845a;
+    --red: #e05555;
+    --green: #5bbf85;
+    --blue: #5b8bbf;
+    --purple: #9b6bbf;
+    --text: #f0ede6;
+    --muted: #7a7980;
+    --pill: rgba(232,201,123,0.1);
+    --radius: 16px;
+    --tab-h: 68px;
+  }
+
+- { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–bg);
+color: var(–text);
+min-height: 100vh;
+overflow-x: hidden;
+padding-bottom: calc(var(–tab-h) + 16px);
+}
+
+/* ── HEADER ── */
+.header {
+position: sticky; top: 0; z-index: 100;
+background: rgba(10,10,15,0.92);
+backdrop-filter: blur(20px);
+border-bottom: 1px solid var(–border);
+padding: 14px 20px 10px;
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; }
+.header-city { font-family: ‘Syne’, sans-serif; font-size: 25px; font-weight: 800; color: var(–accent); letter-spacing: -0.5px; }
+.header-sub { font-size: 13px; color: var(–muted); margin-top: 1px; }
+.header-flag { font-size: 28px; }
+.dates-pill {
+display: inline-flex; align-items: center; gap: 6px;
+background: var(–pill); border: 1px solid rgba(232,201,123,0.2);
+border-radius: 20px; padding: 6px 14px; margin-top: 10px;
+font-size: 13px; color: var(–accent); font-weight: 500;
+}
+
+/* ── TABS ── */
+.tabs {
+position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+background: rgba(13,13,20,0.97);
+backdrop-filter: blur(24px);
+border-top: 1px solid var(–border);
+display: flex; height: var(–tab-h);
+padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.tab {
+flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+gap: 4px; cursor: pointer; transition: all .2s; opacity: .45;
+border: none; background: none; color: var(–text); padding: 0;
+}
+.tab.active { opacity: 1; color: var(–accent); }
+.tab-icon { font-size: 22px; transition: transform .2s; }
+.tab.active .tab-icon { transform: translateY(-2px); }
+.tab-label { font-size: 11px; font-family: ‘Syne’, sans-serif; font-weight: 600; letter-spacing: .3px; }
+.tab-dot { width: 4px; height: 4px; border-radius: 50%; background: var(–accent); margin-top: 2px; display: none; }
+.tab.active .tab-dot { display: block; }
+
+/* ── PAGES ── */
+.page { display: none; padding: 16px; }
+.page.active { display: block; }
+
+/* ── HERO CARD ── */
+.hero {
+background: linear-gradient(135deg, #1a1520 0%, #0f1525 50%, #1a1015 100%);
+border: 1px solid var(–border);
+border-radius: 20px; padding: 24px; margin-bottom: 20px;
+position: relative; overflow: hidden;
+}
+.hero::before {
+content: ‘’;
+position: absolute; inset: 0;
+background: radial-gradient(ellipse at 70% 30%, rgba(232,201,123,0.06) 0%, transparent 60%);
+}
+.hero-emoji { font-size: 44px; margin-bottom: 12px; }
+.hero-title { font-family: ‘Syne’, sans-serif; font-size: 30px; font-weight: 800; line-height: 1.1; margin-bottom: 8px; }
+.hero-desc { font-size: 15px; color: var(–muted); line-height: 1.6; }
+.hero-stats { display: flex; gap: 16px; margin-top: 18px; }
+.stat { text-align: center; }
+.stat-val { font-family: ‘Syne’, sans-serif; font-size: 20px; font-weight: 700; color: var(–accent); }
+.stat-label { font-size: 11px; color: var(–muted); margin-top: 2px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 28px; }
+.section-title {
+font-family: ‘Syne’, sans-serif; font-size: 13px; font-weight: 700;
+text-transform: uppercase; letter-spacing: 1.5px; color: var(–muted);
+margin-bottom: 12px; padding-left: 2px;
+}
+
+/* ── CARDS ── */
+.card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 16px; margin-bottom: 10px;
+cursor: pointer; transition: all .2s; position: relative; overflow: hidden;
+}
+.card:active { transform: scale(.985); background: var(–surface2); }
+.card-row { display: flex; align-items: flex-start; gap: 14px; }
+.card-icon {
+width: 44px; height: 44px; border-radius: 12px;
+display: flex; align-items: center; justify-content: center;
+font-size: 20px; flex-shrink: 0;
+}
+.card-body { flex: 1; min-width: 0; }
+.card-name { font-family: ‘Syne’, sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.card-sub { font-size: 13.5px; color: var(–muted); line-height: 1.6; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag {
+font-size: 11px; font-weight: 600; letter-spacing: .4px;
+padding: 4px 10px; border-radius: 20px; border: 1px solid;
+}
+.tag-gold { color: var(–accent); border-color: rgba(232,201,123,0.3); background: rgba(232,201,123,0.08); }
+.tag-red { color: #ff8a8a; border-color: rgba(224,85,85,0.3); background: rgba(224,85,85,0.08); }
+.tag-green { color: #7fe0a8; border-color: rgba(91,191,133,0.3); background: rgba(91,191,133,0.08); }
+.tag-blue { color: #8ab5e0; border-color: rgba(91,139,191,0.3); background: rgba(91,139,191,0.08); }
+.tag-purple { color: #c59ee0; border-color: rgba(155,107,191,0.3); background: rgba(155,107,191,0.08); }
+
+.map-btn {
+display: flex; align-items: center; gap: 6px;
+background: var(–accent); color: #0a0a0f;
+border: none; border-radius: 10px; padding: 8px 14px;
+font-family: ‘Syne’, sans-serif; font-size: 12px; font-weight: 700;
+cursor: pointer; margin-top: 10px; text-decoration: none;
+transition: opacity .2s; width: fit-content;
+}
+.map-btn:active { opacity: .8; }
+
+/* ── CATEGORY FILTER ── */
+.filter-row {
+display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px;
+scrollbar-width: none;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.filter-chip {
+flex-shrink: 0; padding: 8px 16px; border-radius: 20px;
+font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s;
+border: 1px solid var(–border); background: var(–surface); color: var(–muted);
+font-family: ‘Syne’, sans-serif;
+}
+.filter-chip.active { background: var(–accent); color: #0a0a0f; border-color: var(–accent); }
+
+/* ── INFO BLOCKS ── */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.info-block {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: 14px; padding: 14px; text-align: center;
+}
+.info-block-icon { font-size: 22px; margin-bottom: 6px; }
+.info-block-val { font-family: ‘Syne’, sans-serif; font-size: 15px; font-weight: 700; color: var(–text); }
+.info-block-label { font-size: 12px; color: var(–muted); margin-top: 2px; }
+
+/* ── TIPS ── */
+.tip-card {
+background: var(–surface); border-left: 3px solid var(–accent);
+border-radius: 0 12px 12px 0; padding: 14px; margin-bottom: 10px;
+}
+.tip-title { font-family: ‘Syne’, sans-serif; font-size: 14px; font-weight: 700; color: var(–accent); margin-bottom: 5px; }
+.tip-text { font-size: 14px; color: var(–muted); line-height: 1.65; }
+
+/* ── ITINERARY ── */
+.day-card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); overflow: hidden; margin-bottom: 12px;
+}
+.day-header {
+display: flex; align-items: center; gap: 12px;
+padding: 14px 16px; cursor: pointer;
+border-bottom: 1px solid var(–border);
+}
+.day-num {
+width: 36px; height: 36px; border-radius: 10px; background: var(–accent);
+color: #0a0a0f; display: flex; align-items: center; justify-content: center;
+font-family: ‘Syne’, sans-serif; font-weight: 800; font-size: 15px; flex-shrink: 0;
+}
+.day-title { font-family: ‘Syne’, sans-serif; font-size: 15px; font-weight: 700; }
+.day-sub { font-size: 13px; color: var(–muted); margin-top: 2px; }
+.day-arrow { margin-left: auto; font-size: 18px; color: var(–muted); transition: transform .3s; }
+.day-card.open .day-arrow { transform: rotate(180deg); }
+.day-body { display: none; padding: 16px; }
+.day-card.open .day-body { display: block; }
+.timeline-item { display: flex; gap: 12px; margin-bottom: 14px; }
+.timeline-time { font-family: ‘Syne’, sans-serif; font-size: 12px; font-weight: 600; color: var(–accent); width: 44px; flex-shrink: 0; padding-top: 1px; }
+.timeline-dot { width: 8px; height: 8px; border-radius: 50%; background: var(–accent); margin-top: 4px; flex-shrink: 0; }
+.timeline-line { width: 1px; background: var(–border); margin: 12px auto 0; }
+.timeline-content { flex: 1; }
+.timeline-name { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.timeline-desc { font-size: 13px; color: var(–muted); line-height: 1.6; }
+
+/* ── WEATHER ── */
+.weather-strip {
+background: linear-gradient(135deg, #1a2035, #20151a);
+border: 1px solid var(–border); border-radius: var(–radius);
+padding: 16px; margin-bottom: 20px;
+display: flex; align-items: center; justify-content: space-between;
+}
+.weather-left { }
+.weather-temp { font-family: ‘Syne’, sans-serif; font-size: 32px; font-weight: 800; color: var(–accent); }
+.weather-cond { font-size: 13px; color: var(–muted); }
+.weather-city { font-size: 11px; color: var(–muted); margin-top: 2px; }
+.weather-icon { font-size: 48px; }
+
+/* ── TRANSPORT ── */
+.transport-item {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 14px 16px; margin-bottom: 10px;
+display: flex; align-items: center; gap: 14px;
+}
+.transport-icon { font-size: 24px; }
+.transport-name { font-family: ‘Syne’, sans-serif; font-size: 15px; font-weight: 700; }
+.transport-desc { font-size: 13px; color: var(–muted); margin-top: 2px; }
+.transport-price { font-family: ‘Syne’, sans-serif; font-size: 14px; font-weight: 700; color: var(–accent); margin-left: auto; flex-shrink: 0; }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(–border); margin: 20px 0; }
+
+/* ── HIGHLIGHT BANNER ── */
+.banner {
+background: linear-gradient(135deg, rgba(232,201,123,.12), rgba(181,132,90,.08));
+border: 1px solid rgba(232,201,123,.2); border-radius: var(–radius);
+padding: 16px; margin-bottom: 16px;
+display: flex; gap: 12px; align-items: flex-start;
+}
+.banner-icon { font-size: 24px; flex-shrink: 0; }
+.banner-text { font-size: 14px; color: var(–muted); line-height: 1.6; }
+.banner-title { font-family: ‘Syne’, sans-serif; font-size: 14px; font-weight: 700; color: var(–accent); margin-bottom: 5px; }
+
+/* ── FOOD DISH CARD ── */
+.dish-card {
+background: var(–surface); border: 1px solid var(–border);
+border-radius: var(–radius); padding: 14px; margin-bottom: 10px;
+display: flex; align-items: center; gap: 14px;
+}
+.dish-emoji { font-size: 32px; }
+.dish-name { font-family: ‘Syne’, sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.dish-desc { font-size: 13.5px; color: var(–muted); line-height: 1.55; }
+
+/* Animations */
+.page.active .card, .page.active .tip-card, .page.active .info-block {
+animation: fadeUp .3s ease both;
+}
+.page.active .card:nth-child(1) { animation-delay: .05s; }
+.page.active .card:nth-child(2) { animation-delay: .1s; }
+.page.active .card:nth-child(3) { animation-delay: .15s; }
+.page.active .card:nth-child(4) { animation-delay: .2s; }
+.page.active .card:nth-child(5) { animation-delay: .25s; }
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(16px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* scrollable content filter sections */
+.subcategory { margin-bottom: 24px; }
+.subcategory-title {
+font-family: ‘Syne’, sans-serif; font-size: 15px; font-weight: 700;
+color: var(–text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.subcategory-title span { font-size: 16px; }
+
+/* hidden by filter */
+.card[data-hidden=“true”] { display: none; }
+</style>
+
+</head>
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="header-city">Βουκουρέστι</div>
+      <div class="header-sub">Πλήρης Οδηγός Ταξιδιού</div>
+    </div>
+    <div class="header-flag">🇷🇴</div>
+  </div>
+  <div class="dates-pill">📅 27–29 Ημερών Ταξίδι · Bucharest City Guide 2025</div>
+</div>
+
+<!-- PAGES -->
+
+<!-- ═══════════ HOME ═══════════ -->
+
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-emoji">🏛️</div>
+    <div class="hero-title">Το «Μικρό Παρίσι»<br>της Ανατολής</div>
+    <div class="hero-desc">Η πρωτεύουσα της Ρουμανίας σε περιμένει με ιστορία, νυχτερινή ζωή, φαγητό και αρχιτεκτονική που θα σε εκπλήξει.</div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">3</div><div class="stat-label">Μέρες</div></div>
+      <div class="stat"><div class="stat-val">40+</div><div class="stat-label">Μέρη</div></div>
+      <div class="stat"><div class="stat-val">€€</div><div class="stat-label">Κόστος</div></div>
+      <div class="stat"><div class="stat-val">~18°C</div><div class="stat-label">Άνοιξη</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Γρήγορη Πλοήγηση</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="card" style="padding:14px;text-align:center;" onclick="switchTab('eat')">
+        <div style="font-size:28px;margin-bottom:6px;">🍽️</div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">Φαγητό & Ποτό</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">20+ μέρη</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;" onclick="switchTab('see')">
+        <div style="font-size:28px;margin-bottom:6px;">🏛️</div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">Αξιοθέατα</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">15+ μέρη</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;" onclick="switchTab('plan')">
+        <div style="font-size:28px;margin-bottom:6px;">📅</div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">3ήμερο Plan</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">Ώρα-ώρα</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;" onclick="switchTab('info')">
+        <div style="font-size:28px;margin-bottom:6px;">💡</div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;">Πρακτικές Πληροφορίες</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px;">Tips & μεταφορά</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Must Try Φαγητά</div>
+    <div class="dish-card">
+      <div class="dish-emoji">🥬</div>
+      <div><div class="dish-name">Sarmale</div><div class="dish-desc">Λαχανοντολμάδες με κιμά σε φύλλο λάχανου — το εθνικό πιάτο</div></div>
+    </div>
+    <div class="dish-card">
+      <div class="dish-emoji">🌽</div>
+      <div><div class="dish-name">Mămăligă</div><div class="dish-desc">Πολέντα, βασική συνοδεία σχεδόν σε κάθε πιάτο</div></div>
+    </div>
+    <div class="dish-card">
+      <div class="dish-emoji">🍖</div>
+      <div><div class="dish-name">Mici</div><div class="dish-desc">Σουτζουκάκια σχάρας — street food που τρώγεται παντού</div></div>
+    </div>
+    <div class="dish-card">
+      <div class="dish-emoji">🍩</div>
+      <div><div class="dish-name">Papanași</div><div class="dish-desc">Τηγανητά τυρόπιτα-ντόνατς με κρέμα & μαρμελάδα</div></div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div class="banner-icon">⚡</div>
+    <div>
+      <div class="banner-title">Έτοιμος για αρχή;</div>
+      <div class="banner-text">Χρησιμοποίησε τα κουμπιά "Maps" σε κάθε τοποθεσία για απευθείας ανοιγμα στο Google Maps.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ EAT & DRINK ═══════════ -->
+
+<div class="page" id="page-eat">
+
+  <div class="filter-row">
+    <div class="filter-chip active" onclick="filterEat('all',this)">Όλα</div>
+    <div class="filter-chip" onclick="filterEat('romanian',this)">🇷🇴 Ρουμάνικο</div>
+    <div class="filter-chip" onclick="filterEat('bar',this)">🍹 Bars</div>
+    <div class="filter-chip" onclick="filterEat('cafe',this)">☕ Café</div>
+    <div class="filter-chip" onclick="filterEat('international',this)">🌍 Διεθνές</div>
+    <div class="filter-chip" onclick="filterEat('club',this)">🎵 Clubs</div>
+  </div>
+
+  <!-- ΡΟΥΜΑΝΙΚΟ -->
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🇷🇴</span> Παραδοσιακό Ρουμάνικο</div>
+
+```
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🍺</div>
+    <div class="card-body">
+      <div class="card-name">Caru' cu Bere</div>
+      <div class="card-sub">Το πιο εμβληματικό εστιατόριο του Βουκουρεστίου (1879). Νεογοτθικό κτίριο με βιτρό, ξυλόγλυπτα και ζωντανή μουσική. Sarmale, mici, σούπα σε ψωμί.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Εμβληματικό</span>
+        <span class="tag tag-green">Live Music</span>
+        <span class="tag tag-blue">Κράτηση Απαραίτητη</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Caru+cu+Bere+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🏰</div>
+    <div class="card-body">
+      <div class="card-name">Hanu' lui Manuc</div>
+      <div class="card-sub">Από το 1808 — ένα από τα παλαιότερα χάνια. Αυλή με αμπελόφυλλα, ρουμάνικα & τουρκικά πιάτα, παραδοσιακή ατμόσφαιρα. Παγκόσμια φήμη στο Taste Atlas.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Ιστορικό</span>
+        <span class="tag tag-red">Must Visit</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Hanu+lui+Manuc+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🌿</div>
+    <div class="card-body">
+      <div class="card-name">Lacrimi și Sfinți</div>
+      <div class="card-sub">"Δάκρυα και Άγιοι" — μοντέρνα ρουμάνικη κουζίνα με τοπικά υλικά. Δημιουργική σεφ κουζίνα σε cozy χώρο στην Ιστορική Συνοικία.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Farm-to-Table</span>
+        <span class="tag tag-purple">Gourmet</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Lacrimi+si+Sfinti+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(155,107,191,.12);">⭐</div>
+    <div class="card-body">
+      <div class="card-name">Kaiamo</div>
+      <div class="card-sub">Υψηλή γαστρονομία — υποψήφιο Michelin. Ο σεφ εξυπηρετεί προσωπικά το dessert. Καινοτόμο μενού, εκπληκτικό presentation. Κράτηση must.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Fine Dining</span>
+        <span class="tag tag-red">Michelin Level</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Kaiamo+restaurant+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.1);">🎵</div>
+    <div class="card-body">
+      <div class="card-name">Locanta Jaristea</div>
+      <div class="card-sub">Κλασική ρουμάνικη κουζίνα από το 1991 με ζωντανή παραδοσιακή μουσική. Vintage décor, φιλική ατμόσφαιρα, κοντά στην Πλατεία Επανάστασης.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Live Παραδοσιακή Μουσική</span>
+        <span class="tag tag-gold">Κλασικό</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Locanta+Jaristea+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="romanian">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,139,191,.12);">🍷</div>
+    <div class="card-body">
+      <div class="card-name">NOUA Bar</div>
+      <div class="card-sub">Trendy, μοντέρνα ρουμάνικη κουζίνα. Αγαπημένο των Βουκουρεστιανών cosmopolitan. Κράτηση συνίσταται — γεμίζει γρήγορα.</div>
+      <div class="card-tags">
+        <span class="tag tag-purple">Trendy</span>
+        <span class="tag tag-blue">Modern Romanian</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/NOUA+Bar+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- BARS -->
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🍹</span> Bars & Cocktail Bars</div>
+
+```
+<div class="card" data-cat="bar">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🌅</div>
+    <div class="card-body">
+      <div class="card-name">Nomad Skybar</div>
+      <div class="card-sub">Rooftop bar με πανοραμική θέα στο Βουκουρέστι. Table service, cocktails, beers. Ιδανικό για ηλιοβασίλεμα. Δημοφιλές τα σαββατοκύριακα.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Rooftop</span>
+        <span class="tag tag-blue">Θέα Πόλης</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Nomad+Skybar+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="bar">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🏙️</div>
+    <div class="card-body">
+      <div class="card-name">SkyBar Dorobanti</div>
+      <div class="card-sub">Luxury rooftop στη Calea Dorobanților 155. Εκπληκτική θέα, premium cocktails, class vibes. Ιδανικό για βραδινή έξοδο με ύφος.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Luxury</span>
+        <span class="tag tag-red">Premium</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/SkyBar+Dorobanti+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="bar">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🍷</div>
+    <div class="card-body">
+      <div class="card-name">VINO Wines + More</div>
+      <div class="card-sub">Wine shop & enoteca στην Ιστορική Συνοικία. Εκατοντάδες ρουμάνικα & διεθνή κρασιά. Ιδανικό για wine lovers.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Wine Bar</span>
+        <span class="tag tag-gold">Ρουμάνικα Κρασιά</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/VINO+Wines+Bucharest+old+town" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="bar">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(155,107,191,.12);">🌟</div>
+    <div class="card-body">
+      <div class="card-name">Abel's Wine Bar</div>
+      <div class="card-sub">Κορυφαία wine tasting εμπειρία στο Old Town. Το staff έχει βαθιά γνώση ρουμάνικης αμπελουργίας. Έχει αξιολογηθεί ως top εμπειρία από πολλούς επισκέπτες.</div>
+      <div class="card-tags">
+        <span class="tag tag-purple">Wine Tasting</span>
+        <span class="tag tag-blue">Old Town</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Abel+Wine+Bar+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="bar">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(224,85,85,.12);">🎶</div>
+    <div class="card-body">
+      <div class="card-name">Beluga Bar</div>
+      <div class="card-sub">Electric vibes, classy ατμόσφαιρα, εξαιρετικά cocktails. Ένα από τα top bars για νύχτα στο Βουκουρέστι. Φιλικό staff, μουσική που κρατά την αίθουσα ζωντανή.</div>
+      <div class="card-tags">
+        <span class="tag tag-red">Νυχτερινή Ζωή</span>
+        <span class="tag tag-gold">Cocktails</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Beluga+Bar+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- CAFES -->
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>☕</span> Cafés & Brunch</div>
+
+```
+<div class="card" data-cat="cafe">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">📚</div>
+    <div class="card-body">
+      <div class="card-name">Energiea Café</div>
+      <div class="card-sub">Hip urban spot σε παλιό τυπογραφείο κοντά στον Κήπο Cișmigiu. Loft αρχιτεκτονική, ελαφριά διεθνής κουζίνα, χαλαρή ατμόσφαιρα. Χωρίς laptops εντός.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Hipster</span>
+        <span class="tag tag-blue">Brunch</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Energiea+cafe+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="cafe">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🌅</div>
+    <div class="card-body">
+      <div class="card-name">Amethyst Café</div>
+      <div class="card-sub">Κρυμμένο ψηλά στην πόλη στη Strada Odăii 42. Μαλακά καθίσματα, dim φωτισμός, θέα στο Βουκουρέστι. Ιδανικό για brunch ή ατμοσφαιρικό ποτό.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Atmospheric</span>
+        <span class="tag tag-purple">Hidden Gem</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Amethyst+Cafe+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- INTERNATIONAL -->
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🌍</span> Διεθνής Κουζίνα</div>
+
+```
+<div class="card" data-cat="international">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🥩</div>
+    <div class="card-body">
+      <div class="card-name">Smokareala BBQ</div>
+      <div class="card-sub">Texas-style smoked BBQ — από Τεξανή που λέει "το καλύτερο brisket που έχω φάει". Σχάρα, σάλτσες, πλούσια μερίδα. Full bar και cocktails.</div>
+      <div class="card-tags">
+        <span class="tag tag-red">BBQ</span>
+        <span class="tag tag-green">Must Try</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Smokareala+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="international">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,139,191,.12);">🇫🇷</div>
+    <div class="card-body">
+      <div class="card-name">L'Atelier</div>
+      <div class="card-sub">Γαλλική κουζίνα στην Intrarea Aurora 17C. Chic και cozy, ζεστή υποδοχή. Ιδανικό για ρομαντικό δείπνο ή special occasion.</div>
+      <div class="card-tags">
+        <span class="tag tag-blue">French Cuisine</span>
+        <span class="tag tag-gold">Romantic</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/L'Atelier+restaurant+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="international">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🥙</div>
+    <div class="card-body">
+      <div class="card-name">Tulin Restaurant</div>
+      <div class="card-sub">Λιβανέζικη κουζίνα κοντά στον κήπο Cișmigiu. Εκτενές μενού, ωραία διακόσμηση, δημοφιλές με τους ντόπιους για γεύμα.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Lebanese</span>
+        <span class="tag tag-green">Lunch Spot</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Tulin+Restaurant+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="international">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(224,85,85,.12);">🐓</div>
+    <div class="card-body">
+      <div class="card-name">Rotisserie Galli</div>
+      <div class="card-sub">Free-range κοτόπουλο σχάρας, πάπια, χοιρινό, αρνί, πέστροφα. Κοντά στην Piața Amzei, με γαλλική επιρροή (ο ιδιοκτήτης από Λυών).</div>
+      <div class="card-tags">
+        <span class="tag tag-red">Rotisserie</span>
+        <span class="tag tag-blue">French Touch</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Rotisserie+Galli+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <!-- CLUBS -->
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🎵</span> Nightclubs & Party</div>
+
+```
+<div class="card" data-cat="club">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(155,107,191,.12);">🎉</div>
+    <div class="card-body">
+      <div class="card-name">The Artist</div>
+      <div class="card-sub">Στη Calea Victoriei 147 — ζωντανή ατμόσφαιρα, διαφορετικό μενού, έντονη μουσική. Μίγμα φαγητού και νυχτερινής διασκέδασης.</div>
+      <div class="card-tags">
+        <span class="tag tag-purple">Νυχτερινή Ζωή</span>
+        <span class="tag tag-gold">Live Events</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/The+Artist+restaurant+Calea+Victoriei+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-cat="club">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🎧</div>
+    <div class="card-body">
+      <div class="card-name">Beraria H</div>
+      <div class="card-sub">Το μεγαλύτερο beer hall της Ευρώπης — είσοδος Herăstrău Park. Φαγητό, 20+ events το μήνα, ζωντανή μουσική, τεράστιος χώρος.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Μεγαλύτερο Beer Hall Ευρώπης</span>
+        <span class="tag tag-green">Live Music</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Beraria+H+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">💡 Νυχτερινή Ζωή Tip</div>
+  <div class="tip-text">Τα Παρασκευή & Σάββατο είναι τα πιο ζωντανά. Τα clubs ανοίγουν αργά (~midnight). Η περιοχή γύρω από Stavropoleos Monastery έχει δεκάδες bars. Σε καλοκαιρινές εποχές υπάρχουν outdoor festivals.</div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════ SEE ═══════════ -->
+
+<div class="page" id="page-see">
+
+  <div class="filter-row">
+    <div class="filter-chip active" onclick="filterSee('all',this)">Όλα</div>
+    <div class="filter-chip" onclick="filterSee('monument',this)">🏛️ Μνημεία</div>
+    <div class="filter-chip" onclick="filterSee('museum',this)">🖼️ Μουσεία</div>
+    <div class="filter-chip" onclick="filterSee('church',this)">⛪ Εκκλησίες</div>
+    <div class="filter-chip" onclick="filterSee('park',this)">🌿 Πάρκα</div>
+    <div class="filter-chip" onclick="filterSee('street',this)">🚶 Δρόμοι</div>
+  </div>
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🏛️</span> Μεγάλα Μνημεία</div>
+
+```
+<div class="card" data-scat="monument">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🏛️</div>
+    <div class="card-body">
+      <div class="card-name">Παλάτι του Κοινοβουλίου</div>
+      <div class="card-sub">Το 2ο μεγαλύτερο κτίριο στον κόσμο — 1.100+ δωμάτια! Κτίστηκε επί Ceaușescu. Υποχρεωτική ξενάγηση με ταυτότητα. Κράτηση εισιτηρίου εκ των προτέρων.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Απαραίτητο</span>
+        <span class="tag tag-red">Ξενάγηση μόνο</span>
+        <span class="tag tag-blue">Ταυτότητα απαραίτητη</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Palace+of+Parliament+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="monument">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🏆</div>
+    <div class="card-body">
+      <div class="card-name">Arcul de Triumf</div>
+      <div class="card-sub">Το «Arc de Triomphe» του Βουκουρεστίου (27μ). Εγκαινιάστηκε 1936 για τον Α' ΠΠ. Ανοιχτό Σαββατοκύριακα Ιουν–Οκτ, ελεύθερη είσοδος.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Εμβληματικό</span>
+        <span class="tag tag-green">Δωρεάν</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Arcul+de+Triumf+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="monument">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,139,191,.12);">🏦</div>
+    <div class="card-body">
+      <div class="card-name">Παλάτι CEC (CEC Palace)</div>
+      <div class="card-sub">Εντυπωσιακό νεοκλασικό κτίριο 1900 του Γάλλου αρχιτέκτονα Gottereau. Έδρα της παλαιότερης τράπεζας Ρουμανίας. Αριστούργημα αρχιτεκτονικής.</div>
+      <div class="card-tags">
+        <span class="tag tag-blue">Αρχιτεκτονική</span>
+        <span class="tag tag-gold">Ιστορικό</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/CEC+Palace+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="monument">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🎭</div>
+    <div class="card-body">
+      <div class="card-name">Ρουμανικό Αθηναίο</div>
+      <div class="card-sub">Πολιτιστικό κόσμημα 1888. Αίθουσα συναυλιών 800 θέσεων με εξαιρετική ακουστική. Ευρωπαϊκή Πολιτιστική Κληρονομιά. Κλασικά κονσέρτα τακτικά.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Πολιτισμός</span>
+        <span class="tag tag-purple">Concerts</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Romanian+Athenaeum+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🖼️</span> Μουσεία</div>
+
+```
+<div class="card" data-scat="museum">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(155,107,191,.12);">📚</div>
+    <div class="card-body">
+      <div class="card-name">Cărturești Carusel</div>
+      <div class="card-sub">Ένα από τα πιο όμορφα βιβλιοπωλεία στον κόσμο — αποκατεστημένο κτίριο 19ου αι. Έξι όροφοι, εκπληκτικό Instagram spot. Μοναδικά αναμνηστικά.</div>
+      <div class="card-tags">
+        <span class="tag tag-purple">Instagram Must</span>
+        <span class="tag tag-gold">Unique</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Carturesti+Carusel+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="museum">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🎨</div>
+    <div class="card-body">
+      <div class="card-name">Εθνικό Μουσείο Τέχνης</div>
+      <div class="card-sub">Στο πρώην Βασιλικό Ανάκτορο. Εκτεταμένη συλλογή ρουμάνικης τέχνης, ξαφνιάζει με την πλούτη της. Εντυπωσιακά εσωτερικά ανάκτορα.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Τέχνη</span>
+        <span class="tag tag-blue">Ανάκτορο</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/National+Museum+of+Art+Romania+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="museum">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🏠</div>
+    <div class="card-body">
+      <div class="card-name">Εθνικό Μουσείο Χωριού (Dimitrie Gusti)</div>
+      <div class="card-sub">Open-air μουσείο στο Herăstrău Park — δεκάδες παραδοσιακά σπίτια, εκκλησίες, μύλοι από όλη τη Ρουμανία. Μεγάλη έκταση, ξεχωριστή εμπειρία.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Open Air</span>
+        <span class="tag tag-gold">Πολιτισμός</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Dimitrie+Gusti+National+Village+Museum+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="museum">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🦕</div>
+    <div class="card-body">
+      <div class="card-name">Grigore Antipa — Φυσική Ιστορία</div>
+      <div class="card-sub">170 χρόνια ιστορία, σχεδόν 2 εκατ. αντικείμενα. Παλαιοντολογία, ανθρωπολογία, γεωλογία. Κατάλληλο και για παιδιά.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Οικογένεια</span>
+        <span class="tag tag-blue">Επιστήμη</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Grigore+Antipa+Natural+History+Museum+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>⛪</span> Εκκλησίες & Ιστορικοί Χώροι</div>
+
+```
+<div class="card" data-scat="church">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🕌</div>
+    <div class="card-body">
+      <div class="card-name">Εκκλησία Stavropoleos</div>
+      <div class="card-sub">Η μικρότερη και ομορφότερη εκκλησία του Βουκουρεστίου (1724). Βυζαντινά μωσαϊκά, ξυλόγλυπτα. Όαση ηρεμίας μέσα στο Old Town. Είσοδος ελεύθερη.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Must See</span>
+        <span class="tag tag-green">Δωρεάν</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Stavropoleos+Church+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="church">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,139,191,.12);">✡️</div>
+    <div class="card-body">
+      <div class="card-name">Choral Temple (Συναγωγή)</div>
+      <div class="card-sub">Χτίστηκε 1857, εντυπωσιακό εσωτερικό με ροζ πέτρα. Η κύρια λειτουργούσα συναγωγή της πόλης. Αρχιτεκτονικό κόσμημα.</div>
+      <div class="card-tags">
+        <span class="tag tag-blue">Ιστορικό</span>
+        <span class="tag tag-purple">Αρχιτεκτονική</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Choral+Temple+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="church">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🕍</div>
+    <div class="card-body">
+      <div class="card-name">Curtea Veche Palace</div>
+      <div class="card-sub">Παλιό Βασιλικό Ανάκτορο — εποχή Βλαντ Τεπές (Dracula!). Ερείπια 15ου αι. στην καρδιά του Old Town. Ιστορική ατμόσφαιρα.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Dracula Era</span>
+        <span class="tag tag-red">Ιστορικό</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Curtea+Veche+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🌿</span> Πάρκα & Φύση</div>
+
+```
+<div class="card" data-scat="park">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">🌊</div>
+    <div class="card-body">
+      <div class="card-name">Herăstrău Park</div>
+      <div class="card-sub">Το μεγαλύτερο πάρκο, 200 εκτάρια γύρω από τεράστια λίμνη. Περίπατοι, ποδήλατα, καφέ. Δίπλα στο Μουσείο Χωριού. Χαλαρωτική εμπειρία.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Φύση</span>
+        <span class="tag tag-blue">Λίμνη</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Herastrau+Park+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="park">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🌸</div>
+    <div class="card-body">
+      <div class="card-name">Κήπος Cișmigiu</div>
+      <div class="card-sub">Κεντρικός κήπος της πόλης — σκιερές διαδρομές, λίμνη, καφέ, άπειρα παγκάκια. Αγαπημένος τόπος ξεκούρασης ντόπιων.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Κεντρικό</span>
+        <span class="tag tag-green">Ξεκούραση</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Cismigiu+Garden+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="park">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(155,107,191,.12);">🦋</div>
+    <div class="card-body">
+      <div class="card-name">Δέλτα Văcărești</div>
+      <div class="card-sub">Μοναδικό φυσικό πάρκο μέσα στην πόλη — φύση ανέκτησε πρώην κομμουνιστικό εργοτάξιο. Ιδανικό Απρ–Οκτ. Βιόσφαιρα και urban birdwatching.</div>
+      <div class="card-tags">
+        <span class="tag tag-purple">Unique</span>
+        <span class="tag tag-green">Βιοποικιλότητα</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Vacaresti+Natural+Park+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+
+  <div class="subcategory">
+    <div class="subcategory-title"><span>🚶</span> Δρόμοι & Συνοικίες</div>
+
+```
+<div class="card" data-scat="street">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(232,201,123,.12);">🗺️</div>
+    <div class="card-body">
+      <div class="card-name">Lipscani — Old Town</div>
+      <div class="card-sub">Η καρδιά του Old Town. Καλντερίμια, bars, εστιατόρια, ιστορικά κτίρια. Πρωί ήσυχο, βράδυ ζωντανό. Ξεκινά στην Πλατεία Πανεπιστημίου.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Old Town</span>
+        <span class="tag tag-red">Νυχτερινή Ζωή</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Lipscani+Street+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="street">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(181,132,90,.12);">🏰</div>
+    <div class="card-body">
+      <div class="card-name">Calea Victoriei</div>
+      <div class="card-sub">Ο κεντρικός δρόμος 3km — συνδέει τα σημαντικότερα αξιοθέατα. Νεοκλασικά κτίρια, boutiques, καφέ. Ο "backbone" του Βουκουρεστίου.</div>
+      <div class="card-tags">
+        <span class="tag tag-gold">Κύρια Αρτηρία</span>
+        <span class="tag tag-blue">Περπάτημα</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Calea+Victoriei+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="street">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,139,191,.12);">🧭</div>
+    <div class="card-body">
+      <div class="card-name">Πλατεία Επανάστασης</div>
+      <div class="card-sub">Η Piața Revoluției — εδώ ο Ceaușescu έκανε την τελευταία του ομιλία το 1989. Μνημείο στο κέντρο. Ιστορική βαρύτητα, δωρεάν επίσκεψη.</div>
+      <div class="card-tags">
+        <span class="tag tag-red">Ιστορικό</span>
+        <span class="tag tag-green">Δωρεάν</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Revolution+Square+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-scat="street">
+  <div class="card-row">
+    <div class="card-icon" style="background:rgba(91,191,133,.12);">☕</div>
+    <div class="card-body">
+      <div class="card-name">Macca-Vilacrosse Passage</div>
+      <div class="card-sub">Γοητευτικός πεζόδρομος — σαν να μπαίνεις σε άλλο κόσμο. Χρωματιστά κτίρια, καφέ, ατμοσφαιρικό break από την πόλη. Old Town.</div>
+      <div class="card-tags">
+        <span class="tag tag-green">Hidden Gem</span>
+        <span class="tag tag-purple">Ατμόσφαιρα</span>
+      </div>
+      <a class="map-btn" href="https://maps.google.com/maps/search/Macca+Vilacrosse+Passage+Bucharest" target="_blank">📍 Άνοιγμα στο Maps</a>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════ PLAN ═══════════ -->
+
+<div class="page" id="page-plan">
+
+  <div class="banner">
+    <div class="banner-icon">📅</div>
+    <div>
+      <div class="banner-title">3ήμερο Πρόγραμμα Βουκουρεστίου</div>
+      <div class="banner-text">Άγγιξε κάθε μέρα για να δεις αναλυτικό χρονοδιάγραμμα ώρα-ώρα.</div>
+    </div>
+  </div>
+
+  <!-- DAY 1 -->
+
+  <div class="day-card open" id="day1">
+    <div class="day-header" onclick="toggleDay('day1')">
+      <div class="day-num">1</div>
+      <div>
+        <div class="day-title">Old Town & Ιστορικό Κέντρο</div>
+        <div class="day-sub">Παρασκευή · Ανακάλυψη & Γαστρονομία</div>
+      </div>
+      <div class="day-arrow">⌄</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline-item">
+        <div class="timeline-time">09:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">☕ Πρωινό στο Cișmigiu</div>
+              <div class="timeline-desc">Ξεκίνα με καφέ σε ένα από τα καφέ του κήπου Cișmigiu. Ήσυχη ατμόσφαιρα για πρωινό.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">10:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">🏦 Calea Victoriei Walk</div>
+              <div class="timeline-desc">Περπάτα τον κεντρικό δρόμο: CEC Palace, Romanian Athenaeum, Royal Palace. Φωτογραφίες στα νεοκλασικά κτίρια.</div>
+              <a class="map-btn" href="https://maps.google.com/maps/search/Calea+Victoriei+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">12:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">🥬 Μεσημεριανό: Caru' cu Bere</div>
+              <div class="timeline-desc">Γεύμα στο εμβληματικό εστιατόριο 1879. Δοκίμασε sarmale, mici ή σούπα σε ψωμί. Θέαση του εσωτερικού με τα βιτρό.</div>
+              <a class="map-btn" href="https://maps.google.com/maps/search/Caru+cu+Bere+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">14:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">📚 Cărturești Carusel + Old Town</div>
+              <div class="timeline-desc">Επίσκεψη στο θρυλικό βιβλιοπωλείο. Μετά περπάτα στο Lipscani — Stavropoleos Church, Curtea Veche, Macca-Vilacrosse Passage.</div>
+              <a class="map-btn" href="https://maps.google.com/maps/search/Carturesti+Carusel+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">17:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">🍷 Απογευματινό ποτό: Abel's Wine Bar</div>
+              <div class="timeline-desc">Wine tasting με ρουμάνικες ποικιλίες — Fetească Albă, Feteasca Neagră. Εξαιρετικό staff με γνώση.</div>
+              <a class="map-btn" href="https://maps.google.com/maps/search/Abel+Wine+Bar+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">20:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">🌟 Βραδινό: Lacrimi și Sfinți</div>
+              <div class="timeline-desc">Μοντέρνα ρουμάνικη γαστρονομία με τοπικά υλικά. Ατμοσφαιρικό, ιδανικό για ανακάλυψη της σύγχρονης ρουμάνικης κουζίνας.</div>
+              <a class="map-btn" href="https://maps.google.com/maps/search/Lacrimi+si+Sfinti+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">22:00</div>
+        <div>
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+            <div class="timeline-content">
+              <div class="timeline-name">🎵 Νύχτα: Bars στο Old Town</div>
+              <div class="timeline-desc">Βόλτα στα bars γύρω από Stavropoleos. Beluga Bar για cocktails ή απλά συνεχίσου στα bars της Lipscani.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+
+  <div class="day-card" id="day2">
+    <div class="day-header" onclick="toggleDay('day2')">
+      <div class="day-num" style="background:var(--surface2);color:var(--accent);border:1px solid rgba(232,201,123,.3);">2</div>
+      <div>
+        <div class="day-title">Μεγάλα Αξιοθέατα & Πάρκα</div>
+        <div class="day-sub">Σάββατο · Ιστορία & Φύση</div>
+      </div>
+      <div class="day-arrow">⌄</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline-item">
+        <div class="timeline-time">09:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🏛️ Παλάτι του Κοινοβουλίου</div>
+            <div class="timeline-desc">Ξεκίνα νωρίς για guided tour (κράτησε εισιτήριο online). Φέρε ταυτότητα! Τουλάχιστον 1.5 ώρα για την ξενάγηση.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Palace+of+Parliament+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">11:30</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🏆 Arcul de Triumf</div>
+            <div class="timeline-desc">Σύντομη στάση στο σύμβολο της νίκης. Ωραία φωτογραφίες, δωρεάν είσοδος Σαββατοκύριακα (καλοκαίρι).</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Arcul+de+Triumf+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">13:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🏠 Μουσείο Χωριού + Herăstrău Park</div>
+            <div class="timeline-desc">Open-air μουσείο με παραδοσιακά σπίτια από όλη τη Ρουμανία. Μετά χαλάρωση στο πάρκο με θέα στη λίμνη.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/National+Village+Museum+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">16:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🍻 Beraria H</div>
+            <div class="timeline-desc">Το μεγαλύτερο beer hall Ευρώπης, στην είσοδο του Herăstrău. Τοπικές μπύρες, φαγητό, live music. Σαββατιάτικο απόγευμα.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Beraria+H+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">19:30</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🌅 Sunset: Nomad Skybar</div>
+            <div class="timeline-desc">Rooftop για ηλιοβασίλεμα με cocktails ή beers. Θέα σε όλη την πόλη. Table service — πολύ χαλαρωτικό.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Nomad+Skybar+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">21:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">⭐ Βραδινό: Kaiamo</div>
+            <div class="timeline-desc">Fine dining εμπειρία — υποψήφιο Michelin. Καινοτόμο μενού, ο σεφ σερβίρει προσωπικά. Κράτηση απαραίτητη.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Kaiamo+restaurant+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+
+  <div class="day-card" id="day3">
+    <div class="day-header" onclick="toggleDay('day3')">
+      <div class="day-num" style="background:var(--surface2);color:var(--accent);border:1px solid rgba(232,201,123,.3);">3</div>
+      <div>
+        <div class="day-title">Τέχνη, Κουζίνα & Αποχαιρετισμός</div>
+        <div class="day-sub">Κυριακή · Χαλαρό & Gourmet</div>
+      </div>
+      <div class="day-arrow">⌄</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline-item">
+        <div class="timeline-time">10:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">☕ Brunch: Energiea Café</div>
+            <div class="timeline-desc">Hipster café σε παλιό τυπογραφείο. Ελαφριά brunch menu, πολύ cool ατμόσφαιρα. Χαλαρό ξεκίνημα.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Energiea+cafe+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">11:30</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🎨 Εθνικό Μουσείο Τέχνης</div>
+            <div class="timeline-desc">Πρώην Βασιλικό Ανάκτορο — ρουμάνικη τέχνη και εντυπωσιακά ανακτορικά δωμάτια. Τουλάχιστον 1.5 ώρα.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/National+Museum+Art+Romania+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">13:30</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🏰 Πλατεία Επανάστασης</div>
+            <div class="timeline-desc">Η ιστορική πλατεία — μνημείο, το κτίριο του Κομμουνιστικού Κόμματος, ιστορικά εντυπωσιακό. Δωρεάν.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Revolution+Square+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">15:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🥩 Μεσημεριανό: Hanu' lui Manuc</div>
+            <div class="timeline-desc">Το αρχαιότερο χάνι (1808). Αυλή, παραδοσιακά πιάτα. Εξαιρετικό για τελευταίο γεύμα σε ιστορικό περιβάλλον.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Hanu+lui+Manuc+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">17:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">🛍️ Shopping & Αναμνηστικά</div>
+            <div class="timeline-desc">Old Town για last minute αγορές — Cărturești Carusel για βιβλία/αναμνηστικά, ή τοπική αγορά Piața Amzei για προϊόντα.</div>
+            <a class="map-btn" href="https://maps.google.com/maps/search/Piata+Amzei+Bucharest" target="_blank" style="margin-top:8px;">📍 Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">19:00</div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div class="timeline-dot" style="margin-top:6px;flex-shrink:0;"></div>
+          <div class="timeline-content">
+            <div class="timeline-name">✈️ Αναχώρηση</div>
+            <div class="timeline-desc">Βόλτα για Αεροδρόμιο Henri Coandă με Bolt/Uber (~30-40 λεπτά από κέντρο).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ INFO ═══════════ -->
+
+<div class="page" id="page-info">
+
+  <div class="weather-strip">
+    <div class="weather-left">
+      <div class="weather-temp">~18°C</div>
+      <div class="weather-cond">Άνοιξη — Ήλιος & Σύννεφα</div>
+      <div class="weather-city">Βουκουρέστι, Ρουμανία</div>
+    </div>
+    <div class="weather-icon">🌤️</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Μεταφορά στην Πόλη</div>
+
+```
+<div class="transport-item">
+  <div class="transport-icon">📱</div>
+  <div>
+    <div class="transport-name">Bolt / Uber</div>
+    <div class="transport-desc">Η καλύτερη επιλογή — αποφύγετε ταξί χωρίς μετρητή! Φθηνά, αξιόπιστα, app-based.</div>
+  </div>
+  <div class="transport-price">€1–5</div>
+</div>
+
+<div class="transport-item">
+  <div class="transport-icon">🚇</div>
+  <div>
+    <div class="transport-name">Metro</div>
+    <div class="transport-desc">4 γραμμές — σύγχρονο, αξιόπιστο, αποφεύγει κίνηση. Ιδανικό για απόσταση.</div>
+  </div>
+  <div class="transport-price">~€0.5</div>
+</div>
+
+<div class="transport-item">
+  <div class="transport-icon">🚌</div>
+  <div>
+    <div class="transport-name">Hop-on Hop-off Bus</div>
+    <div class="transport-desc">13 στάσεις σε τα σημαντικότερα αξιοθέατα. Περιλαμβάνει ξενάγηση Old Town.</div>
+  </div>
+  <div class="transport-price">~€6</div>
+</div>
+
+<div class="transport-item">
+  <div class="transport-icon">🚶</div>
+  <div>
+    <div class="transport-name">Περπάτημα</div>
+    <div class="transport-desc">Old Town + Calea Victoriei = walking friendly. Μεγάλα αξιοθέατα σε κοντινή απόσταση.</div>
+  </div>
+  <div class="transport-price">Δωρεάν</div>
+</div>
+
+<div class="transport-item">
+  <div class="transport-icon">✈️</div>
+  <div>
+    <div class="transport-name">Αεροδρόμιο Henri Coandă</div>
+    <div class="transport-desc">~30-40 λεπτά από κέντρο. Express Train H1 ή Bolt/Uber. Αποφύγετε μη-μετρητά ταξί!</div>
+  </div>
+  <div class="transport-price">€10–20</div>
+</div>
+```
+
+  </div>
+
+  <div class="section">
+    <div class="section-title">Χρήσιμες Πληροφορίες</div>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="info-block-icon">💰</div>
+        <div class="info-block-val">RON (Leu)</div>
+        <div class="info-block-label">Νόμισμα</div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-icon">🔌</div>
+        <div class="info-block-val">Type C/F · 230V</div>
+        <div class="info-block-label">Ρεύμα</div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-icon">🌐</div>
+        <div class="info-block-val">Καλό Αγγλικά</div>
+        <div class="info-block-label">Γλώσσα (νέοι)</div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-icon">📞</div>
+        <div class="info-block-val">112</div>
+        <div class="info-block-label">Έκτακτη Ανάγκη</div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-icon">💳</div>
+        <div class="info-block-val">Κάρτα OK</div>
+        <div class="info-block-label">Πληρωμές</div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-icon">⏰</div>
+        <div class="info-block-val">UTC+2</div>
+        <div class="info-block-label">Ζώνη Ώρας</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">💡 Essential Tips</div>
+
+```
+<div class="tip-card">
+  <div class="tip-title">🚖 Ασφαλής Μεταφορά</div>
+  <div class="tip-text">ΠΑΝΤΑ χρησιμοποίησε Bolt ή Uber. Τα ταξί χωρίς μετρητή μπορεί να χρεώσουν πολλαπλάσιο, ειδικά στο αεροδρόμιο και στο Old Town.</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">📸 Cărturești Carusel</div>
+  <div class="tip-text">Πήγαινε νωρί το πρωί (10:00) για φωτογραφίες χωρίς κόσμο — είναι ένα από τα πιο φωτογραφημένα spots της πόλης.</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">🍽️ Κρατήσεις</div>
+  <div class="tip-text">Για Kaiamo, Lacrimi și Sfinți και NOUA Bar κάνε κράτηση τουλάχιστον 2-3 μέρες πριν — ιδίως Παρασκευή & Σάββατο.</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">💶 Ανταλλαγή Νομίσματος</div>
+  <div class="tip-text">Η ισοτιμία: 1€ ≈ 5 RON. Ανταλλακτήρια στο κέντρο (Calea Victoriei) δίνουν καλύτερη τιμή από το αεροδρόμιο. Αποφύγε τα ATM ξενοδοχείων.</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">🏛️ Παλάτι Κοινοβουλίου</div>
+  <div class="tip-text">Κράτα εισιτήριο online στο cdep.ro. Φέρε ταυτότητα ή διαβατήριο — χωρίς αυτό δεν μπαίνεις. Φόρεσε άνετα παπούτσια (πολύ περπάτημα).</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">🌍 Αγγλικά & Επικοινωνία</div>
+  <div class="tip-text">Οι νέοι μιλάνε εξαιρετικά αγγλικά, ειδικά σε τουριστικές περιοχές. Μη διστάσεις να ρωτάς — είναι πολύ φιλόξενοι.</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">🍺 Κόστος Ζωής</div>
+  <div class="tip-text">Μπύρα: ~€1.5–3 · Γεύμα: €6–15 · Fine dining: €30–60 · Καφές: €2–3. Αρκετά φθηνότερο από Δ. Ευρώπη!</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-title">📅 Πότε να Πας</div>
+  <div class="tip-text">Καλύτερη εποχή: Απρίλιος–Ιούνιος & Σεπτέμβριος–Οκτώβριος. Ζεστό το καλοκαίρι (35°C+). Υπάρχει και το George Enescu Festival (Σεπτέμβριος).</div>
+</div>
+```
+
+  </div>
+
+  <div class="section">
+    <div class="section-title">Χρήσιμοι Σύνδεσμοι</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <a href="https://maps.google.com/maps/search/Bucharest+Old+Town" target="_blank" class="map-btn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;">
+        🗺️ Old Town στο Google Maps
+      </a>
+      <a href="https://maps.google.com/maps/search/Palace+of+Parliament+Bucharest" target="_blank" class="map-btn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;background:var(--surface2);color:var(--accent);border:1px solid rgba(232,201,123,.3);">
+        🏛️ Παλάτι Κοινοβουλίου Maps
+      </a>
+      <a href="https://maps.google.com/maps/search/Herastrau+Park+Bucharest" target="_blank" class="map-btn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;background:var(--surface2);color:var(--accent);border:1px solid rgba(232,201,123,.3);">
+        🌿 Herăstrău Park Maps
+      </a>
+      <a href="https://maps.google.com/maps/search/Henri+Coanda+Airport+Bucharest" target="_blank" class="map-btn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;background:var(--surface2);color:var(--accent);border:1px solid rgba(232,201,123,.3);">
+        ✈️ Αεροδρόμιο Henri Coandă Maps
+      </a>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0;color:var(--muted);font-size:11px;">
+    Bucharest City Guide · 2025–2026<br>
+    <span style="color:rgba(232,201,123,.4);">🇷🇴 Καλό Ταξίδι! · Drum Bun!</span>
+  </div>
+</div>
+
+<!-- BOTTOM TABS -->
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('home')" id="tab-home">
+    <div class="tab-icon">🏠</div>
+    <div class="tab-label">Home</div>
+    <div class="tab-dot"></div>
+  </button>
+  <button class="tab" onclick="switchTab('eat')" id="tab-eat">
+    <div class="tab-icon">🍽️</div>
+    <div class="tab-label">Φαγητό</div>
+    <div class="tab-dot"></div>
+  </button>
+  <button class="tab" onclick="switchTab('see')" id="tab-see">
+    <div class="tab-icon">🏛️</div>
+    <div class="tab-label">Αξιοθέατα</div>
+    <div class="tab-dot"></div>
+  </button>
+  <button class="tab" onclick="switchTab('plan')" id="tab-plan">
+    <div class="tab-icon">📅</div>
+    <div class="tab-label">Πλάνο</div>
+    <div class="tab-dot"></div>
+  </button>
+  <button class="tab" onclick="switchTab('info')" id="tab-info">
+    <div class="tab-icon">💡</div>
+    <div class="tab-label">Info</div>
+    <div class="tab-dot"></div>
+  </button>
+</div>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleDay(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+function filterEat(cat, btn) {
+  document.querySelectorAll('#page-eat .filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#page-eat .card[data-cat]').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.setAttribute('data-hidden', 'false');
+      card.style.display = '';
+    } else {
+      card.setAttribute('data-hidden', 'true');
+      card.style.display = 'none';
+    }
+  });
+  // Show/hide subcategory headers based on visible cards
+  document.querySelectorAll('#page-eat .subcategory').forEach(sub => {
+    const visibleCards = sub.querySelectorAll('.card:not([style*="display: none"])');
+    sub.style.display = visibleCards.length === 0 ? 'none' : '';
+  });
+}
+
+function filterSee(cat, btn) {
+  document.querySelectorAll('#page-see .filter-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#page-see .card[data-scat]').forEach(card => {
+    if (cat === 'all' || card.dataset.scat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  document.querySelectorAll('#page-see .subcategory').forEach(sub => {
+    const visibleCards = sub.querySelectorAll('.card:not([style*="display: none"])');
+    sub.style.display = visibleCards.length === 0 ? 'none' : '';
+  });
+}
+</script>
+
+</body>
+</html>
