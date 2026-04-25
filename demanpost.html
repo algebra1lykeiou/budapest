@@ -1,89 +1,726 @@
 <!DOCTYPE html>
+
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deman's Post | Η Οριστική Ανάλυση του 2015</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Deman's Post | Η Διαπραγμάτευση του 2015</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a1a1a; --accent: #e63946; --bg: #ffffff; --text: #2d3436; --secondary-text: #636e72; }
-        * { box-sizing: border-box; }
-        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background-color: #f4f7f6; color: var(--text); line-height: 1.8; }
-        nav { background: var(--primary); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        nav .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; }
-        nav .logo span { color: var(--accent); }
-        .main-container { max-width: 1000px; margin: 0 auto; padding: 2rem 5%; }
-        .article-card { background: var(--bg); padding: 4rem; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
-        header { border-bottom: 2px solid #eee; margin-bottom: 3rem; padding-bottom: 2rem; }
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.05; margin: 0 0 1.5rem 0; color: var(--primary); }
-        .dropcap { float: left; font-size: 5rem; line-height: 1; font-weight: 900; margin-right: 15px; color: var(--primary); font-family: 'Playfair Display', serif; }
-        h3 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-top: 4rem; color: var(--primary); border-left: 6px solid var(--accent); padding-left: 20px; }
-        p { margin-bottom: 2rem; font-size: 1.2rem; text-align: justify; }
-        .insight-box { background: #f9f9f9; border-left: 5px solid var(--accent); padding: 2rem; margin: 3rem 0; font-style: italic; font-size: 1.3rem; color: #333; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
-        footer { text-align: center; padding: 4rem; background: var(--primary); color: #888; margin-top: 5rem; }
-        @media (max-width: 768px) { .article-card { padding: 1.5rem; } h1 { font-size: 2.5rem; } p { font-size: 1.1rem; } }
-    </style>
+        :root {
+            --ink: #0d0d0d;
+            --paper: #f7f4ef;
+            --rule: #c8bfb0;
+            --red: #c0392b;
+            --muted: #6b6257;
+            --warm-white: #faf8f4;
+        }
+
+```
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Barlow', sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 16px;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+        background: var(--ink);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 3px solid var(--red);
+    }
+
+    .nav-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+        height: 52px;
+    }
+
+    .logo {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 1.6rem;
+        color: #fff;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .logo span { color: var(--red); }
+
+    .nav-date {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.65rem;
+        color: #aaa;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-align: right;
+        line-height: 1.3;
+    }
+
+    .nav-ticker {
+        background: var(--red);
+        overflow: hidden;
+        white-space: nowrap;
+        height: 26px;
+        display: flex;
+        align-items: center;
+    }
+
+    .ticker-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        color: white;
+        background: #8b0000;
+        padding: 0 10px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .ticker-content {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.7rem;
+        color: white;
+        letter-spacing: 1px;
+        animation: ticker 22s linear infinite;
+        padding-left: 20px;
+    }
+
+    @keyframes ticker {
+        0% { transform: translateX(100vw); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* ── HERO SECTION ── */
+    .hero {
+        background: var(--ink);
+        padding: 28px 18px 22px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0; right: 0;
+        width: 120px; height: 120px;
+        background: var(--red);
+        opacity: 0.08;
+        border-radius: 50%;
+        transform: translate(40px, -40px);
+    }
+
+    .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .tag-label {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--red);
+        border: 1px solid var(--red);
+        padding: 3px 8px;
+    }
+
+    .tag-line {
+        flex: 1;
+        height: 1px;
+        background: rgba(255,255,255,0.15);
+    }
+
+    .hero h1 {
+        font-family: 'Libre Baskerville', serif;
+        font-size: clamp(1.65rem, 7vw, 2.2rem);
+        line-height: 1.15;
+        color: #fff;
+        letter-spacing: -0.3px;
+        margin-bottom: 16px;
+    }
+
+    .hero-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        padding-top: 14px;
+        margin-top: 4px;
+    }
+
+    .author-badge {
+        width: 34px;
+        height: 34px;
+        background: var(--red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 0.85rem;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .meta-info {
+        flex: 1;
+    }
+
+    .meta-author {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 0.8rem;
+        color: #fff;
+        letter-spacing: 0.5px;
+    }
+
+    .meta-details {
+        font-family: 'Barlow', sans-serif;
+        font-size: 0.68rem;
+        color: #999;
+        margin-top: 1px;
+    }
+
+    .read-time {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 600;
+        font-size: 0.65rem;
+        color: var(--red);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 1px solid rgba(192,57,43,0.4);
+        padding: 4px 8px;
+        flex-shrink: 0;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+        padding: 0 18px;
+        background: var(--warm-white);
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+        padding: 22px 0 14px;
+        border-bottom: 3px double var(--rule);
+        margin-bottom: 22px;
+    }
+
+    .section-number {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 800;
+        font-size: 0.6rem;
+        letter-spacing: 3px;
+        color: var(--red);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    h3 {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 1.4rem;
+        line-height: 1.2;
+        color: var(--ink);
+        letter-spacing: -0.2px;
+    }
+
+    .section-rule {
+        margin-top: 10px;
+        height: 1px;
+        background: linear-gradient(to right, var(--red) 40px, transparent 40px);
+    }
+
+    /* ── PARAGRAPHS ── */
+    .prose p {
+        font-family: 'Libre Baskerville', serif;
+        font-size: 1.02rem;
+        line-height: 1.82;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+        text-align: justify;
+        hyphens: auto;
+    }
+
+    .dropcap::first-letter {
+        float: left;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 4.8rem;
+        line-height: 0.78;
+        margin-right: 8px;
+        margin-top: 6px;
+        color: var(--ink);
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+        margin: 26px -18px;
+        padding: 24px 20px;
+        background: var(--ink);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pull-quote::before {
+        content: '\201C';
+        position: absolute;
+        top: -12px;
+        left: 14px;
+        font-family: 'Libre Baskerville', serif;
+        font-size: 8rem;
+        color: var(--red);
+        opacity: 0.25;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    .pull-quote p {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: 1.08rem;
+        line-height: 1.65;
+        color: #e8e4de;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+        text-align: left !important;
+        hyphens: none !important;
+    }
+
+    .pull-quote-source {
+        margin-top: 12px;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        color: var(--red);
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ── STAT CARDS ── */
+    .stat-strip {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--rule);
+        margin: 24px -18px;
+        border-top: 2px solid var(--ink);
+        border-bottom: 2px solid var(--ink);
+    }
+
+    .stat-card {
+        background: var(--warm-white);
+        padding: 16px 14px;
+        text-align: center;
+    }
+
+    .stat-value {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 2.2rem;
+        color: var(--red);
+        line-height: 1;
+        display: block;
+    }
+
+    .stat-label {
+        font-family: 'Barlow', sans-serif;
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin-top: 5px;
+        line-height: 1.35;
+        font-weight: 500;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 30px 0 0;
+        padding-bottom: 18px;
+    }
+
+    .divider-num {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 2.5rem;
+        color: var(--rule);
+        line-height: 1;
+        flex-shrink: 0;
+    }
+
+    .divider-line {
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+    }
+
+    /* ── FOOTNOTE ── */
+    .footnote {
+        border-top: 2px solid var(--rule);
+        padding: 18px 0 30px;
+        margin-top: 8px;
+    }
+
+    .footnote p {
+        font-family: 'Barlow', sans-serif;
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-style: italic;
+        line-height: 1.6;
+        margin: 0;
+        text-align: left;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+        background: var(--ink);
+        padding: 28px 18px;
+        border-top: 3px solid var(--red);
+    }
+
+    .footer-logo {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 1.4rem;
+        color: white;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-rule {
+        height: 1px;
+        background: rgba(255,255,255,0.1);
+        margin: 14px 0;
+    }
+
+    .footer-tagline {
+        font-family: 'Libre Baskerville', serif;
+        font-style: italic;
+        font-size: 0.8rem;
+        color: #888;
+        line-height: 1.5;
+    }
+
+    .footer-copy {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 0.65rem;
+        color: #555;
+        letter-spacing: 1px;
+        margin-top: 14px;
+        text-transform: uppercase;
+    }
+
+    /* ── ANIMATIONS ── */
+    .article-body > * {
+        animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SHARE BAR ── */
+    .share-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--ink);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 10px 16px;
+        z-index: 99;
+    }
+
+    .share-btn {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 0.65rem;
+        letter-spacing: 1.5px;
+        color: #aaa;
+        text-transform: uppercase;
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+    }
+
+    .share-btn .icon {
+        font-size: 1rem;
+    }
+
+    .share-btn.primary {
+        color: var(--red);
+    }
+
+    .progress-bar {
+        position: fixed;
+        top: 78px;
+        left: 0;
+        height: 2px;
+        background: var(--red);
+        z-index: 101;
+        transition: width 0.1s linear;
+        width: 0%;
+    }
+
+    /* bottom padding for share bar */
+    .article-body { padding-bottom: 20px; }
+    footer { padding-bottom: 80px; }
+</style>
+```
+
 </head>
 <body>
 
+<!-- PROGRESS -->
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- NAV -->
+
 <nav>
-    <div class="logo">DEMAN’S <span>POST</span></div>
-    <div style="font-size: 0.8rem; opacity: 0.7;">SPECIAL EDITION | 2026</div>
+    <div class="nav-top">
+        <div class="logo">DEMAN'S <span>POST</span></div>
+        <div class="nav-date">SPECIAL EDITION<br>ΚΥΡΙΑΚΗ 26 ΑΠΡΙΛΙΟΥ 2026</div>
+    </div>
+    <div class="nav-ticker">
+        <div class="ticker-label">BREAKING</div>
+        <div class="ticker-content">Η ΜΕΓΑΛΗ ΣΥΓΚΡΟΥΣΗ ΤΟΥ 2015 &nbsp;•&nbsp; ΑΝΑΤΟΜΙΑ ΤΗΣ ΚΡΙΣΗΣ &nbsp;•&nbsp; LONG READ SPECIAL EDITION &nbsp;•&nbsp; 785 ΔΙΣ ΧΑΜΕΝΟΣ ΕΘΝΙΚΟΣ ΠΛΟΥΤΟΣ &nbsp;•&nbsp; ΤΟ ΔΗΜΟΨΗΦΙΣΜΑ ΤΗΣ 5ΗΣ ΙΟΥΛΙΟΥ &nbsp;•&nbsp;</div>
+    </div>
 </nav>
 
-<div class="main-container">
-    <article class="article-card">
-        <header>
-            <div style="text-transform: uppercase; color: var(--accent); font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">Long Read • Οικονομική Ιστορία</div>
-            <h1>Η Μεγάλη Σύγκρουση: Μια Εις Βάθος Ανατομία της Διαπραγμάτευσης του 2015 και η Μνήμη της Κρίσης</h1>
-            <div style="color: var(--secondary-text); font-weight: 500;">Από τον Deman | Χρόνος Ανάγνωσης: 25 λεπτά</div>
-        </header>
+<!-- HERO -->
 
-        <p><span class="dropcap">Η</span> χρονιά του 2015 δεν ήταν απλώς ένας ακόμη σταθμός στην πολυετή περιπέτεια της ελληνικής κρίσης χρέους· ήταν η στιγμή της απόλυτης κορύφωσης, μια περίοδος όπου η οικονομική θεωρία, η γεωπολιτική στρατηγική και η κοινωνική οργή συγκρούστηκαν μετωπικά σε μια από τις πιο δραματικές σκηνές της σύγχρονης ευρωπαϊκής ιστορίας. Η άνοδος μιας νέας, ριζοσπαστικής κυβέρνησης στην εξουσία τον Ιανουάριο εκείνου του έτους υποσχέθηκε όχι μόνο την ανατροπή της λιτότητας στην Ελλάδα, αλλά και την αμφισβήτηση ολόκληρου του οικοδομήματος της ευρωπαϊκής οικονομικής διακυβέρνησης. Ωστόσο, πίσω από τους πύρινους λόγους και τις εξαντλητικές διαπραγματεύσεις στις Βρυξέλλες, κρυβόταν μια πραγματικότητα πολύ πιο σύνθετη και σκληρή από όσο πολλοί ήταν έτοιμοι να παραδεχτούν.</p>
-
-        <h3>Το Ιστορικό Βάρος και η Κοινωνική Εξάντληση</h3>
-        <p>Για να κατανοήσει κανείς το 2015, πρέπει να ανατρέξει στις ρίζες του 2010. Η Ελλάδα είχε ήδη υποστεί πέντε χρόνια πρωτοφανούς οικονομικής ύφεσης, η οποία είχε οδηγήσει σε απώλεια του 25% του ΑΕΠ της. Τα δύο προηγούμενα μνημόνια είχαν αποτύχει παταγωδώς να φέρουν την ανάπτυξη, καθώς βασίζονταν σε μια λανθασμένη διάγνωση: ότι το πρόβλημα ήταν καθαρά δημοσιονομικό και μπορούσε να λυθεί μέσω μιας βίαιης εσωτερικής υποτίμησης. Η κοινωνία βρισκόταν σε κατάσταση σοκ. Η ανεργία των νέων άγγιζε το 60%, το σύστημα υγείας κατέρρεε και η αίσθηση ότι η χώρα είχε μετατραπεί σε ένα πειραματικό εργαστήριο λιτότητας για χάρη των βορειοευρωπαϊκών τραπεζών ήταν καθολική.</p>
-        
-        <p>Η διαπραγμάτευση του 2015 δεν ήταν λοιπόν μια τυχαία επιλογή μιας κυβέρνησης, αλλά το νομοτελειακό αποτέλεσμα ενός φαύλου κύκλου. Οι Έλληνες πολίτες είχαν φτάσει στα όριά τους και απαιτούσαν μια "σκληρή γραμμή", πιστεύοντας ότι οποιαδήποτε περαιτέρω υποχώρηση θα σήμαινε την οριστική καταστροφή του κοινωνικού ιστού. Αυτό το κλίμα δημιούργησε μια τεράστια πολιτική πίεση, η οποία εγκλώβισε την τότε κυβέρνηση σε μια στρατηγική "όλα ή τίποτα".</p>
-
-        <div class="insight-box">
-            "Η διαπραγμάτευση δεν διεξήχθη σε κενό αέρος. Ήταν η σύγκρουση δύο κόσμων: της δημοκρατικής νομιμοποίησης ενός λαού που υπέφερε και της άκαμπτης τεχνοκρατικής πειθαρχίας μιας νομισματικής ένωσης που δεν συγχωρούσε παρεκκλίσεις."
+<div class="hero">
+    <div class="section-tag">
+        <span class="tag-label">Long Read • Οικονομική Ιστορία</span>
+        <span class="tag-line"></span>
+    </div>
+    <h1>Η Διαπραγμάτευση του 2015: Μια Οικονομική Ανάλυση της Σύγκρουσης και των Συνεπειών</h1>
+    <div class="hero-meta">
+        <div class="author-badge">D</div>
+        <div class="meta-info">
+            <div class="meta-author">Deman</div>
+            <div class="meta-details">Κυριακή, 26 Απριλίου 2026</div>
         </div>
-
-        <h3>Η Στρατηγική της 'Συστημικής Απειλής' και η Αποτυχία της</h3>
-        <p>Η ελληνική πλευρά προσήλθε στις Βρυξέλλες με ένα βασικό όπλο: την απειλή του Grexit. Η λογική ήταν ότι η έξοδος της Ελλάδας από το ευρώ θα προκαλούσε μια τέτοια αναταραχή στις παγκόσμιες αγορές, που η Ευρωζώνη θα αναγκαζόταν να υποχωρήσει για να σωθεί. Ωστόσο, αυτή η στρατηγική βασιζόταν σε δεδομένα του 2012. Μέχρι το 2015, οι Ευρωπαίοι είχαν "θωρακίσει" το σύστημά τους. Είχαν δημιουργήσει τον ESM, είχαν προχωρήσει στην Τραπεζική Ένωση και η ΕΚΤ είχε ήδη δηλώσει ότι θα κάνει "ότι χρειαστεί" (whatever it takes) για να προστατεύσει το ευρώ.</p>
-
-        <p>Οι δανειστές γνώριζαν ότι η "μετάδοση" της κρίσης σε χώρες όπως η Ισπανία ή η Ιταλία ήταν πλέον ελεγχόμενη. Έτσι, η ελληνική απειλή μετατράπηκε σε μπούμερανγκ. Αντί οι εταίροι να φοβηθούν, άρχισαν να προετοιμάζουν οι ίδιοι το σενάριο της ελληνικής εξόδου, χρησιμοποιώντας το μάλιστα ως μέσο πίεσης. Η ελληνική κυβέρνηση βρέθηκε να παίζει μια παρτίδα πόκερ όπου ο αντίπαλος μπορούσε να δει όλα της τα χαρτιά.</p>
-
-        <h3>Ο Ρόλος του Βόλφγκανγκ Σόιμπλε και το Σχέδιο Προσωρινής Εξόδου</h3>
-        <p>Κεντρικό πρόσωπο σε αυτή τη δραματική περίοδο ήταν ο Γερμανός Υπουργός Οικονομικών, Βόλφγκανγκ Σόιμπλε. Ο Σόιμπλε δεν έβλεπε την Ελλάδα απλώς ως ένα οικονομικό πρόβλημα, αλλά ως μια απειλή για την αξιοπιστία των κανόνων της Ευρωζώνης. Το περίφημο σχέδιό του για ένα "προσωρινό Grexit" πέντε ετών δεν ήταν μια απλή μπλόφα. Ήταν μια βαθιά πεποίθηση ότι η Ελλάδα δεν μπορούσε να αναδιαρθρωθεί εντός της Ευρωζώνης και ότι η έξοδός της θα λειτουργούσε ως καθαρτικό για την υπόλοιπη Ευρώπη.</p>
-
-        <p>Αυτή η προσέγγιση εισήγαγε μια νέα, "τιμωρητική" διάσταση στις διαπραγματεύσεις. Οι απαιτήσεις των δανειστών έγιναν πιο σκληρές, όχι μόνο για οικονομικούς λόγους, αλλά και για να καταδειχθεί ότι η αμφισβήτηση του status quo έχει βαρύ τίμημα. Η Ελλάδα βρέθηκε αντιμέτωπη με έναν τοίχο αδιαλλαξίας που δεν υποχωρούσε ούτε μπροστά στα πιο ορθολογικά οικονομικά επιχειρήματα περί μη βιωσιμότητας του χρέους.</p>
-
-        <h3>Η Οικονομική Ασφυξία και η 'Μαύρη Τρύπα' της Ρευστότητας</h3>
-        <p>Καθώς οι μήνες περνούσαν χωρίς συμφωνία, η ελληνική οικονομία άρχισε να καταρρέει εσωτερικά. Οι καταθέσεις έφευγαν από τις τράπεζες με ρυθμούς δισεκατομμυρίων κάθε εβδομάδα. Η Ευρωπαϊκή Κεντρική Τράπεζα, χρησιμοποιώντας τον μηχανισμό ELA (Emergency Liquidity Assistance), κρατούσε τις τράπεζες "στην εντατική", αλλά με αυστηρούς όρους. Η απόφαση της ΕΚΤ τον Ιούνιο του 2015 να παγώσει το όριο του ELA ήταν η κίνηση "ματ" που οδήγησε στο κλείσιμο των τραπεζών και την επιβολή των Capital Controls.</p>
-
-        <p>Ήταν η πρώτη φορά στην ιστορία της Ευρωζώνης που μια χώρα-μέλος βίωνε τέτοια κατάσταση. Οι εικόνες των ηλικιωμένων έξω από τις κλειστές τράπεζες έκαναν τον γύρο του κόσμου. Η οικονομική ασφυξία δεν ήταν πλέον ένα σενάριο στα γραφεία των Βρυξελλών, αλλά μια βίαιη πραγματικότητα που διέλυε την αγορά, τις εισαγωγές και την καθημερινότητα των πολιτών.</p>
-
-        <h3>Το Δημοψήφισμα και η Μεγάλη Ανατροπή</h3>
-        <p>Η προκήρυξη του δημοψηφίσματος της 5ης Ιουλίου 2015 ήταν η ύστατη προσπάθεια της ελληνικής πλευράς να αλλάξει τους συσχετισμούς. Το αποτέλεσμα ήταν ένα συγκλονιστικό 61,3% υπέρ του "Όχι". Ήταν μια στιγμή εθνικής ανάτασης για πολλούς, μια κραυγή απόγνωσης ενάντια σε πέντε χρόνια λιτότητας. Ωστόσο, η πολιτική ανάγνωση αυτού του αποτελέσματος στις Βρυξέλλες ήταν τελείως διαφορετική. Για τους εταίρους, το "Όχι" σήμαινε το τέλος της ελληνικής παρουσίας στο ευρώ.</p>
-
-        <p>Η νύχτα της 12ης Ιουλίου, στη Σύνοδο Κορυφής που διήρκεσε 17 ώρες, ήταν η στιγμή της αλήθειας. Η Ελλάδα βρέθηκε μπροστά στον γκρεμό της άτακτης χρεοκοπίας και της πλήρους αποπομπής από την Ευρωπαϊκή Ένωση. Η υποχώρηση της ελληνικής κυβέρνησης και η υπογραφή του 3ου Μνημονίου ήταν μια πράξη απόλυτου κυνισμού και ρεαλισμού ταυτόχρονα. Η "κωλοτούμπα" δεν ήταν επιλογή, αλλά η παραδοχή ότι δεν υπήρχε "Σχέδιο Β" που να μην οδηγεί σε ανθρωπιστική καταστροφή.</p>
-
-        <h3>Η Τελική Αποτίμηση: Ποιος Κέρδισε και Ποιος Έχασε;</h3>
-        <p>Αν κοιτάξουμε τα νούμερα σήμερα, η διαπραγμάτευση του 2015 άφησε πίσω της μια βαθιά πληγή. Ο εθνικός πλούτος που χάθηκε κατά τη διάρκεια της μνημονιακής δεκαετίας υπολογίζεται στο αστρονομικό ποσό των 785 δισεκατομμυρίων ευρώ. Αυτό το ποσό είναι υπερδιπλάσιο από το δημόσιο χρέος της χώρας. Μπήκαμε στην κρίση με χρέος 350 δις και βγήκαμε με το ίδιο σχεδόν ποσό, έχοντας όμως μια οικονομία που είναι σκιά του εαυτού της.</p>
-
-        <p>Το μεγάλο μάθημα του 2015 είναι ότι η οικονομική επιστήμη συχνά υποχωρεί μπροστά στην πολιτική ισχύ. Παρόλο που πολλοί οικονομολόγοι παγκοσμίως (συμπεριλαμβανομένων κατόχων βραβείων Νόμπελ) συμφωνούσαν ότι οι θέσεις της Ελλάδας για το χρέος ήταν ορθές, η Ευρώπη επέλεξε να διατηρήσει την πειθαρχία της εις βάρος της ανάπτυξης μιας χώρας-μέλους. Η Ελλάδα έγινε το "εξιλαστήριο θύμα" για να σωθεί η συνοχή ενός νομισματικού πειράματος που δεν είχε προβλέψει πώς να διαχειρίζεται τις κρίσεις του.</p>
-
-        <p>Σήμερα, η χώρα προσπαθεί να ανακάμψει, αλλά το φάντασμα του 2015 παραμένει. Μας θυμίζει ότι η εθνική κυριαρχία είναι περιορισμένη όταν η οικονομική επιβίωση εξαρτάται από εξωτερικούς παράγοντες. Η μόνη πραγματική λύση για το μέλλον είναι η δημιουργία μιας οικονομίας που να βασίζεται στην παραγωγή και την εξωστρέφεια, ώστε να μην βρεθούμε ποτέ ξανά στη θέση του "επαίτη" των Βρυξελλών. Η ιστορία γράφεται από τους νικητές, αλλά τα μαθήματά της ανήκουν σε εκείνους που έχουν το θάρρος να την κοιτάξουν κατάματα.</p>
-        
-        <p><em>(Σημείωση: Η παραπάνω ανάλυση συνεχίζει σε βάθος για άλλες 1200 λέξεις εξετάζοντας τις επιπτώσεις στον ιδιωτικό τομέα, το PSI και τη γεωπολιτική θέση της Ελλάδας στην Ανατολική Μεσόγειο, προσφέροντας μια ολοκληρωμένη εικόνα της κρίσης...)</em></p>
-    </article>
+        <div class="read-time">25 λεπτά</div>
+    </div>
 </div>
 
+<!-- ARTICLE -->
+
+<div class="article-body">
+
+```
+<!-- INTRO -->
+<div class="section-header">
+    <div class="section-number">§ Εισαγωγή</div>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p class="dropcap">Η ελληνική κρίση χρέους, μια περιπέτεια που ξεκίνησε το 2010, έφτασε στην πιο δραματική της κορύφωση το πρώτο εξάμηνο του 2015. Η περίοδος αυτή δεν ήταν απλώς μια πολιτική αλλαγή, αλλά η τελική αναμέτρηση δύο εκ διαμέτρου αντίθετων κοσμοθεωριών για την οικονομία και τη δημοσιονομική πειθαρχία στην Ευρωζώνη. Η ανάλυση των γεγονότων, μακριά από κομματικές περιχαρακώσεις, αποκαλύπτει τους μηχανισμούς μιας διαπραγμάτευσης που, αν και ξεκίνησε με υψηλές προσδοκίες, κατέληξε σε μια επώδυνη πραγματικότητα.</p>
+</div>
+
+<!-- STATS -->
+<div class="stat-strip">
+    <div class="stat-card">
+        <span class="stat-value">2010</span>
+        <div class="stat-label">έναρξη<br>κρίσης χρέους</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">86δισ</span>
+        <div class="stat-label">δάνεια<br>3ου Μνημονίου</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">50δισ</span>
+        <div class="stat-label">ιδιωτικοποιήσεις<br>που συμφωνήθηκαν</div>
+    </div>
+    <div class="stat-card">
+        <span class="stat-value">785δισ</span>
+        <div class="stat-label">χαμένος<br>εθνικός πλούτος</div>
+    </div>
+</div>
+
+<!-- S1 -->
+<div class="section-divider">
+    <div class="divider-num">01</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Υπόβαθρο</div>
+    <h3>Το Υπόβαθρο και το Αναπόφευκτο της Σύγκρουσης</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Από την έναρξη των μνημονίων, ένα μεγάλο μέρος της ελληνικής κοινωνίας αντιλαμβανόταν ότι τα προγράμματα διάσωσης δεν αποσκοπούσαν τόσο στην ανάκαμψη της εγχώριας οικονομίας, όσο στον περιορισμό της έκθεσης των ευρωπαϊκών τραπεζών σε μια ενδεχόμενη ελληνική χρεοκοπία. Αυτή η αίσθηση δημιούργησε έναν πολιτικό φαύλο κύκλο: κόμματα ανέρχονταν στην εξουσία υποσχόμενα σκληρή διαπραγμάτευση, για να υπαναχωρήσουν στη συνέχεια υπό το βάρος των οικονομικών πιέσεων.</p>
+    <p>Μέχρι το 2015, η σύγκρουση φαινόταν προδιαγεγραμμένη για δύο λόγους. Πρώτον, οι Ευρωπαίοι εταίροι προετοιμάζονταν για μια τέτοια αναμέτρηση επί τετραετία. Ενώ το 2011 η πρόταση για δημοψήφισμα προκάλεσε πανικό και πτώση της τότε κυβέρνησης, το 2015 η Ευρώπη στάθηκε αδιάφορη, έχοντας ήδη θωρακίσει το τραπεζικό της σύστημα. Δεύτερον, η «σκληρή γραμμή» είχε κυριαρχήσει στην ελληνική κοινή γνώμη σε τέτοιο βαθμό, που οποιαδήποτε άμεση υποχώρηση θα οδηγούσε σε άμεση κυβερνητική κατάρρευση.</p>
+</div>
+
+<!-- S2 -->
+<div class="section-divider">
+    <div class="divider-num">02</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Θεωρία Παιγνίων</div>
+    <h3>Η Στρατηγική της «Στρατηγικής Απειλής»</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Στη θεωρία παιγνίων, η διαπραγμάτευση του 2015 κατατάσσεται στα παίγνια αμφισβήτησης του status quo. Το υφιστάμενο καθεστώς ήταν η μνημονιακή πολιτική, την οποία η ελληνική πλευρά επιδίωκε να αντικαταστήσει με κούρεμα χρέους και χαλάρωση της λιτότητας. Για να επιτευχθεί αυτό χωρίς τη συναίνεση του αντιπάλου, απαιτείται μια «αξιόπιστη απειλή».</p>
+    <p>Η ελληνική πλευρά παρέθεσε τρία βασικά όπλα: την αναβολή πληρωμών προς το ΔΝΤ, την αναβολή πληρωμών ομολόγων που κατείχε η ΕΚΤ και την ενεργοποίηση ενός παράλληλου συστήματος πληρωμών.</p>
+    <p>Ωστόσο, η οικονομική επιστήμη δείχνει ότι οι απειλές αυτές ήταν σε μεγάλο βαθμό «κενές». Οι δανειστές είχαν ήδη διασφαλίσει ότι μια ελληνική αθέτηση πληρωμών δεν θα προκαλούσε συστημικό κίνδυνο στην Ευρωζώνη. Επιπλέον, για πολλούς Ευρωπαίους αξιωματούχους, το ζήτημα δεν ήταν πλέον οικονομικό αλλά ηθικό: η Ελλάδα έπρεπε να αποτελέσει παράδειγμα προς αποφυγήν για όποιον αμφισβητούσε τη δημοσιονομική πειθαρχία.</p>
+</div>
+
+<!-- PULL QUOTE 1 -->
+<div class="pull-quote">
+    <p>Για πολλούς Ευρωπαίους αξιωματούχους, το ζήτημα δεν ήταν πλέον οικονομικό αλλά ηθικό: η Ελλάδα έπρεπε να αποτελέσει παράδειγμα προς αποφυγήν για όποιον αμφισβητούσε τη δημοσιονομική πειθαρχία.</p>
+    <div class="pull-quote-source">— Deman's Post Analysis, 2026</div>
+</div>
+
+<!-- S3 -->
+<div class="section-divider">
+    <div class="divider-num">03</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Grexit</div>
+    <h3>Η Ψευδαίσθηση της Μπλόφας και το Grexit</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Ένα από τα μεγαλύτερα στρατηγικά σφάλματα ήταν η υποτίμηση της αποφασιστικότητας της άλλης πλευράς. Ενώ η Αθήνα πίστευε ότι η απειλή της εξόδου από το ευρώ θα τρόμαζε τις Βρυξέλλες, ο Γερμανός υπουργός Οικονομικών είχε ήδη έτοιμο ένα λεπτομερές σχέδιο για το λεγόμενο «Grexit». Η απειλή του παράλληλου νομίσματος λειτούργησε τελικά ως μπούμερανγκ, καθώς θεωρήθηκε ευθεία υπονόμευση του ευρώ, οδηγώντας τους εταίρους σε ακόμη πιο σκληρή στάση.</p>
+    <p>Η επικοινωνιακή διαχείριση επιδείνωσε την κατάσταση. Οι πολεμικές ιαχές που προορίζονταν για το εσωτερικό ακροατήριο εγκλώβισαν τους ξένους διαπραγματευτές, οι οποίοι φοβούνταν ότι οποιαδήποτε υποχώρηση θα τους έκανε να φαίνονται ηττημένοι στις δικές τους χώρες.</p>
+</div>
+
+<!-- S4 -->
+<div class="section-divider">
+    <div class="divider-num">04</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Τραπεζική Κρίση</div>
+    <h3>Η Κρίση Ρευστότητας και το Κλείσιμο των Τραπεζών</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Η αβεβαιότητα οδήγησε σε μαζική φυγή κεφαλαίων. Η ρευστότητα, το «λιπαντικό» της οικονομίας, άρχισε να στερεύει. Παρά το γεγονός ότι οι καταθέσεις υπήρχαν λογιστικά, δεν υπήρχαν τα φυσικά μετρητά για να υποστηρίξουν τις συναλλαγές. Όταν προκηρύχθηκε το δημοψήφισμα, η ΕΚΤ διέκοψε την έκτακτη ενίσχυση ρευστότητας (ELA), οδηγώντας στο κλείσιμο των τραπεζών και την επιβολή κεφαλαιακών ελέγχων (capital controls).</p>
+    <p>Η χώρα βρέθηκε στο χείλος μιας ανθρωπιστικής καταστροφής. Χωρίς τράπεζες, η πραγματική οικονομία παρέλυσε. Η μόνη εναλλακτική για την επανεκκίνηση των συναλλαγών θα ήταν η έκδοση ενός εθνικού νομίσματος, μια κίνηση που θα σήμανε την οριστική αποκοπή από την Ευρωζώνη με απρόβλεπτες συνέπειες.</p>
+</div>
+
+<!-- PULL QUOTE 2 -->
+<div class="pull-quote">
+    <p>Χωρίς τράπεζες, η πραγματική οικονομία παρέλυσε. Η μόνη εναλλακτική για την επανεκκίνηση των συναλλαγών θα ήταν η έκδοση ενός εθνικού νομίσματος, με απρόβλεπτες συνέπειες.</p>
+    <div class="pull-quote-source">— Ιούλιος 2015</div>
+</div>
+
+<!-- S5 -->
+<div class="section-divider">
+    <div class="divider-num">05</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Αποτέλεσμα</div>
+    <h3>Το Τρίτο Μνημόνιο και το Κόστος της Διαπραγμάτευσης</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Η κατακλείδα γράφτηκε στις 13 Ιουλίου 2015. Μετά από 17 ώρες διαπραγματεύσεων, η Ελλάδα υπέγραψε ένα τρίτο μνημόνιο, το οποίο περιλάμβανε σκληρά μέτρα: αύξηση ΦΠΑ, περικοπές συντάξεων, ιδιωτικοποιήσεις ύψους 50 δις ευρώ και υψηλά πλεονάσματα. Σε αντάλλαγμα, έλαβε δάνεια 86 δις ευρώ, μεγάλο μέρος των οποίων κατευθύνθηκε στην ανακεφαλαιοποίηση των τραπεζών που είχαν καταρρεύσει κατά τη διάρκεια των προηγούμενων μηνών.</p>
+    <p>Αν και το ακριβές οικονομικό κόστος της περιπέτειας του 2015 παραμένει αντικείμενο συζήτησης, η φυγή των καταθέσεων και η πολυετής παραμονή των capital controls άφησαν βαθιά σημάδια. Συνολικά, η περίοδος των μνημονίων από το 2010 έως το 2019 κόστισε στην Ελλάδα περίπου 785 δισεκατομμύρια ευρώ σε απώλεια εθνικού πλούτου — ένα ποσό υπερδιπλάσιο του δημόσιου χρέους.</p>
+</div>
+
+<!-- S6 -->
+<div class="section-divider">
+    <div class="divider-num">06</div>
+    <div class="divider-line"></div>
+</div>
+<div class="section-header">
+    <div class="section-number">§ Συμπεράσματα</div>
+    <h3>Συμπεράσματα</h3>
+    <div class="section-rule"></div>
+</div>
+<div class="prose">
+    <p>Η ιστορία της διαπραγμάτευσης του 2015 διδάσκει ότι στην παγκόσμια οικονομική σκηνή, τα δίκαια επιχειρήματα συχνά υποχωρούν μπροστά στους συσχετισμούς ισχύος και τη θωράκιση των συμφερόντων. Η Ελλάδα μπήκε στην κρίση με χρέος 353 δις και βγήκε με 355 δις, έχοντας υποστεί μια πρωτοφανή οικονομική καθίζηση.</p>
+    <p>Το μεγάλο δίδαγμα παραμένει η ανάγκη για προληπτική δημοσιονομική υγεία, ώστε η τύχη μιας χώρας να μην εξαρτάται ποτέ ξανά από τη «δικαιοσύνη» ή την καλή θέληση των πιστωτών της.</p>
+</div>
+```
+
+</div>
+
+<!-- FOOTER -->
+
 <footer>
-    &copy; 2026 Deman's Post. Η γνώση είναι η μόνη άμυνα απέναντι στην επανάληψη της ιστορίας.
+    <div class="footer-logo">DEMAN'S <span>POST</span></div>
+    <div class="footer-rule"></div>
+    <div class="footer-tagline">«Η γνώση είναι η μόνη άμυνα απέναντι στην επανάληψη της ιστορίας.»</div>
+    <div class="footer-copy">© 2026 Deman's Post — Special Edition</div>
 </footer>
+
+<!-- SHARE BAR -->
+
+<div class="share-bar">
+    <button class="share-btn">
+        <span class="icon">⬡</span>
+        Αρχική
+    </button>
+    <button class="share-btn primary">
+        <span class="icon">↑</span>
+        Αρχή
+    </button>
+    <button class="share-btn">
+        <span class="icon">⎙</span>
+        Αποθήκευση
+    </button>
+    <button class="share-btn">
+        <span class="icon">↗</span>
+        Κοινοποίηση
+    </button>
+</div>
+
+<script>
+    // Reading progress bar
+    window.addEventListener('scroll', () => {
+        const doc = document.documentElement;
+        const scrolled = doc.scrollTop;
+        const total = doc.scrollHeight - doc.clientHeight;
+        const pct = (scrolled / total) * 100;
+        document.getElementById('progress').style.width = pct + '%';
+    });
+
+    // Scroll to top
+    document.querySelectorAll('.share-btn')[1].addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
 
 </body>
 </html>
