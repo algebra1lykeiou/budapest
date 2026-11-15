@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Βουδαπέστη</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f2f4f3;
+  --ink: #16242b;
+  --muted: #5e6b70;
+  --accent: #0f6b5f;
+  --sheet: #ffffff;
+  --tone: #dfe5e4;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 56px 20px calc(56px + env(safe-area-inset-bottom, 0px));
+}
+header { margin-bottom: 32px; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.7rem, 12vw, 3.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.subtitle { margin-top: 10px; color: var(--muted); font-size: 1.1rem; }
+
+ul { list-style: none; display: flex; flex-direction: column; gap: 28px; animation: enter 0.7s ease-out both; }
+.tile {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  column-gap: 18px;
+  row-gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.photo {
+  grid-row: 1 / span 2;
+  display: block;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--tone);
+  transition: transform 0.2s;
+}
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tile h2 {
+  grid-column: 2;
+  align-self: end;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+.tile p { grid-column: 2; align-self: start; font-size: 1.025rem; line-height: 1.45; color: var(--muted); }
+.tile:active .photo { transform: scale(0.96); }
+.tile:active h2, .tile:focus-visible h2 { color: var(--accent); }
+.tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 12px; }
+@media (hover: hover) {
+  .tile:hover h2 { color: var(--accent); }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: rgba(22, 36, 43, 0.55);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--sheet);
+  border-radius: 20px 20px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.modal-overlay.active .modal-content { transform: translateY(0); }
+.modal-img { display: block; width: 100%; height: 260px; object-fit: cover; background: var(--tone); }
+.modal-img[hidden] { display: none; }
+.modal-body { padding: 28px 24px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.modal-body h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+}
+.modal-body p { font-size: 1.075rem; line-height: 1.7; color: #3d4b51; margin-bottom: 28px; }
+.btn-maps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-maps:active { transform: scale(0.98); opacity: 0.9; }
+.btn-maps:focus-visible, .close-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -10px 0 14px;
+  padding: 10px 0;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: color 0.2s;
+}
+.back:active, .back:focus-visible { color: var(--accent); }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+@media (hover: hover) { .back:hover { color: var(--accent); } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://algebra1lykeiou.github.io/budapest/vaso/index.html" aria-label="Πίσω στα Travel Guides 2027">
+    <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Travel Guides
+  </a>
+  <h1>Βουδαπέστη</h1>
+  <p class="subtitle">Αξιοθέατα, μουσεία, μέρη</p>
+</header>
+
+<ul>
+  <li><button class="tile" onclick="openModal('m1')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Budapest-Parliament-0006.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Parliament &amp; Shoes on the Danube</h2>
+    <p>Must για φωτογραφίες &amp; ιστορικό σημείο.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m2')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/2022-03_Budapest_-_Fisherman%27s_Bastion_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Buda Castle &amp; Fisherman's Bastion</h2>
+    <p>Κλασική postcard θέα. Πήγαινε πρωί ή golden hour.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m3')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Heroes%E2%80%99_Square%2C_Budapest.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Heroes' Square &amp; Κάστρο Βαϊνταχουνιάντ</h2>
+    <p>Μνημειακή πλατεία με ιστορία και το παραμυθένιο κάστρο.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m4')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Citadella_-_Budapest.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Citadella</h2>
+    <p>Η καλύτερη θέα σε όλη την πόλη, ειδικά το ηλιοβασίλεμα.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m5')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Sz%C3%A9chenyi_Chain_Bridge%2C_June_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Chain Bridge</h2>
+    <p>Ιδανικό για περπάτημα, ειδικά το βράδυ με τα φώτα.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m6')">
+    <span class="photo"><img src="https://ak-d.tripcdn.com/images/1mi5b4234ceu6x0cg75D0.jpg?proc=resize%2Fm_z%2Cw_375%2Ch_0%3Bformat%2Ff_webp%2C9C2E" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Οδός Váci u.</h2>
+    <p>Η πιο ζωντανή πεζοδρομημένη οδός για βόλτα &amp; shopping.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m9')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Great_Market_Hall_%28Budapest%29_2006.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Κεντρική Αγορά (Great Market Hall)</h2>
+    <p>Φαγητό &amp; αναμνηστικά.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m7')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Mazel_Tov_Ruin_Bar_%2842253982234%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Szimpla Kert (Ruins Bar)</h2>
+    <p>Το πιο διάσημο «ερείπιο» μπαρ, must για τη νυχτερινή ζωή.</p>
+  </button></li>
+  <li><button class="tile" onclick="openModal('m8')">
+    <span class="photo"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Sz%C3%A9chenyi_Baths_2010_02.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="" loading="lazy" decoding="async" onerror="this.hidden = true"></span>
+    <h2>Θερμά Λουτρά Széchenyi</h2>
+    <p>Χαλάρωση σε ιστορικά ιαματικά λουτρά, ό,τι πρέπει για ξεκούραση.</p>
+  </button></li>
+</ul>
+
+<div class="modal-overlay" id="modal" onclick="if (event.target === this) closeModal()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="close-btn" id="close" onclick="closeModal()" aria-label="Κλείσιμο">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <img id="modal-img" class="modal-img" src="" alt="" hidden onerror="this.hidden = true">
+    <div class="modal-body">
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+      <a id="modal-link" class="btn-maps" href="#" target="_blank" rel="noopener">
+        Άνοιγμα στο Google Maps
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+    const places = {
+            m1: {
+                title: "Parliament & Shoes on the Danube",
+                desc: "Το εντυπωσιακό κοινοβούλιο της Βουδαπέστης δίπλα στον Δούναβη. Μην παραλείψεις τα παπούτσια στην όχθη, ένα συγκινητικό μνημείο για τα θύματα του Ολοκαυτώματος. Ιδανικό για φωτογραφίες.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Budapest_Parliament_%2828511640096%29.jpg/800px-Budapest_Parliament_%2828511640096%29.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Hungarian+Parliament+Budapest"
+            },
+            m2: {
+                title: "Buda Castle & Fisherman's Bastion",
+                desc: "Η κλασική postcard θέα της Βουδαπέστης. Πήγαινε νωρίς το πρωί ή το golden hour για τις καλύτερες φωτογραφίες και λιγότερο κόσμο.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Hal%C3%A1szb%C3%A1stya_Budapest.JPG/800px-Hal%C3%A1szb%C3%A1stya_Budapest.JPG",
+                maps: "https://www.google.com/maps/search/?api=1&query=Fisherman's+Bastion+Budapest"
+            },
+            m3: {
+                title: "Heroes' Square & Κάστρο Βαϊνταχουνιάντ",
+                desc: "Μνημειακή πλατεία με τα αγάλματα των αρχηγών των Μαγυάρων και το παραμυθένιο κάστρο Vajdahunyad δίπλα στη λίμνη. Ιδανικό για μια χαλαρή βόλτα.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Heroes%27_Square_Budapest.jpg/800px-Heroes%27_Square_Budapest.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Heroes'+Square+Budapest"
+            },
+            m4: {
+                title: "Citadella",
+                desc: "Η καλύτερη θέα σε όλη την πόλη! Βρίσκεται στην κορυφή του λόφου Gellért και προσφέρει πανοραμική θέα σε Δούναβη και Βουδαπέστη. Πήγαινε το ηλιοβασίλεμα.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/View_from_Citadella_on_Budapest_2005_132.jpg/800px-View_from_Citadella_on_Budapest_2005_132.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Citadella+Budapest"
+            },
+            m5: {
+                title: "Chain Bridge",
+                desc: "Η εμβληματική κρεμαστή γέφυρα που ενώνει τη Βούδα με την Πέστη. Ιδανική για περπάτημα, ειδικά το βράδυ που φωτίζεται μαγικά.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Sz%C3%A9chenyi_l%C3%A1nch%C3%ADd_at_night%2C_2009_Europe_%283898860398%29.jpg/800px-Sz%C3%A9chenyi_l%C3%A1nch%C3%ADd_at_night%2C_2009_Europe_%283898860398%29.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Chain+Bridge+Budapest"
+            },
+            m6: {
+                title: "Οδός Váci u.",
+                desc: "Η πιο ζωντανή πεζοδρομημένη οδός της Βουδαπέστης. Γεμάτη καταστήματα, καφέ και εστιατόρια. Ιδανική για βόλτα, shopping και street food.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/V%C3%A1ci_utca_Budapest.jpg/800px-V%C3%A1ci_utca_Budapest.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Vaci+Street+Budapest"
+            },
+            m7: {
+                title: "Szimpla Kert (Ruins Bar)",
+                desc: "Το πιο διάσημο «ερείπιο» μπαρ της Βουδαπέστης. Μοναδική ατμόσφαιρα με vintage διακόσμηση, must για τη νυχτερινή ζωή.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Szimpla_Kert_Budapest.jpg/800px-Szimpla_Kert_Budapest.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Szimpla+Kert+Budapest"
+            },
+            m8: {
+                title: "Θερμά Λουτρά Széchenyi",
+                desc: "Τα μεγαλύτερα ιαματικά λουτρά της Ευρώπης. Χαλάρωση σε ζεστά νερά, ειδικά το χειμώνα με τον ατμό να βγαίνει από τις πισίνες.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Budapest_Sz%C3%A9chenyi_gy%C3%B3gyf%C3%BCrd%C5%91_%2831224389942%29.jpg/800px-Budapest_Sz%C3%A9chenyi_gy%C3%B3gyf%C3%BCrd%C5%91_%2831224389942%29.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Szechenyi+Thermal+Bath+Budapest"
+            },
+            m9: {
+                title: "Κεντρική Αγορά (Great Market Hall)",
+                desc: "Η μεγαλύτερη και πιο ιστορική αγορά της Βουδαπέστης, σε ένα εντυπωσιακό νεογοτθικό κτίριο. Στον κάτω όροφο θα βρεις φρέσκα προϊόντα, αλλαντικά και πάπρικα, ενώ στον πάνω όροφο υπάρχουν σουβενίρ και παραδοσιακά εστιατόρια. Ιδανικό για γεύση τοπικών λιχουδιών (δοκίμασε lángos!) και αγορές αναμνηστικών.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Budapest_Great_Market_Hall_%2828511640096%29.jpg/800px-Budapest_Great_Market_Hall_%2828511640096%29.jpg",
+                maps: "https://www.google.com/maps/search/?api=1&query=Great+Market+Hall+Budapest"
+            }
+        };
+
+    let lastFocus = null;
+
+    function openModal(id) {
+        const place = places[id];
+        if (!place) return;
+        lastFocus = document.activeElement;
+
+        const img = document.getElementById('modal-img');
+        img.hidden = false;
+        img.src = place.img;
+        img.alt = place.title;
+        document.getElementById('modal-title').textContent = place.title;
+        document.getElementById('modal-desc').textContent = place.desc;
+        document.getElementById('modal-link').href = place.maps;
+
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('close').focus({ preventScroll: true });
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus({ preventScroll: true });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+</body>
+</html>

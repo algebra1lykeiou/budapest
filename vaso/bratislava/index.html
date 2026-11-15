@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Μπρατισλάβα</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f2f4f3;
+  --ink: #16242b;
+  --muted: #5e6b70;
+  --accent: #0f6b5f;
+  --sheet: #ffffff;
+  --tone: #dfe5e4;
+  --serif: "Literata", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 56px 20px calc(56px + env(safe-area-inset-bottom, 0px));
+}
+header { margin-bottom: 32px; }
+h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(2.7rem, 12vw, 3.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.subtitle { margin-top: 10px; color: var(--muted); font-size: 1.1rem; }
+
+ul { list-style: none; display: flex; flex-direction: column; gap: 28px; animation: enter 0.7s ease-out both; }
+.tile {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  column-gap: 18px;
+  row-gap: 5px;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.photo {
+  grid-row: 1 / span 2;
+  display: block;
+  width: 96px;
+  height: 96px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--tone);
+  transition: transform 0.2s;
+}
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; animation: enter 0.4s ease-out both; }
+.tile h2 {
+  grid-column: 2;
+  align-self: end;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+.tile p { grid-column: 2; align-self: start; font-size: 1.025rem; line-height: 1.45; color: var(--muted); }
+.tile:active .photo { transform: scale(0.96); }
+.tile:active h2, .tile:focus-visible h2 { color: var(--accent); }
+.tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 12px; }
+@media (hover: hover) {
+  .tile:hover h2 { color: var(--accent); }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background: rgba(22, 36, 43, 0.55);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 92vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--sheet);
+  border-radius: 20px 20px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.modal-overlay.active .modal-content { transform: translateY(0); }
+.modal-img { display: block; width: 100%; height: 260px; object-fit: cover; background: var(--tone); }
+.modal-img[hidden] { display: none; }
+.modal-body { padding: 28px 24px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.modal-body h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+}
+.modal-body p { font-size: 1.075rem; line-height: 1.7; color: #3d4b51; margin-bottom: 28px; }
+.btn-maps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.btn-maps:active { transform: scale(0.98); opacity: 0.9; }
+.btn-maps:focus-visible, .close-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: -10px 0 14px;
+  padding: 10px 0;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: color 0.2s;
+}
+.back:active, .back:focus-visible { color: var(--accent); }
+.back:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+@media (hover: hover) { .back:hover { color: var(--accent); } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://algebra1lykeiou.github.io/budapest/vaso/index.html" aria-label="Πίσω στα Travel Guides 2027">
+    <svg width="9" height="16" viewBox="0 0 9 16" fill="none" aria-hidden="true"><path d="M8 1L1 8l7 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Travel Guides
+  </a>
+  <h1>Μπρατισλάβα</h1>
+  <p class="subtitle">Αξιοθέατα και μέρη</p>
+</header>
+
+<ul id="list"></ul>
+
+<div class="modal-overlay" id="modal" onclick="if (event.target === this) closeModal()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="close-btn" id="close" onclick="closeModal()" aria-label="Κλείσιμο">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <img id="modal-img" class="modal-img" src="" alt="" hidden>
+    <div class="modal-body">
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+      <a id="modal-link" class="btn-maps" href="#" target="_blank" rel="noopener">
+        Άνοιγμα στο Google Maps
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 11L11 3M4.5 3H11v6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+    // wiki = αναζήτηση στη Wikipedia απ' όπου παίρνεται η φωτογραφία
+    const places = {
+        m1: {
+            title: "Bratislava Castle",
+            short: "Λευκό κάστρο πάνω από τον Δούναβη, με θέα στην πόλη.",
+            desc: "Το σύμβολο της πόλης, στην κορυφή του λόφου πάνω από τον Δούναβη. Το σχήμα του, με τους τέσσερις πύργους, του έδωσε το παρατσούκλι «το αναποδογυρισμένο τραπέζι». Στο εσωτερικό φιλοξενεί εκθέσεις του Σλοβακικού Εθνικού Μουσείου, ενώ οι κήποι και οι προμαχώνες προσφέρουν θέα σε όλη την πόλη και ως την Αυστρία.",
+            wiki: "Bratislava Castle",
+            maps: "https://www.google.com/maps/search/?api=1&query=Bratislava+Castle"
+        },
+        m2: {
+            title: "Michael’s Gate & Old Town",
+            short: "Η μοναδική πύλη που σώζεται από τα μεσαιωνικά τείχη.",
+            desc: "Η μοναδική πύλη των μεσαιωνικών οχυρώσεων που έχει διατηρηθεί, στην είσοδο του παλιού κέντρου. Ο πύργος έχει μπαρόκ κορυφή με το άγαλμα του Αρχαγγέλου Μιχαήλ και μπορείς να ανέβεις για θέα. Από εκεί ξεκινά η πεζόδρομος Michalská, γεμάτη καφέ και μικρά μαγαζιά.",
+            wiki: "Michael's Gate Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=Michael's+Gate+Bratislava"
+        },
+        m3: {
+            title: "Main Square & Old Town Hall",
+            short: "Η καρδιά του παλιού κέντρου, με καφέ και σιντριβάνι.",
+            desc: "Η κεντρική πλατεία του παλιού κέντρου, με το Παλιό Δημαρχείο και το σιντριβάνι του Μαξιμιλιανού. Τριγύρω υπάρχουν καφέ και εστιατόρια, ενώ τον Δεκέμβριο φιλοξενεί τη χριστουγεννιάτικη αγορά της πόλης. Ιδανική για μια χαλαρή στάση και φωτογραφίες.",
+            wiki: "Old Town Hall Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=Main+Square+Hlavne+namestie+Bratislava"
+        },
+        m4: {
+            title: "St. Martin’s Cathedral",
+            short: "Γοτθικός καθεδρικός όπου στέφθηκαν βασιλιάδες της Ουγγαρίας.",
+            desc: "Ο γοτθικός καθεδρικός ναός όπου στέφθηκαν βασιλιάδες και βασίλισσες του Βασιλείου της Ουγγαρίας από τον 16ο έως τον 19ο αιώνα. Στην κορυφή του πύργου υπάρχει ένα χρυσό αντίγραφο στέμματος. Βρίσκεται στην άκρη του παλιού κέντρου, κάτω από το κάστρο.",
+            wiki: "St. Martin's Cathedral Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=St.+Martin's+Cathedral+Bratislava"
+        },
+        m5: {
+            title: "UFO Bridge (Most SNP)",
+            short: "Η γέφυρα με το «UFO»: καφέ και πανοραμική θέα.",
+            desc: "Η γέφυρα Most SNP, γνωστή ως «UFO Bridge» λόγω του πλατώματος που μοιάζει με ιπτάμενο δίσκο στην κορυφή του πυλώνα. Εκεί ψηλά υπάρχει καφέ-εστιατόριο και πανοραμική θέα προς το κάστρο και τον Δούναβη. Ιδανικό για το ηλιοβασίλεμα ή το βράδυ.",
+            wiki: "Most SNP Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=UFO+Bridge+Most+SNP+Bratislava"
+        },
+        m6: {
+            title: "Blue Church",
+            short: "Ο γαλάζιος ναός σε στιλ Art Nouveau.",
+            desc: "Ο ναός της Αγίας Ελισάβετ, γνωστός ως «Μπλε Εκκλησία», χτίστηκε στις αρχές του 20ού αιώνα σε στιλ Art Nouveau από τον αρχιτέκτονα Ödön Lechner. Το γαλάζιο χρώμα, οι στρογγυλές γραμμές και η στέγη με τα μπλε κεραμίδια τον κάνουν σχεδόν παραμυθένιο. Ιδανικός για φωτογραφίες.",
+            wiki: "Church of St. Elizabeth Bratislava Blue Church",
+            maps: "https://www.google.com/maps/search/?api=1&query=Blue+Church+Bratislava"
+        },
+        m7: {
+            title: "Κάστρο Devín",
+            short: "Ερείπια κάστρου στη συμβολή Δούναβη και Μοράβα.",
+            desc: "Τα ερείπια ενός κάστρου πάνω σε βράχο, στο σημείο όπου ο ποταμός Μοράβα συναντά τον Δούναβη, κοντά στα σύνορα με την Αυστρία. Βρίσκεται στα δυτικά της πόλης και φτάνεις με λεωφορείο. Ιδανικό για μισή μέρα, με περπάτημα και πανοραμική θέα στα ποτάμια.",
+            wiki: "Devín Castle",
+            maps: "https://www.google.com/maps/search/?api=1&query=Devin+Castle+Bratislava"
+        },
+        m8: {
+            title: "Slavín",
+            short: "Μνημείο σε λόφο με πανοραμική θέα στην πόλη.",
+            desc: "Μνημείο και νεκροταφείο Σοβιετικών στρατιωτών του Β΄ Παγκοσμίου Πολέμου, σε λόφο πάνω από το κέντρο. Ο χώρος έχει ιστορικό χαρακτήρα και προσφέρει μία από τις πιο ανοιχτές θέες προς την πόλη και τον Δούναβη. Ιδανικός για ήρεμη βόλτα, κυρίως το ηλιοβασίλεμα.",
+            wiki: "Slavín Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=Slavin+War+Memorial+Bratislava"
+        },
+        m9: {
+            title: "Čumil & αγάλματα του κέντρου",
+            short: "Ο διάσημος μικρός εργάτης και οι φίλοι του.",
+            desc: "Ο Čumil, ένας χάλκινος εργάτης που κρυφοκοιτάζει από ένα φρεάτιο στην οδό Panská, είναι το πιο αγαπημένο από τα αγάλματα του παλιού κέντρου. Θα βρεις επίσης τον στρατιώτη του Ναπολέοντα στην Κεντρική Πλατεία και τον Schöne Náci. Ιδανικό για μια χαλαρή βόλτα με φωτογραφίες στα στενά.",
+            wiki: "Čumil Bratislava",
+            maps: "https://www.google.com/maps/search/?api=1&query=Cumil+Statue+Bratislava"
+        }
+    };
+
+    const esc = (s) => s.replace(/&/g, '&amp;');
+
+    document.getElementById('list').innerHTML = Object.entries(places).map(([id, p]) =>
+        `<li><button class="tile" onclick="openModal('${id}')">
+            <span class="photo" id="photo-${id}"></span>
+            <h2>${esc(p.title)}</h2>
+            <p>${esc(p.short)}</p>
+        </button></li>`).join('');
+
+    // Φωτογραφίες: η κύρια εικόνα του αντίστοιχου άρθρου της Wikipedia
+    async function loadImage(id) {
+        const url = 'https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*'
+            + '&generator=search&gsrlimit=3&prop=pageimages&piprop=thumbnail&pithumbsize=500'
+            + '&gsrsearch=' + encodeURIComponent(places[id].wiki);
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const pages = Object.values((data.query && data.query.pages) || {})
+                .filter((p) => p.thumbnail)
+                .sort((a, b) => a.index - b.index);
+            if (!pages.length) return;
+            places[id].img = pages[0].thumbnail.source;
+            const img = document.createElement('img');
+            img.alt = '';
+            img.onerror = () => img.remove();
+            img.src = places[id].img;
+            document.getElementById('photo-' + id).appendChild(img);
+        } catch (e) { /* χωρίς φωτογραφία, μένει το γκρι πλαίσιο */ }
+    }
+    Object.keys(places).forEach(loadImage);
+
+    let lastFocus = null;
+
+    function openModal(id) {
+        const place = places[id];
+        if (!place) return;
+        lastFocus = document.activeElement;
+
+        const img = document.getElementById('modal-img');
+        let retried = false;
+        img.onerror = () => {
+            if (!retried && place.img) { retried = true; img.src = place.img; }
+            else img.hidden = true;
+        };
+        if (place.img) {
+            img.hidden = false;
+            img.alt = place.title;
+            img.src = place.img.replace('/500px-', '/960px-');
+        } else {
+            img.hidden = true;
+        }
+        document.getElementById('modal-title').textContent = place.title;
+        document.getElementById('modal-desc').textContent = place.desc;
+        document.getElementById('modal-link').href = place.maps;
+
+        document.getElementById('modal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('close').focus({ preventScroll: true });
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.remove('active');
+        document.body.style.overflow = '';
+        if (lastFocus) lastFocus.focus({ preventScroll: true });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+</body>
+</html>
